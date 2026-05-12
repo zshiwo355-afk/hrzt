@@ -15,7 +15,14 @@ from app.ai_context import (
     reset_ai_request_context,
     set_ai_request_context,
 )
-from app.config import DEFAULT_TEXT_SYSTEM_PROMPT, SUMMARY_MODEL, SUMMARY_TIMEOUT_SECONDS, TEXT_TIMEOUT_SECONDS
+from app.config import (
+    DEFAULT_TEXT_SYSTEM_PROMPT,
+    SUMMARY_MODEL,
+    SUMMARY_TIMEOUT_SECONDS,
+    TEXT_MAX_OUTPUT_TOKENS,
+    TEXT_TEMPERATURE,
+    TEXT_TIMEOUT_SECONDS,
+)
 from app.models import ChatRequest, HistoryMessageItem, SummarizeHistoryRequest
 from app.providers import ofox
 from app.services.attachment_service import (
@@ -256,7 +263,7 @@ def call_chat_completion(
     model: str,
     messages: list[dict],
     reasoning_mode: str | None = None,
-    temperature: float = 0.7,
+    temperature: float = TEXT_TEMPERATURE,
     timeout: int = TEXT_TIMEOUT_SECONDS,
 ) -> str:
     adapter = model_capability_service.build_text_request_adapter(model, reasoning_mode)
@@ -312,6 +319,7 @@ def call_chat_completion(
         "model": effective_model,
         "messages": messages,
         "temperature": temperature,
+        "max_tokens": TEXT_MAX_OUTPUT_TOKENS,
     }
     payload.update(adapter.get("chat_completions_extra") or {})
 
@@ -385,7 +393,7 @@ def stream_chat_completion(
     model: str,
     messages: list[dict],
     reasoning_mode: str | None = None,
-    temperature: float = 0.7,
+    temperature: float = TEXT_TEMPERATURE,
     timeout: int = TEXT_TIMEOUT_SECONDS,
 ) -> Iterator[str | dict]:
     """流式文本：逐块 yield 文本片段；若上游返回推理字段则透传为事件。"""
@@ -443,6 +451,7 @@ def stream_chat_completion(
         "model": effective_model,
         "messages": messages,
         "temperature": temperature,
+        "max_tokens": TEXT_MAX_OUTPUT_TOKENS,
         "stream": True,
     }
     payload.update(adapter.get("chat_completions_extra") or {})
@@ -616,7 +625,7 @@ def perform_chat(
         model=req.model,
         messages=messages,
         reasoning_mode=req.reasoning_mode,
-        temperature=0.7,
+        temperature=TEXT_TEMPERATURE,
         timeout=TEXT_TIMEOUT_SECONDS,
     )
 

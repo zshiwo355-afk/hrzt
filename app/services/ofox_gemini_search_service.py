@@ -14,7 +14,7 @@ from app.ai_context import (
     _last_user_text_for_log,
     _log_attachment_image_sizes,
 )
-from app.config import TEXT_TIMEOUT_SECONDS
+from app.config import GEMINI_MAX_OUTPUT_TOKENS, TEXT_TEMPERATURE, TEXT_TIMEOUT_SECONDS
 from app.providers import ofox
 from app.providers.ofox_gemini import (
     gemini_native_generate_content_endpoint,
@@ -94,12 +94,14 @@ def _build_gemini_search_payload(
             {"googleSearch": {}},
         ],
     }
+    payload["generationConfig"] = {
+        "temperature": TEXT_TEMPERATURE,
+        "maxOutputTokens": GEMINI_MAX_OUTPUT_TOKENS,
+    }
     thinking_level = _gemini_thinking_level(reasoning_mode)
     if thinking_level:
-        payload["generationConfig"] = {
-            "thinkingConfig": {
-                "thinkingLevel": thinking_level,
-            }
+        payload["generationConfig"]["thinkingConfig"] = {
+            "thinkingLevel": thinking_level,
         }
     return payload
 
@@ -411,6 +413,12 @@ def stream_gemini_search_api(
 
     _log_resp(native_model, success=True, status_code=resp.status_code)
     parsed = parse_gemini_search_payload(final_data)
-    if not (parsed.get("content") or "").strip():
-        parsed["content"] = clean_response_text("".join(full_text_parts))
+    streamed_content = clean_response_text("".join(full_text_parts))
+    parsed_content = clean_response_text(parsed.get("content") or "")
+    if streamed_content and len(streamed_content) >= len(parsed_content):
+        parsed["content"] = streamed_content
+    elif parsed_content:
+        parsed["content"] = parsed_content
+    else:
+        parsed["content"] = streamed_content
     yield {"type": "done", "payload": parsed}

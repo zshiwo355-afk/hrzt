@@ -33,6 +33,7 @@ from app.services import model_capability_service
 from app.services import chat_service
 from app.services.attachment_service import (
     build_attachment_public,
+    materialized_attachment_file,
     materialize_attachment_file,
     read_attachment_meta_any,
     save_attachment_meta_db,
@@ -394,8 +395,12 @@ def _render_pptx_file(schema: dict, task_data: dict) -> bytes:
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
     blank_layout = prs.slide_layouts[6]
-    image_paths = _attachment_image_paths(task_data)
-    image_iter = iter(image_paths)
+    image_metas = []
+    for attachment_id in task_data.get("attachment_ids") or []:
+        meta = read_attachment_meta_any(str(attachment_id))
+        if meta and meta.get("category") == "image":
+            image_metas.append(meta)
+    image_iter = iter(image_metas)
 
     for slide_data in schema["slides"]:
         slide = prs.slides.add_slide(blank_layout)
@@ -412,8 +417,9 @@ def _render_pptx_file(schema: dict, task_data: dict) -> bytes:
         elif slide_type == "image":
             image_info = slide_data.get("image") or {}
             caption = str(image_info.get("caption") or slide_data.get("subtitle") or "").strip()
-            image_path = next(image_iter, None)
-            _add_image_slide(slide, slide_data["title"], caption, image_path)
+            image_meta = next(image_iter, None)
+            with materialized_attachment_file(image_meta) as image_path:
+                _add_image_slide(slide, slide_data["title"], caption, image_path)
         elif slide_type == "ending":
             _add_title(slide, slide_data["title"] or "感谢聆听", top=2.4, size=28)
             _add_subtitle(slide, slide_data.get("subtitle") or "欢迎交流", top=3.4, size=18)

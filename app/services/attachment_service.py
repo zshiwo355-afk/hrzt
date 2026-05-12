@@ -11,16 +11,17 @@ import uuid
 import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
-from typing import Any, Optional
+from contextlib import contextmanager
+from typing import Any, Iterator, Optional
 
 from fastapi import HTTPException, UploadFile
 
-from app.config import ALLOWED_EXTENSIONS, OSS_UPLOAD_PREFIX, UPLOADS_DIR, UPLOAD_META_DIR, oss_configured
+from app.config import ALLOWED_EXTENSIONS, OSS_UPLOAD_PREFIX, UPLOADS_DIR, oss_configured
 from app.database_models import Attachment
 from app.db import get_session_factory
 from app.logging_config import logger
 from app.providers import oss as oss_provider
-from app.storage import read_attachment_meta, safe_json_dump
+from app.storage import read_attachment_meta
 
 THUMBNAILS_DIR = UPLOADS_DIR / "_thumbs"
 THUMBNAIL_MAX_LONG_EDGE = 768
@@ -67,20 +68,19 @@ async def save_upload_file(upload: UploadFile) -> dict:
     category = detect_file_category(original_name, mime_type)
     size = len(content or b"")
     oss_key = ""
-    stored_path = UPLOADS_DIR / stored_name
-    storage = "local"
-    if oss_configured():
-        oss_key = f"{OSS_UPLOAD_PREFIX}/{attachment_id}{suffix}"
-        if oss_provider.write_bytes(oss_key, content, content_type=mime_type):
-            storage = "oss"
-    with stored_path.open("wb") as f:
-        f.write(content)
+    stored_path_str = ""
+    if not oss_configured():
+        raise HTTPException(status_code=500, detail="OSS 未配置，已拒绝把上传文件保存到服务器本地。")
+    oss_key = f"{OSS_UPLOAD_PREFIX}/{attachment_id}{suffix}"
+    if not oss_provider.write_bytes(oss_key, content, content_type=mime_type):
+        raise HTTPException(status_code=502, detail="OSS 上传失败，已拒绝把上传文件保存到服务器本地。")
+    storage = "oss"
 
     meta = {
         "id": attachment_id,
         "original_name": original_name,
         "stored_name": stored_name,
-        "stored_path": str(stored_path),
+        "stored_path": stored_path_str,
         "storage": storage,
         "oss_key": oss_key if storage == "oss" else "",
         "suffix": suffix,
@@ -89,8 +89,6 @@ async def save_upload_file(upload: UploadFile) -> dict:
         "size": size,
     }
 
-    safe_json_dump(UPLOAD_META_DIR / f"{attachment_id}.json", meta)
-    save_attachment_meta_db(meta, source="upload")
     return meta
 
 
@@ -257,6 +255,32 @@ def materialize_attachment_file(meta: dict) -> Optional[Path]:
 
 # Backward-compatible alias for any long-lived worker that imports the older helper name.
 materialize_attachment = materialize_attachment_file
+
+
+@contextmanager
+def materialized_attachment_file(meta: Optional[dict]) -> Iterator[Optional[Path]]:
+    if not meta:
+        yield None
+        return
+    path = materialize_attachment_file(meta)
+    should_cleanup = False
+    if path:
+        stored_path = str(meta.get("stored_path") or "").strip()
+        if not stored_path:
+            should_cleanup = True
+        else:
+            try:
+                should_cleanup = Path(stored_path).resolve() != path.resolve()
+            except Exception:
+                should_cleanup = False
+    try:
+        yield path
+    finally:
+        if should_cleanup and path:
+            try:
+                path.unlink(missing_ok=True)
+            except Exception:
+                logger.warning("[attachment] temp cleanup failed path=%s", path, exc_info=True)
 
 
 def extract_docx_text(file_path: Path) -> str:
@@ -439,33 +463,33 @@ def extract_ppt_text(file_path: Path) -> str:
 
 def extract_text_from_attachment_meta(meta: dict) -> str:
     suffix = (meta.get("suffix") or "").lower()
-    file_path = materialize_attachment_file(meta)
-    if not file_path:
-        return ""
-
-    if suffix in {".txt", ".md"}:
-        try:
-            return file_path.read_text(encoding="utf-8", errors="ignore").strip()
-        except Exception:
+    with materialized_attachment_file(meta) as file_path:
+        if not file_path:
             return ""
 
-    if suffix == ".docx":
-        return extract_docx_text(file_path)
+        if suffix in {".txt", ".md"}:
+            try:
+                return file_path.read_text(encoding="utf-8", errors="ignore").strip()
+            except Exception:
+                return ""
 
-    if suffix == ".pdf":
-        return extract_pdf_text(file_path)
+        if suffix == ".docx":
+            return extract_docx_text(file_path)
 
-    if suffix == ".doc":
-        return extract_doc_text(file_path)
+        if suffix == ".pdf":
+            return extract_pdf_text(file_path)
 
-    if suffix == ".pptx":
-        return extract_pptx_text(file_path)
+        if suffix == ".doc":
+            return extract_doc_text(file_path)
 
-    if suffix == ".ppt":
-        return extract_ppt_text(file_path)
+        if suffix == ".pptx":
+            return extract_pptx_text(file_path)
 
-    if suffix in {".xlsx", ".xls"}:
-        return extract_xlsx_text(file_path)
+        if suffix == ".ppt":
+            return extract_ppt_text(file_path)
+
+        if suffix in {".xlsx", ".xls"}:
+            return extract_xlsx_text(file_path)
 
     return ""
 

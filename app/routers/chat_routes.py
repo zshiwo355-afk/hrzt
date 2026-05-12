@@ -26,7 +26,7 @@ from app.config import TEXT_TIMEOUT_SECONDS, WS_KEEPALIVE_SECONDS
 from app.logging_config import logger
 from app.models import ChatRequest, SummarizeHistoryRequest
 from app.auth import require_auth
-from app.db import get_db
+from app.db import get_db, get_session_factory
 from app.services.attachment_service import clean_response_text
 from app.services import (
     auth_service,
@@ -48,7 +48,7 @@ PROCESS_HEADING_RE = re.compile(
     r"(?:\*\*|__)?"
     r"(?:"
     r"Analy[sz]ing|Exploring|Retrieving|Fetching|Searching|Investigating|Validating|Checking|"
-    r"Reviewing|Identifying|Processing|Gathering|Reading|Scanning|Looking\s+up|"
+    r"Reviewing|Recalling|Interpreting|Identifying|Processing|Gathering|Reading|Scanning|Looking\s+up|"
     r"Preparing|Understanding|Planning|Thinking|Reasoning|Finding|Discovering|Recommending|"
     r"Selecting|Curating|Comparing|Ranking|Evaluating|Assessing|Examining|Sifting|Shortlisting"
     r")\b.*$",
@@ -56,11 +56,11 @@ PROCESS_HEADING_RE = re.compile(
 )
 PROCESS_SENTENCE_RE = re.compile(
     r"^\s*(?:This is your|This week|I'?m|I am|I'?ve|I have|I will|I'll|Let me|"
-    r"Now I(?:'m| am)|My focus is|My aim is|This suggests|I need to|We're|We are|These include)\b.*"
+    r"Now I(?:'m| am)|My focus is|My focus has|My aim is|This suggests|I need to|We're|We are|These include)\b.*"
     r"(?:search|process|analy[sz]|fetch|dig|investigat|validat|check|look|"
-    r"identify|identified|focus|drill|understand|provide|bypass|adapt|organize|gather|retriev|"
+    r"identify|identified|focus|drill|understand|provide|bypass|adapt|organize|gather|retriev|review|reviewing|recall|recalling|pinpoint|articulat|"
     r"checking|trending|repositories|infrastructure|rewrite|movement|leading|projects|innovative|"
-    r"discussions|illustrat|include|pushing|embodied)",
+    r"discussions|illustrat|include|pushing|embodied|shifted|dissecting|developments|surrounding|tensions|talks)",
     flags=re.IGNORECASE,
 )
 LIKELY_ANSWER_START_RE = re.compile(r"^\s*(?:[\u4e00-\u9fff]|#{1,6}\s*[\u4e00-\u9fff]|[-*]\s*[\u4e00-\u9fff]|\d+[.)、]\s*[\u4e00-\u9fff])")
@@ -306,6 +306,8 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
             _ai_image_mode_var.set("")
             last_progress_sig = {"value": ""}
             answer_started = {"value": False}
+            full_text_for_db: list[str] = []
+            final_content_for_db = {"value": ""}
             def _progress(kind: str, text: str, **extra):
                 if stop_event.is_set():
                     return
@@ -341,7 +343,9 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                                 if not answer_started["value"]:
                                     _progress("reasoning", "已获得搜索结果，正在生成回答")
                                     answer_started["value"] = True
-                                chunk_queue.put(("token", event.get("text") or ""))
+                                text = event.get("text") or ""
+                                full_text_for_db.append(text)
+                                chunk_queue.put(("token", text))
                             elif event.get("type") == "search":
                                 _progress("search", event.get("text") or "正在搜索网页")
                             elif event.get("type") == "reasoning":
@@ -382,7 +386,12 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                                     "sources": [*merged_sources, *(parsed.get("sources") or [])],
                                     "rag_status": rag_bundle.get("rag_status") or "",
                                 }
+                                streamed_content = clean_response_text("".join(full_text_for_db))
+                                if streamed_content and len(streamed_content) >= len(clean_response_text(payload["content"])):
+                                    payload["content"] = streamed_content
+                                final_content_for_db["value"] = payload["content"]
                                 chunk_queue.put(("responses_done", payload))
+                                return
                         if not stop_event.is_set():
                             chunk_queue.put(("end", None))
                     except Exception:
@@ -394,6 +403,7 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                             response_sources=merged_sources,
                             rag_status=rag_bundle.get("rag_status") or "",
                         )
+                        final_content_for_db["value"] = payload.get("content") or ""
                         chunk_queue.put(("responses_done", payload))
                 elif req.use_web_search and chat_service.supports_gemini_builtin_web_search(req.model):
                     try:
@@ -410,7 +420,9 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                                 if not answer_started["value"]:
                                     _progress("reasoning", "已获得搜索结果，正在生成回答")
                                     answer_started["value"] = True
-                                chunk_queue.put(("token", event.get("text") or ""))
+                                text = event.get("text") or ""
+                                full_text_for_db.append(text)
+                                chunk_queue.put(("token", text))
                             elif event.get("type") == "done":
                                 parsed = event.get("payload") or {}
                                 source_count = len(parsed.get("sources") or [])
@@ -434,7 +446,12 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                                     "sources": [*merged_sources, *(parsed.get("sources") or [])],
                                     "rag_status": rag_bundle.get("rag_status") or "",
                                 }
+                                streamed_content = clean_response_text("".join(full_text_for_db))
+                                if streamed_content and len(streamed_content) >= len(clean_response_text(payload["content"])):
+                                    payload["content"] = streamed_content
+                                final_content_for_db["value"] = payload["content"]
                                 chunk_queue.put(("responses_done", payload))
+                                return
                         if not stop_event.is_set():
                             chunk_queue.put(("end", None))
                     except Exception:
@@ -446,6 +463,7 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                             response_sources=merged_sources,
                             rag_status=rag_bundle.get("rag_status") or "",
                         )
+                        final_content_for_db["value"] = payload.get("content") or ""
                         chunk_queue.put(("responses_done", payload))
                 else:
                     _progress("status", "正在请求模型")
@@ -465,10 +483,44 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                         if not answer_started["value"]:
                             _progress("reasoning", "模型正在组织回答")
                             answer_started["value"] = True
+                        full_text_for_db.append(str(chunk or ""))
                         chunk_queue.put(("token", chunk))
                     chunk_queue.put(("end", None))
+                    return
             except Exception as exc:
                 chunk_queue.put(("error", str(exc)))
+                return
+            finally:
+                if stop_event.is_set():
+                    return
+                content = clean_response_text(final_content_for_db["value"] or "".join(full_text_for_db))
+                if not content:
+                    return
+                try:
+                    with get_session_factory()() as worker_db:
+                        message_service.complete_assistant_message(
+                            worker_db,
+                            message_id=assistant_message.id,
+                            content=content,
+                        )
+                        conv = conversation_service.get_conversation_for_user(
+                            worker_db,
+                            conversation.id,
+                            conversation.user_id,
+                        )
+                        if conv:
+                            conversation_service.touch_conversation(
+                                worker_db,
+                                conv,
+                                model=req.model,
+                                last_message_at=datetime.now(),
+                            )
+                except Exception:
+                    logger.warning(
+                        "[chat-stream] background complete after disconnect failed message_id=%s",
+                        assistant_message.id,
+                        exc_info=True,
+                    )
 
         stream_thread = threading.Thread(target=_run_stream, daemon=True)
         stream_thread.start()
@@ -511,7 +563,6 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
             while True:
                 if await request.is_disconnected():
                     user_disconnect = True
-                    stop_event.set()
                     break
                 try:
                     kind, data = await loop.run_in_executor(
@@ -621,15 +672,16 @@ async def chat_stream(req: ChatRequest, request: Request, db: Session = Depends(
                     )
                     yield f"data: {payload}\n\n"
         finally:
-            if not assistant_finalized:
+            if not assistant_finalized and not user_disconnect:
                 reason = "客户端断开连接。" if user_disconnect else "流式响应未正常完成。"
                 message_service.fail_assistant_message(
                     db,
                     message_id=assistant_message.id,
                     error_message=reason,
                 )
-            stop_event.set()
-            stream_thread.join(timeout=2)
+            if not user_disconnect:
+                stop_event.set()
+                stream_thread.join(timeout=2)
             reset_ai_request_context(rid_t, att_t, im_t)
 
     headers = {

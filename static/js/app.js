@@ -79,6 +79,12 @@
       thinking: "思考",
       advanced: "进阶",
     };
+    const REASONING_MODE_ESTIMATES = {
+      default: "约 5-7 分钟",
+      instant: "约 5-6 分钟",
+      thinking: "约 6-8 分钟",
+      advanced: "约 7-10 分钟",
+    };
     const REASONING_MODE_DESCS = {
       default: "使用模型默认策略",
       instant: "更快，更省推理开销",
@@ -143,8 +149,7 @@
       if (text) return text;
       const err = (rawError || "").trim();
       if (err && /用户已停止生成|已停止生成|cancelled|canceled/i.test(err)) return "已停止生成。";
-      if (err) return formatImageTaskErrorForUser(err);
-      return formatImageTaskErrorForUser("");
+      return formatTextChatErrorForUser(err);
     }
 
     window.HRApp.time = Object.assign(window.HRApp.time || {}, {
@@ -215,14 +220,15 @@
       if (!Array.isArray(msg.progressSteps)) msg.progressSteps = [];
       const prev = msg.progressSteps[msg.progressSteps.length - 1];
       if (prev && prev.kind === cleanKind && prev.text === cleanText) return;
+      if (msg.progressSteps.some((step) => step && step.kind === cleanKind && step.text === cleanText)) return;
       msg.progressSteps.push({ kind: cleanKind, text: cleanText, at: Date.now() });
       if (msg.progressSteps.length > 20) {
         msg.progressSteps = msg.progressSteps.slice(-20);
       }
     }
 
-    const PROCESS_NARRATION_HEADING_RE = /^(?:#{1,6}\s*)?(?:[-*]\s*)?(?:\*\*|__)?(Analyzing|Analysing|Exploring|Retrieving|Fetching|Searching|Investigating|Validating|Checking|Reviewing|Identifying|Processing|Gathering|Reading|Scanning|Looking\s+up|Preparing|Understanding|Planning|Thinking|Reasoning|Finding|Discovering|Recommending|Selecting|Curating|Comparing|Ranking|Evaluating|Assessing|Examining|Sifting|Shortlisting)\b/i;
-    const PROCESS_NARRATION_SENTENCE_RE = /^(This is your|This week|I'?m|I am|I'?ve|I have|I will|I'll|Let me|Now I'm|Now I am|My focus is|My aim is|This suggests|I need to|We're|We are|These include)\b.*(search|process|analyz|analys|fetch|dig|investigat|validat|check|look|identify|identified|focus|drill|understand|provide|bypass|adapt|organize|gather|retriev|checking|trending|repositories|infrastructure|rewrite|movement|leading|projects|innovative|discussions|illustrat|include|pushing|embodied)/i;
+    const PROCESS_NARRATION_HEADING_RE = /^(?:#{1,6}\s*)?(?:[-*]\s*)?(?:\*\*|__)?(Analyzing|Analysing|Exploring|Retrieving|Fetching|Searching|Investigating|Validating|Checking|Reviewing|Recalling|Interpreting|Identifying|Processing|Gathering|Reading|Scanning|Looking\s+up|Preparing|Understanding|Planning|Thinking|Reasoning|Finding|Discovering|Recommending|Selecting|Curating|Comparing|Ranking|Evaluating|Assessing|Examining|Sifting|Shortlisting)\b/i;
+    const PROCESS_NARRATION_SENTENCE_RE = /^(This is your|This week|I'?m|I am|I'?m currently|I am currently|I'?ve|I have|I will|I'll|Let me|Now I'm|Now I am|My focus is|My focus has|My aim is|This suggests|I need to|We're|We are|These include)\b.*(search|process|analyz|analys|fetch|dig|investigat|validat|check|look|identify|identified|focus|drill|understand|provide|bypass|adapt|organize|gather|retriev|review|reviewing|recall|recalling|pinpoint|articulat|checking|trending|repositories|infrastructure|rewrite|movement|leading|projects|innovative|discussions|illustrat|include|pushing|embodied|shifted|dissecting|developments|surrounding|tensions|talks|events|query)/i;
     const LIKELY_ANSWER_START_RE = /^([\u4e00-\u9fff]|#{1,6}\s*[\u4e00-\u9fff]|[-*]\s*[\u4e00-\u9fff]|\d+[.)、]\s*[\u4e00-\u9fff])/;
 
     function separateLeadingProcessNarration(text) {
@@ -305,6 +311,64 @@
         separated.steps.forEach((step) => pushProgressStep(msg, step.kind, step.text));
       }
       return separated.content.trim() || finalText || "未返回内容";
+    }
+
+    function createStreamNarrationFilter(msg, prompt) {
+      let buffer = "";
+      let decided = false;
+      const promptHasChinese = /[\u4e00-\u9fff]/.test(String(prompt || ""));
+      const looksLikeProcessBuffer = (text) => {
+        const lines = String(text || "").replace(/\r\n/g, "\n").split("\n");
+        const first = (lines.find((line) => line.trim()) || "").trim();
+        if (!first) return false;
+        if (PROCESS_NARRATION_HEADING_RE.test(first) || PROCESS_NARRATION_SENTENCE_RE.test(first)) return true;
+        const firstParagraph = lines.slice(0, 4).join(" ").trim();
+        const hasChinese = /[\u4e00-\u9fff]/.test(firstParagraph);
+        const hasEnglish = /[A-Za-z]/.test(firstParagraph);
+        return (
+          promptHasChinese &&
+          hasEnglish &&
+          !hasChinese &&
+          /\b(recalling|reviewing|focus|query|events|search|analyz|analys|investigat|pinpoint|articulat|preparing|thinking|reasoning)\b/i.test(firstParagraph)
+        );
+      };
+      const shouldFlush = (text) => {
+        const trimmed = String(text || "").trim();
+        if (looksLikeProcessBuffer(text)) return false;
+        return !!trimmed && (
+          LIKELY_ANSWER_START_RE.test(trimmed) ||
+          /\n\n/.test(text) ||
+          (!promptHasChinese && trimmed.length >= 220)
+        );
+      };
+      return {
+        push(text) {
+          const raw = String(text || "");
+          if (!raw) return "";
+          if (decided) return raw;
+          buffer += raw;
+          const separated = separateLeadingProcessNarration(buffer);
+          if (separated.steps.length) {
+            separated.steps.forEach((step) => pushProgressStep(msg, step.kind, step.text));
+            buffer = separated.content || "";
+          }
+          if (!shouldFlush(buffer)) return "";
+          decided = true;
+          const out = buffer;
+          buffer = "";
+          return out;
+        },
+        flush() {
+          if (decided) return "";
+          decided = true;
+          const separated = separateLeadingProcessNarration(buffer);
+          if (separated.steps.length) {
+            separated.steps.forEach((step) => pushProgressStep(msg, step.kind, step.text));
+          }
+          buffer = "";
+          return separated.content || "";
+        },
+      };
     }
 
     window.HRApp.processNarration = Object.assign(window.HRApp.processNarration || {}, {
@@ -441,6 +505,9 @@
     let _ossSyncTimer = null;
 
     let autoFollowBottom = true;
+    let forceFollowUntilAt = 0;
+    let historyTopObserver = null;
+    let historyTopObservedNode = null;
     let lastRenderedChatId = null;
     const SCROLL_BOTTOM_THRESHOLD_PX = 100;
     let inputComposing = false;
@@ -1115,6 +1182,28 @@
       return IMG_TASK_ERR_HINT.UNKNOWN;
     }
 
+    function formatTextChatErrorForUser(raw) {
+      const hint = String(raw || "").trim();
+      const low = hint.toLowerCase();
+      if (/客户端断开连接|连接中断|stream.*not.*complete|流式响应未正常完成|networkerror|failed to fetch|load failed|aborterror|body stream/i.test(hint)) {
+        return "回答连接中断，建议：\n1. 点击重新生成\n2. 检查网络后重试\n3. 如果正在联网搜索，请稍等后再试";
+      }
+      if (/timeout|timed out|readtimeout|超时/i.test(hint)) {
+        return "回答生成超时，建议：\n1. 稍后重试\n2. 缩短问题或关闭联网后重试\n3. 换一个文本模型再试";
+      }
+      if (/429|503|overloaded|rate limit|too many requests|繁忙/i.test(low)) {
+        return "当前模型服务繁忙，建议：\n1. 稍后重试\n2. 换一个文本模型\n3. 关闭联网搜索后再试";
+      }
+      if (/402|insufficient credits|balance|余额不足/i.test(hint)) {
+        return "文本生成失败：OFOX 账户余额不足。";
+      }
+      if (/content safety|safety|内容安全|敏感/i.test(hint)) {
+        return "回答被内容安全策略拦截，请调整问题后重试。";
+      }
+      if (!hint) return "回答生成失败，请稍后重试。";
+      return "回答生成失败，建议：\n1. 稍后重试\n2. 检查网络或模型状态\n3. 换一个文本模型再试";
+    }
+
     function formatArtifactTaskErrorForUser(raw) {
       const text = String(raw || "").trim();
       if (!text) return "文件生成失败，请稍后重试。";
@@ -1551,6 +1640,12 @@
       return Object.prototype.hasOwnProperty.call(REASONING_MODE_LABELS, raw) ? raw : "default";
     }
 
+    function reasoningModeDisplayLabel(mode) {
+      const label = REASONING_MODE_LABELS[mode] || mode || "";
+      const estimate = REASONING_MODE_ESTIMATES[mode] || "";
+      return estimate ? `${label} · ${estimate}` : label;
+    }
+
     function currentTextModelMeta(modelId) {
       return (modelsCache.text || []).find((item) => item.id === modelId) || null;
     }
@@ -1689,12 +1784,12 @@
       modes.forEach((mode) => {
         const op = document.createElement("option");
         op.value = mode;
-        op.textContent = REASONING_MODE_LABELS[mode] || mode;
+        op.textContent = reasoningModeDisplayLabel(mode);
         if (mode === chat.reasoning_mode) op.selected = true;
         reasoningModeSelect.appendChild(op);
       });
       if (reasoningModeFace) {
-        reasoningModeFace.textContent = REASONING_MODE_LABELS[chat.reasoning_mode] || "";
+        reasoningModeFace.textContent = reasoningModeDisplayLabel(chat.reasoning_mode);
       }
     }
 
@@ -1708,39 +1803,105 @@
     }
 
     function maybeScrollToBottom() {
-      if (!autoFollowBottom) return;
+      if (!autoFollowBottom && Date.now() > forceFollowUntilAt) return;
       chatFeed.scrollTop = chatFeed.scrollHeight;
+      requestAnimationFrame(() => {
+        if (autoFollowBottom || Date.now() <= forceFollowUntilAt) chatFeed.scrollTop = chatFeed.scrollHeight;
+      });
       if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
     }
 
     function scrollChatToBottomAndFollow() {
       autoFollowBottom = true;
+      forceFollowUntilAt = Date.now() + 1200;
       chatFeed.scrollTop = chatFeed.scrollHeight;
       if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
+      requestAnimationFrame(() => {
+        chatFeed.scrollTop = chatFeed.scrollHeight;
+        setTimeout(() => {
+          chatFeed.scrollTop = chatFeed.scrollHeight;
+          if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
+        }, 80);
+      });
+    }
+
+    function startAutoFollowForNewOutput() {
+      autoFollowBottom = true;
+      forceFollowUntilAt = Date.now() + 1200;
+      maybeScrollToBottom();
+    }
+
+    function triggerLoadOlderMessages() {
+      const chat = getActiveChat();
+      if (
+        !chat ||
+        !isDbConversationId(chat.id) ||
+        chat.loadingOlderMessages ||
+        chat.noMoreOlderMessages ||
+        typeof loadOlderConversationMessagesFromDb !== "function"
+      ) {
+        return;
+      }
+      autoFollowBottom = false;
+      forceFollowUntilAt = 0;
+      loadOlderConversationMessagesFromDb(chat.id)
+        .then((count) => {
+          updateWorkspace();
+          updateScrollBottomBtnOnly();
+        })
+        .catch((e) => {
+          chat.loadingOlderMessages = false;
+          updateWorkspace();
+          console.warn("[history] load older failed", e);
+      });
+    }
+
+    function shouldOfferOlderMessages(chat) {
+      if (!chat || !isDbConversationId(chat.id)) return false;
+      if (chat.loadingOlderMessages || chat.noMoreOlderMessages) return false;
+      if (typeof loadOlderConversationMessagesFromDb !== "function") return false;
+      const loadedCount = Array.isArray(chat.messages) ? chat.messages.length : 0;
+      const indexedCount = Number(chat.indexMessageCount || 0);
+      return loadedCount > 0 && (!indexedCount || loadedCount < indexedCount);
+    }
+
+    function updateHistoryLoadTrigger() {
+      if (!chatFeed) return;
+      const trigger = chatFeed.querySelector("[data-history-load-trigger='1']");
+      if (!trigger) return;
+      const chat = getActiveChat();
+      const canLoad = shouldOfferOlderMessages(chat);
+      trigger.hidden = !canLoad;
+      trigger.disabled = !canLoad || !!(chat && chat.loadingOlderMessages);
+    }
+
+    function syncHistoryTopObserver() {
+      if (!chatFeed || typeof IntersectionObserver === "undefined") return;
+      if (!historyTopObserver) {
+        historyTopObserver = new IntersectionObserver(
+          () => updateHistoryLoadTrigger(),
+          { root: chatFeed, rootMargin: "160px 0px 0px 0px", threshold: 0 }
+        );
+      }
+      const node = chatFeed.querySelector("[data-history-sentinel='1']");
+      if (historyTopObservedNode === node) return;
+      if (historyTopObservedNode) historyTopObserver.unobserve(historyTopObservedNode);
+      historyTopObservedNode = node || null;
+      if (historyTopObservedNode) historyTopObserver.observe(historyTopObservedNode);
+      updateHistoryLoadTrigger();
     }
 
     function onChatFeedScroll() {
-      if (chatFeed.scrollTop <= 24) {
-        const chat = getActiveChat();
-        if (chat && isDbConversationId(chat.id) && typeof loadOlderConversationMessagesFromDb === "function") {
-          const beforeHeight = chatFeed.scrollHeight;
-          loadOlderConversationMessagesFromDb(chat.id)
-            .then((count) => {
-              if (!count) return;
-              updateWorkspace();
-              chatFeed.scrollTop = chatFeed.scrollHeight - beforeHeight + 24;
-            })
-            .catch((e) => console.warn("[history] load older failed", e));
-        }
-      }
       const d = distanceFromBottomPx(chatFeed);
       if (d <= SCROLL_BOTTOM_THRESHOLD_PX) {
         autoFollowBottom = true;
         if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
       } else {
         autoFollowBottom = false;
+        forceFollowUntilAt = 0;
         if (scrollToBottomBtn) scrollToBottomBtn.style.display = "flex";
       }
+      updateHistoryLoadTrigger();
     }
 
     function updateScrollBottomBtnOnly() {
@@ -2147,7 +2308,7 @@
         return;
       }
 
-      autoFollowBottom = true;
+      startAutoFollowForNewOutput();
 
       chat.messages.splice(aiIdx);
       const pendingMsg = {
@@ -2609,6 +2770,14 @@
       setStreamingUI(true);
       let fullText = "";
       let streamCompleted = false;
+      const narrationFilter = createStreamNarrationFilter(pendingMsg, chatBody && chatBody.prompt);
+      const refreshPendingBubble = () => {
+        const before = document.querySelector(`[data-msg-id="${_escapeMsgIdForSelector(String(pendingMsg.id || ""))}"]`);
+        updatePendingBubble(pendingMsg);
+        if (!before && appState.activeChatId === String(chatId)) {
+          updateWorkspace();
+        }
+      };
 
       const applyAssistantMeta = (data) => {
         const prevMsgId = pendingMsg.id;
@@ -2625,6 +2794,8 @@
           pendingMsg.image_mode = c.image_mode || null;
         }
         if (String(prevMsgId || "") !== String(pendingMsg.id || "")) {
+          const oldRow = document.querySelector(`[data-msg-id="${_escapeMsgIdForSelector(String(prevMsgId || ""))}"]`);
+          if (oldRow) oldRow.setAttribute("data-msg-id", pendingMsg.id);
           replaceMessageUiStateKey(chatId, prevMsgId, pendingMsg.id, pendingMsg);
         } else {
           persistMessageUiState(chatId, pendingMsg);
@@ -2667,9 +2838,14 @@
             let data;
             try { data = JSON.parse(dataLine); } catch { continue; }
             if (data.type === "token") {
-              fullText += data.text;
-              const tw = _ensureTypewriter(pendingMsg.id, pendingMsg);
-              tw.push(data.text);
+              const visibleText = narrationFilter.push(data.text);
+              if (visibleText) {
+                fullText += visibleText;
+                const tw = _ensureTypewriter(pendingMsg.id, pendingMsg);
+                tw.push(visibleText);
+              } else if (!fullText) {
+                updatePendingBubble(pendingMsg);
+              }
             } else if (data.type === "status" || data.type === "search" || data.type === "reasoning") {
               pushProgressStep(pendingMsg, data.type, data.text);
               if (!fullText) {
@@ -2679,45 +2855,43 @@
               updatePendingBubble(pendingMsg);
             } else if (data.type === "done") {
               streamCompleted = true;
+              const pendingVisibleText = narrationFilter.flush();
+              if (pendingVisibleText) fullText += pendingVisibleText;
               const finalText = finalizeAssistantVisibleContent(pendingMsg, data.content || fullText || "未返回内容");
+              const prevMsgId = pendingMsg.id;
               applyAssistantMeta(data);
-              const tw = _typewriterState[pendingMsg.id];
+              const tw = _typewriterState[prevMsgId] || _typewriterState[pendingMsg.id];
               if (tw) {
-                tw.abort(finalText, () => {
-                  pendingMsg.pending = false;
-                  finishSend(chatId);
-                });
-              } else {
-                pendingMsg.pending = false;
-                pendingMsg.text = finalText;
-                updatePendingBubble(pendingMsg);
-                finishSend(chatId);
+                tw.abort(finalText, null);
               }
+              pendingMsg.pending = false;
+              pendingMsg.text = finalText;
+              refreshPendingBubble();
+              finishSend(chatId, { renderWorkspace: false, followPending: false });
             } else if (data.type === "stopped") {
               streamCompleted = true;
+              const pendingVisibleText = narrationFilter.flush();
+              if (pendingVisibleText) fullText += pendingVisibleText;
               const finalText = finalizeAssistantVisibleContent(pendingMsg, data.content || fullText || "") + "\n\n（已停止生成）";
+              const prevMsgId = pendingMsg.id;
               applyAssistantMeta(data);
-              const tw = _typewriterState[pendingMsg.id];
+              const tw = _typewriterState[prevMsgId] || _typewriterState[pendingMsg.id];
               if (tw) {
-                tw.abort(finalText, () => {
-                  pendingMsg.pending = false;
-                  finishSend(chatId);
-                });
-              } else {
-                pendingMsg.pending = false;
-                pendingMsg.text = finalText;
-                updatePendingBubble(pendingMsg);
-                finishSend(chatId);
+                tw.abort(finalText, null);
               }
+              pendingMsg.pending = false;
+              pendingMsg.text = finalText;
+              refreshPendingBubble();
+              finishSend(chatId, { renderWorkspace: false, followPending: false });
             } else if (data.type === "error") {
               streamCompleted = true;
               const tw = _typewriterState[pendingMsg.id];
               if (tw) { tw.abort("", null); }
               pendingMsg.pending = false;
               pendingMsg.error = true;
-              pendingMsg.text = data.detail || "请求失败";
-              updatePendingBubble(pendingMsg);
-              finishSend(chatId);
+              pendingMsg.text = formatTextChatErrorForUser(data.detail || "请求失败");
+              refreshPendingBubble();
+              finishSend(chatId, { renderWorkspace: false, followPending: false });
             }
           }
         }
@@ -2729,7 +2903,7 @@
           return;
         }
         if (pendingMsg.pending) {
-          fallbackToHttp(chatBody, pendingMsg, chatId);
+          markTextStreamInterrupted(pendingMsg, chatId);
           return;
         }
       } finally {
@@ -2738,8 +2912,30 @@
       }
 
       if (!streamCompleted && pendingMsg.pending) {
-        fallbackToHttp(chatBody, pendingMsg, chatId);
+        markTextStreamInterrupted(pendingMsg, chatId);
       }
+    }
+
+    function markTextStreamInterrupted(pendingMsg, chatId) {
+      const tw = _typewriterState[pendingMsg.id];
+      if (tw) {
+        tw.flush(() => {
+          pendingMsg.pending = false;
+          pendingMsg.error = true;
+          pendingMsg.text = pendingMsg.text && pendingMsg.text.trim()
+            ? pendingMsg.text
+            : formatTextChatErrorForUser("连接中断");
+          finishSend(chatId, { renderWorkspace: false, followPending: false });
+        });
+        return;
+      }
+      pendingMsg.pending = false;
+      pendingMsg.error = true;
+      pendingMsg.text = pendingMsg.text && pendingMsg.text.trim()
+        ? pendingMsg.text
+        : formatTextChatErrorForUser("连接中断");
+      updatePendingBubble(pendingMsg);
+      finishSend(chatId, { renderWorkspace: false, followPending: false });
     }
 
     async function fallbackToHttp(chatBody, pendingMsg, chatId) {
@@ -2773,7 +2969,7 @@
       } catch(err) {
         pendingMsg.pending = false;
         pendingMsg.error = true;
-        pendingMsg.text = err.message || "请求异常";
+        pendingMsg.text = formatTextChatErrorForUser(err && err.message ? err.message : "请求异常");
       }
       finishSend(chatId);
     }
@@ -2916,7 +3112,28 @@
       finishSend(chat.id);
     }
 
-    function finishSend(chatId) {
+    function appendMessagesToActiveFeed(chat, messages) {
+      if (
+        !chat ||
+        appState.activeChatId !== String(chat.id) ||
+        !chatFeed ||
+        typeof appendRenderedMessageRow !== "function"
+      ) {
+        return false;
+      }
+      if (!Array.isArray(messages) || !messages.length) return true;
+      const hasRows = !!chatFeed.querySelector(".msg-row");
+      if (!hasRows) return false;
+      messages.forEach((msg) => appendRenderedMessageRow(chat, msg));
+      if (typeof syncHistoryTopObserver === "function") syncHistoryTopObserver();
+      updateScrollBottomBtnOnly();
+      return true;
+    }
+
+    function finishSend(chatId, options) {
+      const opts = options || {};
+      const shouldRenderWorkspace = opts.renderWorkspace !== false;
+      const shouldFollowPending = opts.followPending !== false;
       const chat = appState.chats.find(c => c.id === chatId);
       if (!chat) return;
       chat.pending = chat.messages.filter(m => m.pending).length;
@@ -2924,7 +3141,15 @@
       saveState();
       void syncChatToOss(chat);
       updateSidebar();
-      updateWorkspace();
+      if (shouldRenderWorkspace) updateWorkspace();
+      else {
+        renderUploadList(chat);
+        setStreamingUI(isStreaming);
+        updateScrollBottomBtnOnly();
+      }
+      if (shouldFollowPending && chat.messages.some((m) => m.pending) && (autoFollowBottom || Date.now() <= forceFollowUntilAt)) {
+        scrollChatToBottomAndFollow();
+      }
       setStreamingUI(isStreaming);
     }
 
@@ -2944,7 +3169,7 @@
       }
       if (isStreaming) { return; }
 
-      autoFollowBottom = true;
+      startAutoFollowForNewOutput();
 
       const priorUserCount = chat.messages.filter((m) => m.role === "user").length;
       if (priorUserCount === 0 && text) {
@@ -2982,10 +3207,15 @@
       saveState();
       void syncChatToOss(chat);
       updateSidebar();
-      updateWorkspace();
+      const appendedLocally = appendMessagesToActiveFeed(chat, [userMsg, pendingMsg]);
+      if (!appendedLocally) {
+        updateWorkspace();
+      }
 
       userInput.value = "";
       renderUploadList(chat);
+      syncComposerPresentation();
+      setStreamingUI(isStreaming);
 
       const requestHistory = chat.messages
         .filter((m) => !m.pending)
@@ -3097,10 +3327,19 @@
           const data = await resp.json().catch(() => ({}));
           if(!resp.ok) throw new Error(detailFromApiBody(data) || "任务提交失败");
 
+          const prevMsgId = pendingMsg.id;
           pendingMsg.taskId = data.task.id;
           pendingMsg.taskStartedAt = Date.now();
           pendingMsg.attachmentIds = attachmentIds;
           pendingMsg.text = chat.tab === "image" ? imageIntentStatusText(imageIntent) : "任务已提交后台排队...";
+          if (data.task.message_id != null && data.task.message_id !== "") {
+            pendingMsg.id = String(data.task.message_id);
+            const oldRow = document.querySelector(`[data-msg-id="${_escapeMsgIdForSelector(String(prevMsgId || ""))}"]`);
+            if (oldRow) oldRow.setAttribute("data-msg-id", pendingMsg.id);
+            replaceMessageUiStateKey(chat.id, prevMsgId, pendingMsg.id, pendingMsg);
+          } else {
+            persistMessageUiState(chat.id, pendingMsg);
+          }
           scheduleTaskPoll(chat.id, pendingMsg.id, pendingMsg.taskId);
           setStreamingUI(isStreaming);
         } catch(err) {
@@ -3217,6 +3456,7 @@
            msg.text = task.result.text || "完成";
            msg.imageUrl = task.result.image_url;
            if (task.result.attachment && task.result.attachment.id) {
+             msg.imageThumbUrl = `/api/attachments/${task.result.attachment.id}/thumb`;
              msg.attachments = [{
                id: task.result.attachment.id,
                name: task.result.attachment.name || "生成图片",
@@ -3373,7 +3613,7 @@
         const chat = getActiveChat();
         chat.reasoning_mode = normalizeReasoningModeValue(reasoningModeSelect.value);
         if (reasoningModeFace) {
-          reasoningModeFace.textContent = REASONING_MODE_LABELS[chat.reasoning_mode] || "";
+          reasoningModeFace.textContent = reasoningModeDisplayLabel(chat.reasoning_mode);
         }
         persistChatPrefs(chat);
         saveState();

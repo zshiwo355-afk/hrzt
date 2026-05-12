@@ -14,7 +14,7 @@ from app.ai_context import (
     _last_user_text_for_log,
     _log_attachment_image_sizes,
 )
-from app.config import TEXT_TIMEOUT_SECONDS
+from app.config import RESPONSES_MAX_OUTPUT_TOKENS, TEXT_TIMEOUT_SECONDS
 from app.providers import ofox
 from app.services.attachment_service import clean_response_text, extract_text_from_content
 
@@ -38,6 +38,7 @@ def _build_responses_payload(
     payload: dict[str, Any] = {
         "model": model,
         "input": input_payload,
+        "max_output_tokens": RESPONSES_MAX_OUTPUT_TOKENS,
     }
     if tools:
         payload["tools"] = tools

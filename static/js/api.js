@@ -1,7 +1,7 @@
 window.HRApp = window.HRApp || {};
 
-    const INITIAL_MESSAGE_PAGE_LIMIT = 30;
-    const IMAGE_INITIAL_MESSAGE_PAGE_LIMIT = 12;
+    const INITIAL_MESSAGE_PAGE_LIMIT = 20;
+    const IMAGE_INITIAL_MESSAGE_PAGE_LIMIT = 20;
     const OLDER_MESSAGE_PAGE_LIMIT = 50;
     let activeMessagesAbort = null;
     let activeMessagesRequestSeq = 0;
@@ -51,6 +51,11 @@ async function createConversationOnServer(tab, model) {
       chat.messagesLoading = !!active;
     }
 
+    function isRealDbMessageId(value) {
+      const raw = String(value == null ? "" : value).trim();
+      return /^[1-9]\d*$/.test(raw);
+    }
+
     async function loadConversationMessagesFromDb(chatId, opts) {
       if (!chatId) return;
       const chat = appState.chats.find((c) => c.id === String(chatId));
@@ -87,6 +92,11 @@ async function createConversationOnServer(tab, model) {
         chat.title = conv.title || chat.title;
         chat.model = conv.model || chat.model || "";
         chat.messages = (data.messages || []).map(dbMessageToChatMessage);
+        chat.loadingOlderMessages = false;
+        const loadedCount = chat.messages.length;
+        const indexedCount = Number(chat.indexMessageCount || 0);
+        chat.noMoreOlderMessages =
+          loadedCount < initialLimit || (indexedCount > 0 && loadedCount >= indexedCount);
         applyMessageUiStateToChat(chat);
         chat.updatedAt = conversationSidebarTimeMs(conv, chat.updatedAt);
         chat.createdAt =
@@ -103,12 +113,15 @@ async function createConversationOnServer(tab, model) {
       if (!chatId) return 0;
       const chat = appState.chats.find((c) => c.id === String(chatId));
       if (!chat || chat.loadingOlderMessages || chat.noMoreOlderMessages) return 0;
-      const first = (chat.messages || []).find((m) => m && m.id && !String(m.id).startsWith("msg_"));
+      const first = (chat.messages || []).find((m) => m && isRealDbMessageId(m.id));
       if (!first) {
-        chat.noMoreOlderMessages = true;
+        await loadConversationMessagesFromDb(chatId, { abortPrevious: false, markLoading: false });
         return 0;
       }
       chat.loadingOlderMessages = true;
+      if (typeof updateWorkspace === "function" && appState.activeChatId === String(chatId)) {
+        updateWorkspace();
+      }
       try {
         const resp = await fetch(`/api/conversations/${chatId}/messages?limit=${OLDER_MESSAGE_PAGE_LIMIT}&before_id=${encodeURIComponent(first.id)}`);
         const data = await resp.json().catch(() => ({}));
@@ -118,9 +131,16 @@ async function createConversationOnServer(tab, model) {
           chat.noMoreOlderMessages = true;
           return 0;
         }
-        chat.messages = older.concat(chat.messages || []);
+        const seen = new Set((chat.messages || []).map((m) => String(m && m.id)));
+        const freshOlder = older.filter((m) => !seen.has(String(m && m.id)));
+        if (!freshOlder.length) {
+          chat.noMoreOlderMessages = older.length < OLDER_MESSAGE_PAGE_LIMIT;
+          return 0;
+        }
+        chat.messages = freshOlder.concat(chat.messages || []);
+        if (older.length < OLDER_MESSAGE_PAGE_LIMIT) chat.noMoreOlderMessages = true;
         applyMessageUiStateToChat(chat);
-        return older.length;
+        return freshOlder.length;
       } finally {
         chat.loadingOlderMessages = false;
       }

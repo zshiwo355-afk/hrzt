@@ -14,7 +14,8 @@ UPLOAD_META_DIR = UPLOADS_DIR / "_meta"
 TASKS_DIR = UPLOADS_DIR / "_tasks"
 CLIENT_STATE_DIR = UPLOADS_DIR / "_client_state"
 
-load_dotenv(BASE_DIR / ".env")
+# 强制以项目 .env 为准，避免被外部 shell 环境变量覆盖
+load_dotenv(BASE_DIR / ".env", override=True)
 
 OFOX_API_KEY = os.getenv("OFOX_API_KEY")
 if not OFOX_API_KEY:
@@ -60,13 +61,16 @@ def stable_history_user_from_password() -> str:
     return f"pw_{digest}"
 
 
-APP_SESSION_SECRET = os.getenv(
-    "APP_SESSION_SECRET",
-    "huairen-ai-session-2026-very-long-random-key-9981",
+APP_SESSION_SECRET = (
+    os.getenv("APP_SESSION_SECRET") or "huairen-ai-session-2026-very-long-random-key-9981"
 )
 SUMMARY_MODEL = os.getenv("SUMMARY_MODEL", "openai/gpt-5.4")
 
 TEXT_TIMEOUT_SECONDS = int(os.getenv("TEXT_TIMEOUT_SECONDS", "180"))
+TEXT_MAX_OUTPUT_TOKENS = max(1, int(os.getenv("TEXT_MAX_OUTPUT_TOKENS", "4096")))
+RESPONSES_MAX_OUTPUT_TOKENS = max(1, int(os.getenv("RESPONSES_MAX_OUTPUT_TOKENS", "4096")))
+GEMINI_MAX_OUTPUT_TOKENS = max(1, int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "4096")))
+TEXT_TEMPERATURE = float(os.getenv("TEXT_TEMPERATURE", "0.7"))
 SUMMARY_TIMEOUT_SECONDS = int(os.getenv("SUMMARY_TIMEOUT_SECONDS", "120"))
 RAG_BASE_URL = (os.getenv("RAG_BASE_URL") or "http://121.43.112.129:3001").strip().rstrip("/")
 RAG_SEARCH_TIMEOUT_SECONDS = int(os.getenv("RAG_SEARCH_TIMEOUT_SECONDS", "12"))

@@ -614,6 +614,45 @@
       box-shadow:var(--shadow);
     }
 
+    .history-load-marker{
+      align-self:center;
+      padding:7px 12px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:#fff;
+      color:var(--text-muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .history-load-trigger{
+      align-self:center;
+      padding:7px 12px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:#fff;
+      color:var(--text-muted);
+      font-size:12px;
+      line-height:1.4;
+      cursor:pointer;
+    }
+
+    .history-load-trigger:hover{
+      color:var(--text);
+      border-color:#d1d5db;
+    }
+
+    .history-load-trigger:disabled{
+      cursor:default;
+      opacity:.62;
+    }
+
+    .history-top-sentinel{
+      width:100%;
+      height:1px;
+      flex:0 0 auto;
+    }
+
     /* ───── Messages ───── */
     .msg-row{
       display:flex;

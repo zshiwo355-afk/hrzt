@@ -253,6 +253,7 @@ function imageTaskPhaseTitle(msg) {
 
     function syncMessageProgressSection(container, msg, options) {
       if (!container || !msg) return;
+      const opts = options || {};
       const steps = (Array.isArray(msg.progressSteps) ? msg.progressSteps : [])
         .filter((step) => progressStepText(step));
       let panel = container.querySelector(".message-progress");
@@ -260,10 +261,35 @@ function imageTaskPhaseTitle(msg) {
         if (panel) panel.remove();
         return;
       }
+      const placePanel = () => {
+        if (!panel) return;
+        if (opts.insideWait) {
+          if (panel.parentNode !== container || panel !== container.lastElementChild) {
+            container.appendChild(panel);
+          }
+          return;
+        }
+        const afterContent =
+          container.querySelector(".bubble-text") ||
+          container.querySelector(".generated-image") ||
+          container.querySelector(".image-task-wait") ||
+          container.querySelector(".text-wait");
+        if (afterContent && afterContent.parentNode === container) {
+          const next = afterContent.nextSibling;
+          if (next !== panel) container.insertBefore(panel, next);
+          return;
+        }
+        const anchor = container.querySelector(".msg-actions");
+        if (anchor && anchor.parentNode === container) {
+          if (anchor.previousSibling !== panel) container.insertBefore(panel, anchor);
+        } else if (panel.parentNode !== container || panel !== container.lastElementChild) {
+          container.appendChild(panel);
+        }
+      };
       if (!panel) {
         panel = document.createElement("details");
         panel.className = "message-progress";
-        panel.open = !!msg.pending;
+        panel.open = false;
         const summary = document.createElement("summary");
         summary.className = "message-progress-title";
         const title = document.createElement("span");
@@ -273,13 +299,10 @@ function imageTaskPhaseTitle(msg) {
         const list = document.createElement("div");
         list.className = "message-progress-list";
         panel.appendChild(list);
-        const anchor = container.querySelector(".msg-actions");
-        if (anchor) container.insertBefore(panel, anchor);
-        else container.appendChild(panel);
       }
+      placePanel();
       const titleText = panel.querySelector(".message-progress-title-text");
       if (titleText) titleText.textContent = msg.pending ? "生成过程" : "查看生成过程";
-      if (!msg.pending && panel.open) panel.open = false;
       const list = panel.querySelector(".message-progress-list");
       if (!list) return;
       list.innerHTML = "";
@@ -429,10 +452,20 @@ function imageTaskPhaseTitle(msg) {
         bubble.appendChild(img);
       }
 
-      if (msg.note){
+      const noteText = String(msg.note || "").trim();
+      const noteBelongsToProgress =
+        noteText && /已使用模型内建联网搜索|模型内建联网搜索|联网搜索/.test(noteText);
+      if (noteText && noteBelongsToProgress) {
+        if (!Array.isArray(msg.progressSteps)) msg.progressSteps = [];
+        if (!msg.progressSteps.some((step) => progressStepText(step) === noteText)) {
+          msg.progressSteps.push({ kind: "search", text: noteText, at: Date.now() });
+        }
+      }
+
+      if (noteText && !noteBelongsToProgress){
         const note = document.createElement("div");
         note.className = "message-note";
-        note.textContent = msg.note;
+        note.textContent = noteText;
         bubble.appendChild(note);
       }
 
@@ -509,6 +542,7 @@ function imageTaskPhaseTitle(msg) {
         const nh = chatFeed.scrollHeight;
         chatFeed.scrollTop = scrollAnchor.top + (nh - scrollAnchor.height);
       }
+      if (typeof syncHistoryTopObserver === "function") syncHistoryTopObserver();
       updateScrollBottomBtnOnly();
     }
 
@@ -524,22 +558,17 @@ function imageTaskPhaseTitle(msg) {
           ? { top: chatFeed.scrollTop, height: chatFeed.scrollHeight }
           : null;
 
-      chatFeed.innerHTML = "";
-
-      if (chat.messagesLoading && (!chat.messages || !chat.messages.length)) {
-        chatFeed.innerHTML = `
-          <div class="empty">
-            <div class="empty-card">
-              <h2 class="empty-title">正在加载会话</h2>
-              <p class="empty-desc">请稍候</p>
-            </div>
-          </div>
-        `;
-        if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
-        return;
-      }
-
       if (!chat.messages || !chat.messages.length){
+        const indexedMessageCount = Number(chat.indexMessageCount || 0);
+        const loadingExistingHistory =
+          !!chat.messagesLoading &&
+          (indexedMessageCount > 0 || !!chat.listedInHistoryIndex || !!chat.indexHasSummary);
+        if (loadingExistingHistory) {
+          if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
+          return;
+        }
+
+        chatFeed.innerHTML = "";
         let cardsHtml = (PROMPT_CARDS[chat.tab] || []).map(txt => 
           `<div class="prompt-card" onclick="usePrompt('${txt}')">${txt}</div>`
         ).join("");
@@ -556,11 +585,38 @@ function imageTaskPhaseTitle(msg) {
             </div>
           </div>
         `;
+        if (typeof syncHistoryTopObserver === "function") syncHistoryTopObserver();
         if (scrollToBottomBtn) scrollToBottomBtn.style.display = "none";
         return;
       }
 
+      chatFeed.innerHTML = "";
+
       const messages = chat.messages || [];
+      const sentinel = document.createElement("div");
+      sentinel.className = "history-top-sentinel";
+      sentinel.setAttribute("data-history-sentinel", "1");
+      sentinel.setAttribute("aria-hidden", "true");
+      chatFeed.appendChild(sentinel);
+      const canLoadOlder =
+        typeof shouldOfferOlderMessages === "function" && shouldOfferOlderMessages(chat);
+      const loadTrigger = document.createElement("button");
+      loadTrigger.type = "button";
+      loadTrigger.className = "history-load-trigger";
+      loadTrigger.setAttribute("data-history-load-trigger", "1");
+      loadTrigger.textContent = "加载更早消息";
+      loadTrigger.hidden = !canLoadOlder;
+      loadTrigger.disabled = !!chat.loadingOlderMessages;
+      loadTrigger.onclick = () => {
+        if (typeof triggerLoadOlderMessages === "function") triggerLoadOlderMessages();
+      };
+      chatFeed.appendChild(loadTrigger);
+      if (chat.loadingOlderMessages) {
+        const marker = document.createElement("div");
+        marker.className = "history-load-marker";
+        marker.textContent = "正在加载更早消息…";
+        chatFeed.appendChild(marker);
+      }
       let index = 0;
       const renderBatch = (size) => {
         if (renderSeq !== messagesRenderSeq) return;
@@ -606,6 +662,8 @@ function imageTaskPhaseTitle(msg) {
       }
       const existingWait = bubble.querySelector(".text-wait");
       if (existingWait) existingWait.remove();
+      bubble.classList.toggle("pending", !!pendingMsg.pending);
+      bubble.classList.toggle("error", !!pendingMsg.error);
       bubble.classList.remove("text-task-pending");
       const isAssistant = pendingMsg.role === "assistant" || row.classList.contains("assistant");
       const isTyping = !!_typewriterState[msgId];
@@ -646,7 +704,18 @@ function imageTaskPhaseTitle(msg) {
           else bubble.appendChild(img);
         }
       }
-      if (pendingMsg.note) {
+      const noteText = String(pendingMsg.note || "").trim();
+      const noteBelongsToProgress =
+        noteText && /已使用模型内建联网搜索|模型内建联网搜索|联网搜索/.test(noteText);
+      if (noteText && noteBelongsToProgress) {
+        if (!Array.isArray(pendingMsg.progressSteps)) pendingMsg.progressSteps = [];
+        if (!pendingMsg.progressSteps.some((step) => progressStepText(step) === noteText)) {
+          pendingMsg.progressSteps.push({ kind: "search", text: noteText, at: Date.now() });
+        }
+        const oldNote = bubble.querySelector(".message-note");
+        if (oldNote) oldNote.remove();
+      }
+      if (noteText && !noteBelongsToProgress) {
         let noteEl = bubble.querySelector(".message-note");
         if (!noteEl) {
           noteEl = document.createElement("div");
@@ -655,7 +724,7 @@ function imageTaskPhaseTitle(msg) {
           if (anchor) bubble.insertBefore(noteEl, anchor);
           else bubble.appendChild(noteEl);
         }
-        noteEl.textContent = pendingMsg.note;
+        noteEl.textContent = noteText;
       }
       syncMessageProgressSection(bubble, pendingMsg);
       syncMessageSourcesSection(bubble, pendingMsg);
