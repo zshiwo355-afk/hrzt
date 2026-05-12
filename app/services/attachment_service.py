@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import io
 import tempfile
 import re
 import subprocess
@@ -20,6 +21,10 @@ from app.db import get_session_factory
 from app.logging_config import logger
 from app.providers import oss as oss_provider
 from app.storage import read_attachment_meta, safe_json_dump
+
+THUMBNAILS_DIR = UPLOADS_DIR / "_thumbs"
+THUMBNAIL_MAX_LONG_EDGE = 768
+THUMBNAIL_QUALITY = 82
 
 
 def truncate_text(text: str, limit: int = 12000) -> str:
@@ -174,6 +179,61 @@ def read_attachment_bytes(meta: dict) -> Optional[bytes]:
     if not path.is_file():
         return None
     return path.read_bytes()
+
+
+def build_image_thumbnail_bytes(meta: dict) -> tuple[bytes, str] | None:
+    if not meta or str(meta.get("category") or "") != "image":
+        return None
+
+    attachment_id = str(meta.get("id") or "").strip()
+    if not attachment_id:
+        return None
+
+    THUMBNAILS_DIR.mkdir(parents=True, exist_ok=True)
+    thumb_path = THUMBNAILS_DIR / f"{attachment_id}.webp"
+    if thumb_path.is_file():
+        try:
+            return thumb_path.read_bytes(), "image/webp"
+        except Exception:
+            pass
+
+    raw = None
+    stored_path = str(meta.get("stored_path") or "").strip()
+    if stored_path:
+        path = Path(stored_path)
+        if path.is_file():
+            try:
+                raw = path.read_bytes()
+            except OSError:
+                raw = None
+    if raw is None:
+        raw = read_attachment_bytes(meta)
+    if raw is None:
+        return None
+
+    try:
+        from PIL import Image, ImageOps
+
+        im = Image.open(io.BytesIO(raw))
+        im = ImageOps.exif_transpose(im)
+        im.thumbnail((THUMBNAIL_MAX_LONG_EDGE, THUMBNAIL_MAX_LONG_EDGE), Image.Resampling.LANCZOS)
+        if im.mode not in ("RGB", "RGBA"):
+            im = im.convert("RGB")
+
+        out = io.BytesIO()
+        save_kwargs = {"format": "WEBP", "quality": THUMBNAIL_QUALITY, "method": 4}
+        if im.mode == "RGBA":
+            save_kwargs["lossless"] = False
+        im.save(out, **save_kwargs)
+        data = out.getvalue()
+        try:
+            thumb_path.write_bytes(data)
+        except Exception:
+            logger.warning("[thumb] cache write failed attachment_id=%s", attachment_id, exc_info=True)
+        return data, "image/webp"
+    except Exception:
+        logger.warning("[thumb] build failed attachment_id=%s", attachment_id, exc_info=True)
+        return None
 
 
 def materialize_attachment_file(meta: dict) -> Optional[Path]:

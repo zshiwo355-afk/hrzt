@@ -1,6 +1,7 @@
 window.HRApp = window.HRApp || {};
 
     const INITIAL_MESSAGE_PAGE_LIMIT = 30;
+    const IMAGE_INITIAL_MESSAGE_PAGE_LIMIT = 12;
     const OLDER_MESSAGE_PAGE_LIMIT = 50;
     let activeMessagesAbort = null;
     let activeMessagesRequestSeq = 0;
@@ -55,6 +56,9 @@ async function createConversationOnServer(tab, model) {
       const chat = appState.chats.find((c) => c.id === String(chatId));
       if (!chat) return;
       const options = opts || {};
+      const initialLimit =
+        options.limit ||
+        (chat.tab === "image" ? IMAGE_INITIAL_MESSAGE_PAGE_LIMIT : INITIAL_MESSAGE_PAGE_LIMIT);
       const abortPrevious = options.abortPrevious !== false;
       const markLoading = options.markLoading !== false;
       if (abortPrevious && activeMessagesAbort) {
@@ -69,7 +73,7 @@ async function createConversationOnServer(tab, model) {
       if (markLoading) markChatMessagesLoading(chat, true);
       try {
         const resp = await fetch(
-          `/api/conversations/${chatId}/messages?limit=${INITIAL_MESSAGE_PAGE_LIMIT}`,
+          `/api/conversations/${chatId}/messages?limit=${initialLimit}`,
           { signal: controller ? controller.signal : undefined }
         );
         const data = await resp.json().catch(() => ({}));

@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse, Response
 from app.auth import require_auth
 from app.config import OSS_UPLOAD_PREFIX
 from app.providers import oss as oss_provider
-from app.services.attachment_service import read_attachment_meta_any
+from app.services.attachment_service import build_image_thumbnail_bytes, read_attachment_meta_any
 
 router = APIRouter(tags=["attachments"])
 
@@ -70,6 +70,26 @@ def get_attachment_file(attachment_id: str, request: Request):
     if oss_key:
         return _plain_error(502, "oss file read failed")
     return _plain_error(404, "attachment file not found")
+
+
+@router.get("/api/attachments/{attachment_id}/thumb")
+def get_attachment_thumbnail(attachment_id: str, request: Request):
+    require_auth(request)
+
+    meta = read_attachment_meta_any(attachment_id)
+    if not meta:
+        return _plain_error(404, "attachment file not found")
+
+    built = build_image_thumbnail_bytes(meta)
+    if built is None:
+        return _plain_error(404, "thumbnail not available")
+
+    body, mime = built
+    return Response(
+        content=body,
+        media_type=mime,
+        headers={"Cache-Control": "private, max-age=86400"},
+    )
 
 
 @router.get("/api/generated-images/{task_id}")

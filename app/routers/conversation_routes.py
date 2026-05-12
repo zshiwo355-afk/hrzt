@@ -14,6 +14,28 @@ from app.services import conversation_service, message_service, model_service, t
 router = APIRouter(tags=["conversations"])
 
 
+def _message_row(msg):
+    image_ref = message_service.extract_generated_image_ref(msg.attachments_json)
+    return {
+        "id": msg.id,
+        "role": msg.role,
+        "status": msg.status,
+        "content": message_service.sanitize_history_content(msg.content or ""),
+        "model": msg.model or "",
+        "attachments": message_service.sanitize_history_attachments(msg.attachments_json),
+        "image_url": image_ref.get("url") or "",
+        "image_thumb_url": image_ref.get("thumb_url") or "",
+        "task_id": (
+            task_service.find_active_task_id_for_message(msg.id)
+            if msg.status == "streaming"
+            else ""
+        ),
+        "error_message": msg.error_message or "",
+        "created_at": msg.created_at.isoformat(),
+        "completed_at": msg.completed_at.isoformat() if msg.completed_at else None,
+    }
+
+
 @router.post("/api/conversations")
 def create_conversation(
     req: ConversationCreateRequest,
@@ -102,26 +124,7 @@ def get_conversation_messages(
             "updated_at": conversation.updated_at.isoformat(),
             "last_message_at": conversation.last_message_at.isoformat() if conversation.last_message_at else None,
         },
-        "messages": [
-            {
-                "id": msg.id,
-                "role": msg.role,
-                "status": msg.status,
-                "content": message_service.sanitize_history_content(msg.content or ""),
-                "model": msg.model or "",
-                "attachments": message_service.sanitize_history_attachments(msg.attachments_json),
-                "image_url": message_service.extract_generated_image_url(msg.attachments_json),
-                "task_id": (
-                    task_service.find_active_task_id_for_message(msg.id)
-                    if msg.status == "streaming"
-                    else ""
-                ),
-                "error_message": msg.error_message or "",
-                "created_at": msg.created_at.isoformat(),
-                "completed_at": msg.completed_at.isoformat() if msg.completed_at else None,
-            }
-            for msg in messages
-        ],
+        "messages": [_message_row(msg) for msg in messages],
     }
 
 

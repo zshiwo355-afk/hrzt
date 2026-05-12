@@ -1,5 +1,16 @@
 window.HRApp = window.HRApp || {};
 
+let messagesRenderSeq = 0;
+const INITIAL_RENDER_BATCH_SIZE = 8;
+const NEXT_RENDER_BATCH_SIZE = 6;
+
+function tuneHistoryImage(img) {
+      if (!img) return img;
+      img.loading = "lazy";
+      img.decoding = "async";
+      return img;
+    }
+
 function ensureMessageSourcesExpanded(msg) {
       if (!msg || typeof msg !== "object") return false;
       if (typeof msg.sourcesExpanded !== "boolean") {
@@ -365,7 +376,144 @@ function imageTaskPhaseTitle(msg) {
       return true;
     }
 
+    function appendRenderedMessageRow(chat, msg) {
+      msg = foldProcessNarrationForRender(msg);
+      const row = document.createElement("div");
+      row.className = `msg-row ${msg.role === "user" ? "user" : "assistant"}`;
+      row.setAttribute("data-msg-id", msg.id);
+      row.setAttribute("data-chat-id", chat.id);
+
+      const avatar = document.createElement("div");
+      avatar.className = `avatar ${msg.role === "user" ? "user" : "assistant"}`;
+      avatar.textContent = msg.role === "user" ? "你" : "怀小仁";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      if (msg.pending) bubble.classList.add("pending");
+      if (msg.error) bubble.classList.add("error");
+
+      if (msg.role === "assistant" && msg.pending && msg.taskId) {
+        bubble.classList.add("image-task-pending");
+        bubble.appendChild(buildImageTaskWaitElement(msg));
+      } else if (msg.role === "assistant" && msg.pending && !msg.taskId && !msg.error) {
+        bubble.classList.add("text-task-pending");
+        bubble.appendChild(buildTextWaitElement(msg));
+      } else {
+        let bubbleText;
+        if (msg.role === "assistant" && !msg.error) {
+          bubbleText = document.createElement("div");
+          bubbleText.className = "bubble-text bubble-md";
+          bubbleText.innerHTML = markdownToSafeHtml(msg.text || "");
+        } else {
+          bubbleText = document.createElement("span");
+          bubbleText.className = "bubble-text";
+          bubbleText.textContent = msg.text || "";
+        }
+        bubble.appendChild(bubbleText);
+        if (msg.role === "assistant") {
+          syncMessageProgressSection(bubble, msg);
+        }
+      }
+
+      if (msg.imageUrl && !(msg.pending && msg.taskId)){
+        const img = tuneHistoryImage(document.createElement("img"));
+        img.className = "generated-image";
+        img.src = msg.imageThumbUrl || msg.imageUrl;
+        if (msg.imageThumbUrl && msg.imageThumbUrl !== msg.imageUrl) {
+          img.onerror = () => {
+            img.onerror = null;
+            img.src = msg.imageUrl;
+          };
+        }
+        img.onclick = () => window.showLightbox(msg.imageUrl);
+        bubble.appendChild(img);
+      }
+
+      if (msg.note){
+        const note = document.createElement("div");
+        note.className = "message-note";
+        note.textContent = msg.note;
+        bubble.appendChild(note);
+      }
+
+      syncMessageSourcesSection(bubble, msg);
+
+      if (msg.attachments && msg.attachments.length > 0) {
+         const wrap = document.createElement("div");
+         wrap.className = "msg-attachments";
+         msg.attachments.forEach(item => {
+           if (msg.role === "assistant" && msg.imageUrl && item.category === "image") return;
+           if (item.category === "image"){
+             if (staleAttachmentIds.has(item.id)) {
+               const span = document.createElement("span");
+               span.className = "attachment-stale-label";
+               span.textContent = "附件已失效";
+               wrap.appendChild(span);
+             } else {
+               let img = tuneHistoryImage(document.createElement("img"));
+               img.className = "msg-attachment-thumb";
+               img.src = `/api/attachments/${item.id}/thumb`;
+               img.addEventListener(
+                 "error",
+                 function onThumbErr() {
+                   img.removeEventListener("error", onThumbErr);
+                   img.src = `/api/attachments/${item.id}`;
+                   bindAttachmentImageFallback(img, item.id);
+                 },
+                 { once: true }
+               );
+               wrap.appendChild(img);
+             }
+           } else {
+             let doc = document.createElement("div");
+             doc.className = "msg-attachment-doc";
+             doc.textContent = item.name;
+             wrap.appendChild(doc);
+           }
+         });
+         if (wrap.childNodes.length) bubble.appendChild(wrap);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "msg-actions";
+      actions.appendChild(
+        createMsgIconButton(MSG_ICON_COPY_SVG, MSG_TOOLTIP_COPY, (btn) => copyMessage(msg.id, btn), false, { skipTooltip: true })
+      );
+      if (msg.role === "assistant") {
+        const regenTip = msg.pending ? MSG_TOOLTIP_REGEN_WAIT : MSG_TOOLTIP_REGEN;
+        actions.appendChild(
+          createMsgIconButton(
+            MSG_ICON_REGEN_SVG,
+            regenTip,
+            () => regenerateAssistant(msg.id),
+            !!msg.pending
+          )
+        );
+      }
+      bubble.appendChild(actions);
+
+      if (msg.role === "user"){
+        row.appendChild(bubble);
+        row.appendChild(avatar);
+      } else {
+        row.appendChild(avatar);
+        row.appendChild(bubble);
+      }
+      chatFeed.appendChild(row);
+    }
+
+    function finishRenderedMessages(scrollAnchor) {
+      if (autoFollowBottom) {
+        maybeScrollToBottom();
+      } else if (scrollAnchor) {
+        const nh = chatFeed.scrollHeight;
+        chatFeed.scrollTop = scrollAnchor.top + (nh - scrollAnchor.height);
+      }
+      updateScrollBottomBtnOnly();
+    }
+
     function renderMessages(chat){
+      const renderSeq = ++messagesRenderSeq;
       if (lastRenderedChatId !== chat.id) {
         lastRenderedChatId = chat.id;
         autoFollowBottom = true;
@@ -412,125 +560,20 @@ function imageTaskPhaseTitle(msg) {
         return;
       }
 
-      chat.messages.forEach(msg => {
-        msg = foldProcessNarrationForRender(msg);
-        const row = document.createElement("div");
-        row.className = `msg-row ${msg.role === "user" ? "user" : "assistant"}`;
-        row.setAttribute("data-msg-id", msg.id);
-        row.setAttribute("data-chat-id", chat.id);
-
-        const avatar = document.createElement("div");
-        avatar.className = `avatar ${msg.role === "user" ? "user" : "assistant"}`;
-        avatar.textContent = msg.role === "user" ? "你" : "怀小仁";
-
-        const bubble = document.createElement("div");
-        bubble.className = "bubble";
-        if (msg.pending) bubble.classList.add("pending");
-        if (msg.error) bubble.classList.add("error");
-
-        if (msg.role === "assistant" && msg.pending && msg.taskId) {
-          bubble.classList.add("image-task-pending");
-          bubble.appendChild(buildImageTaskWaitElement(msg));
-        } else if (msg.role === "assistant" && msg.pending && !msg.taskId && !msg.error) {
-          bubble.classList.add("text-task-pending");
-          bubble.appendChild(buildTextWaitElement(msg));
-        } else {
-          let bubbleText;
-          if (msg.role === "assistant" && !msg.error) {
-            bubbleText = document.createElement("div");
-            bubbleText.className = "bubble-text bubble-md";
-            bubbleText.innerHTML = markdownToSafeHtml(msg.text || "");
-          } else {
-            bubbleText = document.createElement("span");
-            bubbleText.className = "bubble-text";
-            bubbleText.textContent = msg.text || "";
-          }
-          bubble.appendChild(bubbleText);
-          if (msg.role === "assistant") {
-            syncMessageProgressSection(bubble, msg);
-          }
+      const messages = chat.messages || [];
+      let index = 0;
+      const renderBatch = (size) => {
+        if (renderSeq !== messagesRenderSeq) return;
+        const end = Math.min(messages.length, index + size);
+        for (; index < end; index += 1) {
+          appendRenderedMessageRow(chat, messages[index]);
         }
-
-        if (msg.imageUrl && !(msg.pending && msg.taskId)){
-          const img = document.createElement("img");
-          img.className = "generated-image";
-          img.src = msg.imageUrl;
-          img.onclick = () => window.showLightbox(msg.imageUrl);
-          bubble.appendChild(img);
+        finishRenderedMessages(scrollAnchor);
+        if (index < messages.length) {
+          setTimeout(() => renderBatch(NEXT_RENDER_BATCH_SIZE), 0);
         }
-
-        if (msg.note){
-          const note = document.createElement("div");
-          note.className = "message-note";
-          note.textContent = msg.note;
-          bubble.appendChild(note);
-        }
-
-        syncMessageSourcesSection(bubble, msg);
-
-        if (msg.attachments && msg.attachments.length > 0) {
-           const wrap = document.createElement("div");
-           wrap.className = "msg-attachments";
-           msg.attachments.forEach(item => {
-             if (msg.role === "assistant" && msg.imageUrl && item.category === "image") return;
-             if (item.category === "image"){
-               if (staleAttachmentIds.has(item.id)) {
-                 const span = document.createElement("span");
-                 span.className = "attachment-stale-label";
-                 span.textContent = "附件已失效";
-                 wrap.appendChild(span);
-               } else {
-                 let img = document.createElement("img");
-                 img.className = "msg-attachment-thumb";
-                 img.src = `/api/attachments/${item.id}`;
-                 bindAttachmentImageFallback(img, item.id);
-                 wrap.appendChild(img);
-               }
-             } else {
-               let doc = document.createElement("div");
-               doc.className = "msg-attachment-doc";
-               doc.textContent = item.name;
-               wrap.appendChild(doc);
-             }
-           });
-           if (wrap.childNodes.length) bubble.appendChild(wrap);
-        }
-
-        const actions = document.createElement("div");
-        actions.className = "msg-actions";
-        actions.appendChild(
-          createMsgIconButton(MSG_ICON_COPY_SVG, MSG_TOOLTIP_COPY, (btn) => copyMessage(msg.id, btn), false, { skipTooltip: true })
-        );
-        if (msg.role === "assistant") {
-          const regenTip = msg.pending ? MSG_TOOLTIP_REGEN_WAIT : MSG_TOOLTIP_REGEN;
-          actions.appendChild(
-            createMsgIconButton(
-              MSG_ICON_REGEN_SVG,
-              regenTip,
-              () => regenerateAssistant(msg.id),
-              !!msg.pending
-            )
-          );
-        }
-        bubble.appendChild(actions);
-
-        if (msg.role === "user"){
-          row.appendChild(bubble);
-          row.appendChild(avatar);
-        } else {
-          row.appendChild(avatar);
-          row.appendChild(bubble);
-        }
-        chatFeed.appendChild(row);
-      });
-
-      if (autoFollowBottom) {
-        maybeScrollToBottom();
-      } else if (scrollAnchor) {
-        const nh = chatFeed.scrollHeight;
-        chatFeed.scrollTop = scrollAnchor.top + (nh - scrollAnchor.height);
-      }
-      updateScrollBottomBtnOnly();
+      };
+      renderBatch(INITIAL_RENDER_BATCH_SIZE);
     }
 
     function _renderBubbleText(msgId, pendingMsg) {

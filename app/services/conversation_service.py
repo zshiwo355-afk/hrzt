@@ -41,23 +41,31 @@ def list_conversations_for_user(db: Session, user_id: int, *, limit: int = 100, 
     lim = max(1, min(int(limit or 100), 200))
     off = max(0, int(offset or 0))
     stmt = (
-        select(
-            Conversation,
-            func.count(Message.id).label("message_count"),
-        )
-        .outerjoin(Message, Message.conversation_id == Conversation.id)
+        select(Conversation)
         .where(Conversation.user_id == int(user_id))
-        .group_by(Conversation.id)
         .order_by(Conversation.updated_at.desc(), Conversation.id.desc())
         .offset(off)
         .limit(lim)
     )
-    rows = db.execute(stmt).all()
+    conversations = list(db.scalars(stmt).all())
+    conversation_ids = [conversation.id for conversation in conversations]
+    counts: dict[int, int] = {}
+    if conversation_ids:
+        count_stmt = (
+            select(Message.conversation_id, func.count(Message.id))
+            .where(Message.conversation_id.in_(conversation_ids))
+            .group_by(Message.conversation_id)
+        )
+        counts = {
+            int(conversation_id): int(message_count or 0)
+            for conversation_id, message_count in db.execute(count_stmt).all()
+        }
+
     result: list[dict] = []
-    for conversation, message_count in rows:
+    for conversation in conversations:
         result.append({
             "conversation": conversation,
-            "message_count": int(message_count or 0),
+            "message_count": counts.get(int(conversation.id), 0),
         })
     return result
 

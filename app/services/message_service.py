@@ -147,6 +147,11 @@ def sanitize_history_attachments(attachments: Optional[Union[list[dict], dict]])
 
 
 def extract_generated_image_url(attachments: Optional[Union[list[dict], dict]]) -> str:
+    image_ref = extract_generated_image_ref(attachments)
+    return image_ref.get("url") or ""
+
+
+def extract_generated_image_ref(attachments: Optional[Union[list[dict], dict]]) -> dict:
     first_image_attachment_id = ""
     if isinstance(attachments, list):
         for item in attachments:
@@ -158,10 +163,13 @@ def extract_generated_image_url(attachments: Optional[Union[list[dict], dict]]) 
             if category == "generated_image" and item.get("url"):
                 url = str(item.get("url") or "").strip()
                 if url and not url.lower().startswith("data:") and len(url) <= _MAX_ATTACHMENT_URL_CHARS:
-                    return url
+                    return {"url": url, "thumb_url": ""}
     if first_image_attachment_id:
-        return f"/api/attachments/{first_image_attachment_id}"
-    return ""
+        return {
+            "url": f"/api/attachments/{first_image_attachment_id}",
+            "thumb_url": f"/api/attachments/{first_image_attachment_id}/thumb",
+        }
+    return {"url": "", "thumb_url": ""}
 
 
 def fail_assistant_message(db: Session, *, message_id: int, error_message: str) -> Optional[Message]:

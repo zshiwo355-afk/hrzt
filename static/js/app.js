@@ -602,6 +602,7 @@
         role: msg.role,
         text: isFailed ? restoredFailedMessageText(msg.content, msg.error_message) : (msg.content || ""),
         imageUrl: msg.image_url || null,
+        imageThumbUrl: msg.image_thumb_url || null,
         error: isFailed,
         pending: msg.status === "streaming",
         note: undefined,
