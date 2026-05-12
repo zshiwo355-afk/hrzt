@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "c2914d293d5245d4a542637f3010ced7",
+      "name": "深色商务汇报模板",
+      "label": "dark_modern",
+      "description": "深色简约、适合项目汇报、复盘、培训、方案说明。",
+      "style": "professional-dark",
+      "tags": ["深色", "商务", "专业", "简约", "培训", "项目", "汇报", "方案", "复盘", "演示"],
+      "scenes": ["项目汇报", "培训课件", "方案讲解", "产品介绍", "复盘总结"],
+      "supports": ["cover", "agenda", "content", "ending"],
+      "priority": 80
+    },
+    {
+      "id": "23e9702cc41742d2b58590a0efc1be6f",
+      "name": "金棕经营汇报模板",
+      "label": "gold_report",
+      "description": "暖金色正式汇报风格，适合周报、月报、经营分析、述职、总结汇报。",
+      "style": "executive-gold",
+      "tags": ["暖色", "金棕", "正式", "经营", "周报", "月报", "述职", "总结", "汇报", "分析"],
+      "scenes": ["经营分析", "周报月报", "年度述职", "数据汇报", "管理层汇报"],
+      "supports": ["cover", "agenda", "content", "ending"],
+      "priority": 90
+    }
+  ]
+}

@@ -1,0 +1,5114 @@
+{
+  "version": 1,
+  "theme": {
+    "color": "#9c7432"
+  },
+  "slide_size": {
+    "width_pt": 960.0,
+    "height_pt": 540.0
+  },
+  "slides": [
+    {
+      "index": 0,
+      "page_type": "cover",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "title",
+          "text": "工作述职报告",
+          "font_size_pt": 80.0,
+          "bbox": {
+            "left": 43.87,
+            "top": 184.71,
+            "width": 526.63,
+            "height": 92.6
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "Never forget what you are, for surely the world will not. Make it your strength. Never forget what you are , for surely the world will not. Never forget what you are, for surely the world will not.",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 45.68,
+            "top": 305.16,
+            "width": 518.14,
+            "height": 35.56
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "WORK SUMMARY",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 44.42,
+            "top": 134.55,
+            "width": 220.18,
+            "height": 31.67
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "总结计划|工作总结|工作计划|工作汇报",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 44.42,
+            "top": 270.73,
+            "width": 518.97,
+            "height": 29.49
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh06",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -84.27,
+            "top": -101.07,
+            "width": 48.0,
+            "height": 48.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "唐峰",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 43.27,
+            "top": 47.77,
+            "width": 84.31,
+            "height": 45.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 52.94,
+            "top": 481.33,
+            "width": 78.92,
+            "height": 10.89
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "汇报人：XXX",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 51.18,
+            "top": 356.07,
+            "width": 146.95,
+            "height": 40.89
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "汇报日期：2XXX",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 220.63,
+            "top": 356.07,
+            "width": 146.95,
+            "height": 40.89
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 629.31,
+            "top": 135.46,
+            "width": 214.51,
+            "height": 214.51
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 919.91,
+            "top": 287.27,
+            "width": 83.38,
+            "height": 83.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 505.16,
+            "top": 482.06,
+            "width": 134.19,
+            "height": 134.19
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 588.01,
+            "top": 454.53,
+            "width": 71.06,
+            "height": 71.06
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 848.6,
+            "top": 367.82,
+            "width": 61.24,
+            "height": 61.24
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 771.04,
+            "top": 104.37,
+            "width": 112.59,
+            "height": 112.59
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 526.54,
+            "top": -128.82,
+            "width": 214.51,
+            "height": 214.51
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 1,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 48.94,
+            "top": -80.4,
+            "width": 188.57,
+            "height": 188.57
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 79.09,
+            "top": 215.56,
+            "width": 803.97,
+            "height": 260.81
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "CONTENTS",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 509.85,
+            "top": 116.81,
+            "width": 181.28,
+            "height": 31.5
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "目 录",
+          "font_size_pt": 66.0,
+          "bbox": {
+            "left": 696.32,
+            "top": 75.87,
+            "width": 181.28,
+            "height": 87.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 823.28,
+            "top": 513.41,
+            "width": 119.56,
+            "height": 119.56
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 166.35,
+            "top": 36.06,
+            "width": 77.89,
+            "height": 77.89
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "section"
+    },
+    {
+      "index": 2,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 562.52
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "工作内容概述",
+          "font_size_pt": 66.0,
+          "bbox": {
+            "left": 406.24,
+            "top": 244.43,
+            "width": 452.88,
+            "height": 89.41
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "A dream need to work out a summary report dream need to work out a need to work out a summary report summary.",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 452.76,
+            "top": 337.73,
+            "width": 406.36,
+            "height": 43.54
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "PART 01",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 640.28,
+            "top": 170.59,
+            "width": 214.47,
+            "height": 57.24
+          },
+          "text_type": "partNumber"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 159.88,
+            "top": 131.99,
+            "width": 113.84,
+            "height": 113.84
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 127.85,
+            "top": 377.04,
+            "width": 120.34,
+            "height": 120.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -150.1,
+            "top": 77.57,
+            "width": 222.66,
+            "height": 222.66
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 332.89,
+            "top": 68.55,
+            "width": 71.06,
+            "height": 71.06
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 253.34,
+            "top": 474.97,
+            "width": 162.07,
+            "height": 162.07
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -47.87,
+            "top": 465.79,
+            "width": 169.67,
+            "height": 169.67
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 196.7,
+            "top": 364.54,
+            "width": 63.3,
+            "height": 63.3
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 823.86,
+            "top": 481.33,
+            "width": 78.92,
+            "height": 10.89
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "唐峰",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 827.4,
+            "top": 47.77,
+            "width": 84.31,
+            "height": 45.96
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "section"
+    },
+    {
+      "index": 3,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 74.66,
+            "top": 128.97,
+            "width": 307.5,
+            "height": 301.44
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "礼仪\n对象性",
+          "font_size_pt": 26.66,
+          "bbox": {
+            "left": 418.95,
+            "top": 152.15,
+            "width": 97.46,
+            "height": 87.84
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 121.46,
+            "top": 175.0,
+            "width": 212.33,
+            "height": 212.33
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "添加\n标题",
+          "font_size_pt": 36.0,
+          "bbox": {
+            "left": 177.95,
+            "top": 226.47,
+            "width": 99.36,
+            "height": 116.08
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 628.23,
+            "top": -51.31,
+            "width": 67.88,
+            "height": 435.58
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 623.86,
+            "top": 172.02,
+            "width": 70.45,
+            "height": 441.76
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 653.55,
+            "top": 91.89,
+            "width": 67.4,
+            "height": 385.44
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 485.99,
+            "top": 142.17,
+            "width": 358.65,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "01",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 402.9,
+            "top": 134.99,
+            "width": 62.78,
+            "height": 62.78
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 396.92,
+            "top": 128.97,
+            "width": 75.03,
+            "height": 75.03
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本描述",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 547.4,
+            "top": 256.21,
+            "width": 308.46,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "02",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 463.75,
+            "top": 253.12,
+            "width": 62.78,
+            "height": 62.78
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 457.77,
+            "top": 247.1,
+            "width": 75.03,
+            "height": 75.03
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 486.26,
+            "top": 363.73,
+            "width": 379.01,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "03",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 404.53,
+            "top": 361.41,
+            "width": 62.78,
+            "height": 62.78
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 398.55,
+            "top": 355.38,
+            "width": 75.03,
+            "height": 75.03
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh17",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 4,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 584.8,
+            "top": 99.98,
+            "width": 199.04,
+            "height": 171.57
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 693.97,
+            "top": 269.06,
+            "width": 183.49,
+            "height": 170.97
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 491.08,
+            "top": 269.06,
+            "width": 183.6,
+            "height": 170.86
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 613.13,
+            "top": 251.1,
+            "width": 142.39,
+            "height": 142.39
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 28.0,
+          "bbox": {
+            "left": 652.29,
+            "top": 279.89,
+            "width": 97.25,
+            "height": 91.9
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "OPTION TWO",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 519.45,
+            "top": 363.35,
+            "width": 86.1,
+            "height": 61.67
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "OPTION ONE",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 639.2,
+            "top": 174.49,
+            "width": 86.1,
+            "height": 61.67
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "OPTION THREE",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 761.68,
+            "top": 363.35,
+            "width": 86.1,
+            "height": 61.67
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 76.75,
+            "top": 173.91,
+            "width": 408.06,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 76.75,
+            "top": 123.89,
+            "width": 160.33,
+            "height": 41.2
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 90.56,
+            "top": 127.54,
+            "width": 132.73,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 76.75,
+            "top": 286.22,
+            "width": 408.06,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 76.75,
+            "top": 236.2,
+            "width": 160.33,
+            "height": 41.2
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 90.56,
+            "top": 237.84,
+            "width": 132.73,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 76.75,
+            "top": 396.48,
+            "width": 408.06,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 76.75,
+            "top": 346.46,
+            "width": 160.33,
+            "height": 41.2
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 80.75,
+            "top": 349.11,
+            "width": 146.53,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh18",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 5,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 96.0,
+            "top": 241.1,
+            "width": 186.05,
+            "height": 66.55
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 91.95,
+            "top": 155.45,
+            "width": 71.68,
+            "height": 71.69
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 115.2,
+            "top": 269.61,
+            "width": 136.85,
+            "height": 28.89
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 297.43,
+            "top": 256.73,
+            "width": 176.83,
+            "height": 65.04
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 299.15,
+            "top": 343.1,
+            "width": 75.25,
+            "height": 75.35
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 306.8,
+            "top": 266.11,
+            "width": 145.4,
+            "height": 28.89
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 499.6,
+            "top": 244.05,
+            "width": 177.2,
+            "height": 63.4
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 492.05,
+            "top": 155.45,
+            "width": 71.15,
+            "height": 71.15
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 503.35,
+            "top": 268.11,
+            "width": 143.35,
+            "height": 28.89
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 708.35,
+            "top": 258.59,
+            "width": 177.01,
+            "height": 65.11
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 705.9,
+            "top": 343.1,
+            "width": 75.25,
+            "height": 75.4
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 714.46,
+            "top": 267.06,
+            "width": 154.19,
+            "height": 28.89
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "这里输入您的文字这里输入您的文字这里输入您的文字这里输入您的文字这里输入您这里输入您",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 96.9,
+            "top": 329.95,
+            "width": 179.95,
+            "height": 55.17
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "这里输入您的文字这里输入您的文字这里输入您的文字这里输入您的文字这里输入您这里输入您",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 302.45,
+            "top": 174.65,
+            "width": 178.5,
+            "height": 55.17
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "这里输入您的文字这里输入您的文字这里输入您的文字这里输入您的文字这里输入您这里输入您",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 500.95,
+            "top": 326.25,
+            "width": 170.85,
+            "height": 55.17
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "这里输入您的文字这里输入您的文字这里输入您的文字这里输入您的文字这里输入您这里输入您",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 713.1,
+            "top": 177.85,
+            "width": 184.8,
+            "height": 55.17
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh17",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 6,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 391.95,
+            "top": 179.88,
+            "width": 175.5,
+            "height": 199.17
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 554.92,
+            "top": 248.04,
+            "width": 61.49,
+            "height": 61.49
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 572.14,
+            "top": 265.29,
+            "width": 27.04,
+            "height": 27.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 502.38,
+            "top": 338.36,
+            "width": 61.49,
+            "height": 61.49
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 520.79,
+            "top": 355.58,
+            "width": 24.66,
+            "height": 27.04
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 343.86,
+            "top": 248.05,
+            "width": 61.49,
+            "height": 61.49
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 361.52,
+            "top": 265.27,
+            "width": 26.17,
+            "height": 27.04
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 501.48,
+            "top": 159.29,
+            "width": 61.49,
+            "height": 61.49
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 519.9,
+            "top": 176.51,
+            "width": 24.66,
+            "height": 27.04
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 397.29,
+            "top": 338.36,
+            "width": 61.49,
+            "height": 61.49
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 416.78,
+            "top": 355.58,
+            "width": 22.51,
+            "height": 27.04
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 396.4,
+            "top": 159.28,
+            "width": 61.49,
+            "height": 61.49
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 415.86,
+            "top": 176.51,
+            "width": 22.57,
+            "height": 27.04
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 629.16,
+            "top": 132.36,
+            "width": 197.0,
+            "height": 36.16
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 629.16,
+            "top": 375.92,
+            "width": 197.0,
+            "height": 36.16
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 133.79,
+            "top": 132.36,
+            "width": 197.0,
+            "height": 36.16
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "点击输入简要文字内容，文字内容需概括精炼，言简意赅的说明分项内容点击输入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 97.3,
+            "top": 163.99,
+            "width": 233.5,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 133.79,
+            "top": 375.92,
+            "width": 197.0,
+            "height": 36.16
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 629.16,
+            "top": 254.14,
+            "width": 197.0,
+            "height": 36.16
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 133.79,
+            "top": 254.14,
+            "width": 197.0,
+            "height": 36.16
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 454.11,
+            "top": 255.08,
+            "width": 48.01,
+            "height": 46.34
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "点击输入简要文字内容，文字内容需概括精炼，言简意赅的说明分项内容点击输入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 93.6,
+            "top": 286.03,
+            "width": 233.5,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "点击输入简要文字内容，文字内容需概括精炼，言简意赅的说明分项内容点击输入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 97.3,
+            "top": 407.54,
+            "width": 233.5,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh24",
+          "kind": "text",
+          "text": "点击输入简要文字内容，文字内容需概括精炼，言简意赅的说明分项内容点击输入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 628.6,
+            "top": 162.59,
+            "width": 233.5,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh25",
+          "kind": "text",
+          "text": "点击输入简要文字内容，文字内容需概括精炼，言简意赅的说明分项内容点击输入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 625.49,
+            "top": 283.55,
+            "width": 233.5,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh26",
+          "kind": "text",
+          "text": "点击输入简要文字内容，文字内容需概括精炼，言简意赅的说明分项内容点击输入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 633.05,
+            "top": 407.54,
+            "width": 233.5,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh27",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 7,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 79.33,
+            "top": 159.84,
+            "width": 198.43,
+            "height": 286.45
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh02",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 283.79,
+            "top": 159.84,
+            "width": 198.43,
+            "height": 286.45
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh03",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 488.26,
+            "top": 159.84,
+            "width": 198.43,
+            "height": 286.45
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh04",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 692.73,
+            "top": 159.84,
+            "width": 198.43,
+            "height": 286.45
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh05",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 8,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 562.52
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "工作完成情况",
+          "font_size_pt": 66.0,
+          "bbox": {
+            "left": 406.24,
+            "top": 244.43,
+            "width": 452.88,
+            "height": 89.41
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "A dream need to work out a summary report dream need to work out a need to work out a summary report summary.",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 452.76,
+            "top": 337.73,
+            "width": 406.36,
+            "height": 43.54
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "PART 02",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 640.28,
+            "top": 170.59,
+            "width": 214.47,
+            "height": 57.24
+          },
+          "text_type": "partNumber"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 159.88,
+            "top": 131.99,
+            "width": 113.84,
+            "height": 113.84
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 127.85,
+            "top": 377.04,
+            "width": 120.34,
+            "height": 120.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -150.1,
+            "top": 77.57,
+            "width": 222.66,
+            "height": 222.66
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 332.89,
+            "top": 68.55,
+            "width": 71.06,
+            "height": 71.06
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 253.34,
+            "top": 474.97,
+            "width": 162.07,
+            "height": 162.07
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -47.87,
+            "top": 465.79,
+            "width": 169.67,
+            "height": 169.67
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 196.7,
+            "top": 364.54,
+            "width": 63.3,
+            "height": 63.3
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 823.86,
+            "top": 481.33,
+            "width": 78.92,
+            "height": 10.89
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "唐峰",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 827.4,
+            "top": 47.77,
+            "width": 84.31,
+            "height": 45.96
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "section"
+    },
+    {
+      "index": 9,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "80",
+          "font_size_pt": 32.0,
+          "bbox": {
+            "left": 93.56,
+            "top": 134.99,
+            "width": 228.16,
+            "height": 328.7
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh02",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 62.54,
+            "top": 143.79,
+            "width": 292.58,
+            "height": 195.05
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "28%",
+          "font_size_pt": 28.0,
+          "bbox": {
+            "left": 174.77,
+            "top": 194.12,
+            "width": 81.21,
+            "height": 57.87
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 168.36,
+            "top": 248.5,
+            "width": 84.23,
+            "height": 23.06
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 119.68,
+            "top": 344.6,
+            "width": 188.11,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 628.35,
+            "top": 141.47,
+            "width": 228.16,
+            "height": 328.7
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 597.33,
+            "top": 150.28,
+            "width": 292.58,
+            "height": 195.05
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "28%",
+          "font_size_pt": 28.0,
+          "bbox": {
+            "left": 709.56,
+            "top": 200.61,
+            "width": 81.21,
+            "height": 57.87
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 703.15,
+            "top": 254.98,
+            "width": 84.23,
+            "height": 23.06
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 654.47,
+            "top": 351.09,
+            "width": 188.11,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 363.24,
+            "top": 161.18,
+            "width": 228.16,
+            "height": 328.7
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 332.22,
+            "top": 169.98,
+            "width": 292.58,
+            "height": 195.05
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "72%",
+          "font_size_pt": 28.0,
+          "bbox": {
+            "left": 444.45,
+            "top": 220.31,
+            "width": 81.21,
+            "height": 57.87
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 438.03,
+            "top": 274.68,
+            "width": 84.23,
+            "height": 23.06
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 389.36,
+            "top": 375.66,
+            "width": 188.11,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh16",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 10,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 423.31,
+            "top": 389.68,
+            "width": 113.39,
+            "height": 56.69
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 148.96,
+            "top": 130.69,
+            "width": 113.39,
+            "height": 56.69
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 646.63,
+            "top": 306.45,
+            "width": 113.39,
+            "height": 56.69
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 199.98,
+            "top": 306.45,
+            "width": 113.39,
+            "height": 56.69
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 697.66,
+            "top": 130.69,
+            "width": 113.39,
+            "height": 56.69
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 599.07,
+            "top": 159.03,
+            "width": 70.87,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 290.07,
+            "top": 159.03,
+            "width": 70.87,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 587.73,
+            "top": 272.43,
+            "width": 38.78,
+            "height": 29.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 480.0,
+            "top": 332.98,
+            "width": 0.0,
+            "height": 34.02
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 333.49,
+            "top": 272.43,
+            "width": 38.78,
+            "height": 29.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 380.79,
+            "top": 109.74,
+            "width": 198.43,
+            "height": 198.43
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 394.96,
+            "top": 124.26,
+            "width": 170.08,
+            "height": 170.08
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "添加\n标题",
+          "font_size_pt": 28.0,
+          "bbox": {
+            "left": 443.19,
+            "top": 167.83,
+            "width": 73.61,
+            "height": 91.9
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 434.36,
+            "top": 403.48,
+            "width": 91.28,
+            "height": 28.94
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 161.24,
+            "top": 144.49,
+            "width": 87.24,
+            "height": 28.94
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 657.68,
+            "top": 320.26,
+            "width": 91.28,
+            "height": 28.94
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 211.04,
+            "top": 320.26,
+            "width": 91.28,
+            "height": 28.94
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 708.71,
+            "top": 144.49,
+            "width": 91.28,
+            "height": 28.94
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 141.11,
+            "top": 192.14,
+            "width": 178.94,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 193.33,
+            "top": 367.0,
+            "width": 178.94,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 369.53,
+            "top": 452.76,
+            "width": 220.94,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 645.63,
+            "top": 367.0,
+            "width": 178.94,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 695.42,
+            "top": 192.14,
+            "width": 178.94,
+            "height": 43.54
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh24",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 11,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 301.0,
+            "top": 148.43,
+            "width": 169.28,
+            "height": 270.28
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 487.12,
+            "top": 145.22,
+            "width": 169.28,
+            "height": 270.28
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 677.63,
+            "top": 145.22,
+            "width": 169.28,
+            "height": 270.28
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 111.8,
+            "top": 148.43,
+            "width": 169.28,
+            "height": 270.28
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 180.09,
+            "top": 179.84,
+            "width": 29.43,
+            "height": 42.81
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 369.92,
+            "top": 180.11,
+            "width": 39.47,
+            "height": 39.63
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 750.52,
+            "top": 180.94,
+            "width": 39.8,
+            "height": 30.1
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 560.36,
+            "top": 180.97,
+            "width": 37.96,
+            "height": 29.77
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 163.45,
+            "top": 386.59,
+            "width": 69.97,
+            "height": 69.97
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 353.41,
+            "top": 384.14,
+            "width": 69.97,
+            "height": 69.97
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 541.12,
+            "top": 384.14,
+            "width": 69.97,
+            "height": 69.97
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 723.33,
+            "top": 384.14,
+            "width": 69.97,
+            "height": 69.97
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "1",
+          "font_size_pt": 40.0,
+          "bbox": {
+            "left": 152.17,
+            "top": 393.12,
+            "width": 91.55,
+            "height": 55.74
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "2",
+          "font_size_pt": 40.0,
+          "bbox": {
+            "left": 341.76,
+            "top": 391.68,
+            "width": 91.55,
+            "height": 55.74
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "3",
+          "font_size_pt": 40.0,
+          "bbox": {
+            "left": 529.0,
+            "top": 391.68,
+            "width": 91.55,
+            "height": 55.74
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "4",
+          "font_size_pt": 40.0,
+          "bbox": {
+            "left": 711.32,
+            "top": 390.31,
+            "width": 91.55,
+            "height": 55.74
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 140.48,
+            "top": 234.72,
+            "width": 115.0,
+            "height": 43.12
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "您的内容打在这里，或者通过复制您的文本后，在此框中选择粘贴，并选择只保留文字。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 126.49,
+            "top": 275.21,
+            "width": 142.98,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 332.24,
+            "top": 234.72,
+            "width": 115.0,
+            "height": 43.12
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "您的内容打在这里，或者通过复制您的文本后，在此框中选择粘贴，并选择只保留文字。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 318.25,
+            "top": 275.21,
+            "width": 142.98,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 511.13,
+            "top": 234.72,
+            "width": 115.0,
+            "height": 43.12
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "您的内容打在这里，或者通过复制您的文本后，在此框中选择粘贴，并选择只保留文字。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 497.14,
+            "top": 275.21,
+            "width": 142.98,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 706.9,
+            "top": 234.72,
+            "width": 115.0,
+            "height": 43.12
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh24",
+          "kind": "text",
+          "text": "您的内容打在这里，或者通过复制您的文本后，在此框中选择粘贴，并选择只保留文字。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 692.91,
+            "top": 275.21,
+            "width": 142.98,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh25",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 12,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.76,
+            "top": 252.57,
+            "width": 285.27,
+            "height": 190.18
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 351.19,
+            "top": 252.55,
+            "width": 257.62,
+            "height": 190.53
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 416.4,
+            "top": 287.1,
+            "width": 127.21,
+            "height": 33.32
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 382.53,
+            "top": 120.94,
+            "width": 194.95,
+            "height": 36.22
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本描述此处添加详细文本描述，建议与标题相关此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本描述此处添加详细文本描述，建议与标题相关",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.69,
+            "top": 168.23,
+            "width": 830.61,
+            "height": 68.42
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本描述此处添加详细文本描述，建议与标题相关此处添加详细文本描述",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 370.47,
+            "top": 329.81,
+            "width": 215.0,
+            "height": 102.2
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh07",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 610.08,
+            "top": 252.74,
+            "width": 285.05,
+            "height": 190.03
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 13,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 562.52
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "工作心得体会",
+          "font_size_pt": 66.0,
+          "bbox": {
+            "left": 406.24,
+            "top": 244.43,
+            "width": 452.88,
+            "height": 89.41
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "A dream need to work out a summary report dream need to work out a need to work out a summary report summary.",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 452.76,
+            "top": 337.73,
+            "width": 406.36,
+            "height": 43.54
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "PART 03",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 640.28,
+            "top": 170.59,
+            "width": 214.47,
+            "height": 57.24
+          },
+          "text_type": "partNumber"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 159.88,
+            "top": 131.99,
+            "width": 113.84,
+            "height": 113.84
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 127.85,
+            "top": 377.04,
+            "width": 120.34,
+            "height": 120.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -150.1,
+            "top": 77.57,
+            "width": 222.66,
+            "height": 222.66
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 332.89,
+            "top": 68.55,
+            "width": 71.06,
+            "height": 71.06
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 253.34,
+            "top": 474.97,
+            "width": 162.07,
+            "height": 162.07
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -47.87,
+            "top": 465.79,
+            "width": 169.67,
+            "height": 169.67
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 196.7,
+            "top": 364.54,
+            "width": 63.3,
+            "height": 63.3
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 823.86,
+            "top": 481.33,
+            "width": 78.92,
+            "height": 10.89
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "唐峰",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 827.4,
+            "top": 47.77,
+            "width": 84.31,
+            "height": 45.96
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "section"
+    },
+    {
+      "index": 14,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 67.82,
+            "top": 133.92,
+            "width": 181.35,
+            "height": 349.59
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh02",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 282.16,
+            "top": 133.92,
+            "width": 181.35,
+            "height": 349.59
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh03",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 495.58,
+            "top": 133.92,
+            "width": 181.42,
+            "height": 349.59
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh04",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 709.0,
+            "top": 133.92,
+            "width": 181.42,
+            "height": 349.59
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh05",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 146.88,
+            "top": 200.08,
+            "width": 24.25,
+            "height": 24.12
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh06",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 359.66,
+            "top": 195.69,
+            "width": 28.67,
+            "height": 32.91
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 570.6,
+            "top": 200.63,
+            "width": 33.8,
+            "height": 23.03
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 788.64,
+            "top": 200.63,
+            "width": 25.91,
+            "height": 23.03
+          },
+          "text_type": "icon"
+        },
+        {
+          "id": "sh09",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 71.36,
+            "top": 335.07,
+            "width": 171.74,
+            "height": 94.7
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh10",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 288.23,
+            "top": 335.07,
+            "width": 171.74,
+            "height": 94.7
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh11",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 504.29,
+            "top": 335.07,
+            "width": 171.74,
+            "height": 94.7
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 719.32,
+            "top": 335.07,
+            "width": 171.74,
+            "height": 94.7
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh13",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 15,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 81.01,
+            "top": 114.64,
+            "width": 797.98,
+            "height": 218.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 399.93,
+            "top": 117.84,
+            "width": 475.41,
+            "height": 211.32
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "100%",
+          "font_size_pt": 44.0,
+          "bbox": {
+            "left": 101.5,
+            "top": 134.6,
+            "width": 341.5,
+            "height": 94.1
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 109.21,
+            "top": 214.57,
+            "width": 191.15,
+            "height": 35.11
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格，语言描述尽量精简",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 109.21,
+            "top": 241.18,
+            "width": 292.5,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 117.04,
+            "top": 302.32,
+            "width": 49.0,
+            "height": 7.1
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 321.74,
+            "top": 360.49,
+            "width": 0.0,
+            "height": 98.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 599.74,
+            "top": 360.49,
+            "width": 0.0,
+            "height": 98.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 85.38,
+            "top": 380.48,
+            "width": 191.15,
+            "height": 35.11
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 85.38,
+            "top": 407.09,
+            "width": 221.99,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 353.23,
+            "top": 380.48,
+            "width": 191.15,
+            "height": 35.11
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 353.23,
+            "top": 407.09,
+            "width": 221.99,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 626.37,
+            "top": 380.48,
+            "width": 191.15,
+            "height": 35.11
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 626.37,
+            "top": 407.09,
+            "width": 221.99,
+            "height": 43.54
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh15",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 16,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 832.36,
+            "top": 320.14,
+            "width": 35.01,
+            "height": 26.3
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 596.15,
+            "top": 313.75,
+            "width": 31.1,
+            "height": 32.76
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 361.45,
+            "top": 313.75,
+            "width": 29.6,
+            "height": 30.2
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 714.83,
+            "top": 317.81,
+            "width": 30.5,
+            "height": 26.15
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 478.62,
+            "top": 309.07,
+            "width": 29.96,
+            "height": 34.89
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "用户可以在投影仪或者计算机上进行演示",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 347.05,
+            "top": 352.0,
+            "width": 105.6,
+            "height": 62.44
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "用户可以在投影仪或者计算机上进行演示",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 463.36,
+            "top": 352.0,
+            "width": 105.6,
+            "height": 62.44
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "用户可以在投影仪或者计算机上进行演示",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 581.88,
+            "top": 352.0,
+            "width": 105.6,
+            "height": 62.44
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "用户可以在投影仪或者计算机上进行演示",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 698.19,
+            "top": 352.0,
+            "width": 105.6,
+            "height": 62.44
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "用户可以在投影仪或者计算机上进行演示",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 816.76,
+            "top": 352.0,
+            "width": 105.6,
+            "height": 62.44
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh11",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 36.09,
+            "top": 180.49,
+            "width": 301.75,
+            "height": 257.14
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 346.01,
+            "top": 210.56,
+            "width": 561.82,
+            "height": 79.7
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 17,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 627.52,
+            "top": 122.44,
+            "width": 284.79,
+            "height": 284.79
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 448.56,
+            "top": 186.33,
+            "width": 389.57,
+            "height": 268.85
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本此处添加详细文本描述此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 50.67,
+            "top": 155.21,
+            "width": 355.55,
+            "height": 62.44
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "点击添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 50.55,
+            "top": 129.0,
+            "width": 148.75,
+            "height": 26.21
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 56.37,
+            "top": 250.92,
+            "width": 172.13,
+            "height": 190.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 251.84,
+            "top": 250.92,
+            "width": 172.13,
+            "height": 190.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 70.37,
+            "top": 312.71,
+            "width": 147.66,
+            "height": 81.35
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 70.25,
+            "top": 286.5,
+            "width": 111.43,
+            "height": 26.21
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格此处添加详细文本",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 263.07,
+            "top": 312.71,
+            "width": 147.66,
+            "height": 81.35
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 262.95,
+            "top": 286.5,
+            "width": 111.43,
+            "height": 26.21
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 378.98,
+            "top": 263.11,
+            "width": 25.98,
+            "height": 25.88
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 183.98,
+            "top": 259.22,
+            "width": 31.75,
+            "height": 29.77
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 491.49,
+            "top": 214.43,
+            "width": 302.3,
+            "height": 184.27
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 471.17,
+            "top": 359.47,
+            "width": 39.23,
+            "height": 39.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 18,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 562.52
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "未来规划展望",
+          "font_size_pt": 66.0,
+          "bbox": {
+            "left": 406.24,
+            "top": 244.43,
+            "width": 452.88,
+            "height": 89.41
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "A dream need to work out a summary report dream need to work out a need to work out a summary report summary.",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 452.76,
+            "top": 337.73,
+            "width": 406.36,
+            "height": 43.54
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "PART 04",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 640.28,
+            "top": 170.59,
+            "width": 214.47,
+            "height": 57.24
+          },
+          "text_type": "partNumber"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 159.88,
+            "top": 131.99,
+            "width": 113.84,
+            "height": 113.84
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 127.85,
+            "top": 377.04,
+            "width": 120.34,
+            "height": 120.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -150.1,
+            "top": 77.57,
+            "width": 222.66,
+            "height": 222.66
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 332.89,
+            "top": 68.55,
+            "width": 71.06,
+            "height": 71.06
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 253.34,
+            "top": 474.97,
+            "width": 162.07,
+            "height": 162.07
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": -47.87,
+            "top": 465.79,
+            "width": 169.67,
+            "height": 169.67
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 196.7,
+            "top": 364.54,
+            "width": 63.3,
+            "height": 63.3
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 823.86,
+            "top": 481.33,
+            "width": 78.92,
+            "height": 10.89
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "唐峰",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 827.4,
+            "top": 47.77,
+            "width": 84.31,
+            "height": 45.96
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "section"
+    },
+    {
+      "index": 19,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 117.61,
+            "top": 170.05,
+            "width": 140.23,
+            "height": 140.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 114.58,
+            "top": 165.0,
+            "width": 150.34,
+            "height": 150.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 141.34,
+            "top": 194.06,
+            "width": 92.23,
+            "height": 92.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 123.94,
+            "top": 329.97,
+            "width": 131.62,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 311.11,
+            "top": 170.05,
+            "width": 140.23,
+            "height": 140.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 308.08,
+            "top": 165.0,
+            "width": 150.34,
+            "height": 150.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 334.84,
+            "top": 194.06,
+            "width": 92.23,
+            "height": 92.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 317.44,
+            "top": 329.97,
+            "width": 131.62,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 504.61,
+            "top": 170.05,
+            "width": 140.23,
+            "height": 140.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 501.58,
+            "top": 165.0,
+            "width": 150.34,
+            "height": 150.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 528.34,
+            "top": 194.06,
+            "width": 92.23,
+            "height": 92.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 510.94,
+            "top": 329.97,
+            "width": 131.62,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 698.11,
+            "top": 170.05,
+            "width": 140.23,
+            "height": 140.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 695.08,
+            "top": 165.0,
+            "width": 150.34,
+            "height": 150.34
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 721.84,
+            "top": 194.06,
+            "width": 92.23,
+            "height": 92.23
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh16",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 704.44,
+            "top": 329.97,
+            "width": 131.62,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "63%",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 160.46,
+            "top": 225.11,
+            "width": 58.59,
+            "height": 36.22
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "42%",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 353.96,
+            "top": 225.11,
+            "width": 58.59,
+            "height": 36.22
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "80%",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 547.46,
+            "top": 225.11,
+            "width": 58.59,
+            "height": 36.22
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "88%",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 744.69,
+            "top": 224.34,
+            "width": 60.01,
+            "height": 36.22
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh21",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 106.29,
+            "top": 346.39,
+            "width": 166.92,
+            "height": 115.71
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh22",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 299.79,
+            "top": 346.39,
+            "width": 166.92,
+            "height": 115.71
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh23",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 493.29,
+            "top": 346.39,
+            "width": 166.92,
+            "height": 115.71
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh24",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 691.24,
+            "top": 346.39,
+            "width": 166.92,
+            "height": 115.71
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh25",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 20,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 100.53,
+            "top": 181.71,
+            "width": 370.82,
+            "height": 61.68
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh02",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 514.8,
+            "top": 181.71,
+            "width": 370.15,
+            "height": 61.68
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh03",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 100.53,
+            "top": 283.06,
+            "width": 370.82,
+            "height": 61.47
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh04",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 514.8,
+            "top": 283.06,
+            "width": 370.15,
+            "height": 61.47
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh05",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 100.53,
+            "top": 384.3,
+            "width": 370.82,
+            "height": 61.47
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh06",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 514.8,
+            "top": 384.3,
+            "width": 370.15,
+            "height": 61.47
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 21,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 85.71,
+            "top": 165.54,
+            "width": 167.54,
+            "height": 167.54
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 294.73,
+            "top": 165.54,
+            "width": 167.54,
+            "height": 167.54
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 502.15,
+            "top": 165.67,
+            "width": 167.54,
+            "height": 167.54
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 715.96,
+            "top": 165.67,
+            "width": 167.54,
+            "height": 167.54
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 109.35,
+            "top": 315.73,
+            "width": 136.51,
+            "height": 31.5
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文请",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 95.79,
+            "top": 375.3,
+            "width": 163.62,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 308.29,
+            "top": 315.73,
+            "width": 136.51,
+            "height": 31.5
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文请",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 294.73,
+            "top": 375.3,
+            "width": 163.62,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 519.62,
+            "top": 315.73,
+            "width": 136.51,
+            "height": 31.5
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文请",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 506.07,
+            "top": 375.3,
+            "width": 163.62,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 729.52,
+            "top": 315.73,
+            "width": 136.51,
+            "height": 31.5
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文字说明请在此添加文请",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 715.96,
+            "top": 375.3,
+            "width": 163.62,
+            "height": 81.35
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh13",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 22,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 696.88,
+            "top": 211.99,
+            "width": 36.5,
+            "height": 164.11
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 538.53,
+            "top": 211.99,
+            "width": 36.5,
+            "height": 164.11
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 380.18,
+            "top": 211.99,
+            "width": 36.5,
+            "height": 164.11
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 221.78,
+            "top": 211.99,
+            "width": 36.5,
+            "height": 164.11
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 62.0,
+            "top": 211.22,
+            "width": 196.16,
+            "height": 36.85
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 97.55,
+            "top": 211.87,
+            "width": 125.05,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 696.0,
+            "top": 211.22,
+            "width": 196.16,
+            "height": 36.85
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 731.55,
+            "top": 211.87,
+            "width": 125.05,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh09",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 379.0,
+            "top": 211.22,
+            "width": 196.16,
+            "height": 36.85
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 414.55,
+            "top": 211.87,
+            "width": 125.05,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh11",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 221.0,
+            "top": 341.22,
+            "width": 196.16,
+            "height": 36.85
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 256.55,
+            "top": 341.87,
+            "width": 125.05,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh13",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 537.0,
+            "top": 341.22,
+            "width": 196.16,
+            "height": 36.85
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "添加标题",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 572.55,
+            "top": 341.87,
+            "width": 125.05,
+            "height": 36.22
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 67.83,
+            "top": 150.58,
+            "width": 186.4,
+            "height": 36.27
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh16",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 615.0,
+            "top": 277.44,
+            "width": 40.05,
+            "height": 38.28
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh17",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 773.0,
+            "top": 277.44,
+            "width": 40.05,
+            "height": 38.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 457.0,
+            "top": 277.44,
+            "width": 40.05,
+            "height": 38.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh19",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 140.0,
+            "top": 277.44,
+            "width": 40.05,
+            "height": 38.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh20",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 298.0,
+            "top": 277.44,
+            "width": 40.05,
+            "height": 38.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 384.4,
+            "top": 150.58,
+            "width": 186.4,
+            "height": 36.27
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 700.97,
+            "top": 150.58,
+            "width": 186.4,
+            "height": 36.27
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 226.05,
+            "top": 388.58,
+            "width": 186.4,
+            "height": 36.27
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh24",
+          "kind": "text",
+          "text": "此处添加详细文本描述，建议与标题相关并符合整体语言风格",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 542.75,
+            "top": 389.36,
+            "width": 186.4,
+            "height": 36.27
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh25",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 23,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "版权声明\n\n感谢您下载平台上提供的PPT作品，为了您和唐峰设计以及原创作者的利益，请勿复制、传播、销售，否则将承担法律责任！唐峰设计将对作品进行维权，按照传播下载次数进行十倍的索取赔偿！\n\n1.在唐峰设计出售的PPT模板是免版税类（RF：Royalty-Free）正版受《中国人民共和国著作法》和《世界版权公约》的保护，作品的所有权、版权和著作权归唐峰设计所有，您下载的是PPT模板素材的使用权。\n2.不得将唐峰设计的PPT模板、PPT素材，本身用于再出售，或者出租、出借、转让、分销、发布或者作为礼物供他人使用，不得转授权、出卖、转让本协议或者本协议中的权利。",
+          "font_size_pt": 16.571428571428573,
+          "bbox": {
+            "left": 124.71,
+            "top": 67.63,
+            "width": 710.57,
+            "height": 315.65
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "更多精品PPT模板：http://www.tukupptTANGFENG/ppt/",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 124.71,
+            "top": 427.84,
+            "width": 574.57,
+            "height": 28.8
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh03",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 727.87,
+            "top": 427.84,
+            "width": 107.41,
+            "height": 29.08
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 44.37,
+            "top": 45.21,
+            "width": 913.52,
+            "height": 556.04
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 24,
+      "page_type": "end",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "image",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 960.0,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "title",
+          "text": "工作述职报告",
+          "font_size_pt": 80.0,
+          "bbox": {
+            "left": 43.87,
+            "top": 184.71,
+            "width": 526.63,
+            "height": 92.6
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "Never forget what you are, for surely the world will not. Make it your strength. Never forget what you are , for surely the world will not. Never forget what you are, for surely the world will not.",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 45.68,
+            "top": 305.16,
+            "width": 518.14,
+            "height": 35.56
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "WORK SUMMARY",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 44.42,
+            "top": 134.55,
+            "width": 220.18,
+            "height": 31.67
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "总结计划|工作总结|工作计划|工作汇报",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 44.42,
+            "top": 270.73,
+            "width": 518.97,
+            "height": 29.49
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "唐峰",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 43.27,
+            "top": 47.77,
+            "width": 84.31,
+            "height": 45.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh07",
+          "kind": "shape",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 52.94,
+            "top": 481.33,
+            "width": 78.92,
+            "height": 10.89
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "汇报人：XXX",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 51.18,
+            "top": 356.07,
+            "width": 146.95,
+            "height": 40.89
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "汇报日期：2XXX",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 220.63,
+            "top": 356.07,
+            "width": 146.95,
+            "height": 40.89
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 629.31,
+            "top": 135.46,
+            "width": 214.51,
+            "height": 214.51
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 919.91,
+            "top": 287.27,
+            "width": 83.38,
+            "height": 83.38
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 505.16,
+            "top": 482.06,
+            "width": 134.19,
+            "height": 134.19
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 588.01,
+            "top": 454.53,
+            "width": 71.06,
+            "height": 71.06
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 848.6,
+            "top": 367.82,
+            "width": 61.24,
+            "height": 61.24
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 771.04,
+            "top": 104.37,
+            "width": 112.59,
+            "height": 112.59
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 526.54,
+            "top": -128.82,
+            "width": 214.51,
+            "height": 214.51
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    }
+  ]
+}

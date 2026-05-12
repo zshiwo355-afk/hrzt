@@ -1,0 +1,2852 @@
+{
+  "version": 1,
+  "theme": {
+    "color": "#8d8d8d"
+  },
+  "slide_size": {
+    "width_pt": 959.98,
+    "height_pt": 540.0
+  },
+  "slides": [
+    {
+      "index": 0,
+      "page_type": "cover",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 610.56,
+            "top": 0.0,
+            "width": 349.2,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 610.56,
+            "top": 241.2,
+            "width": 349.2,
+            "height": 298.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 529.2,
+            "top": 335.52,
+            "width": 248.4,
+            "height": 248.4
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 56.16,
+            "top": 102.96,
+            "width": 30.24,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "洞察趋势 / 辅助决策 / 关注落地",
+          "font_size_pt": 11.0,
+          "bbox": {
+            "left": 56.16,
+            "top": 122.4,
+            "width": 259.2,
+            "height": 18.0
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "AI行业周报",
+          "font_size_pt": 42.0,
+          "bbox": {
+            "left": 54.72,
+            "top": 178.56,
+            "width": 424.8,
+            "height": 64.8
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 56.16,
+            "top": 270.0,
+            "width": 237.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 56.16,
+            "top": 270.0,
+            "width": 36.0,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "高级简约深色系汇报模板",
+          "font_size_pt": 17.0,
+          "bbox": {
+            "left": 56.16,
+            "top": 295.2,
+            "width": 309.6,
+            "height": 23.04
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "汇报人：XXX",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 56.16,
+            "top": 437.76,
+            "width": 129.6,
+            "height": 14.4
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "|",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 180.0,
+            "top": 437.76,
+            "width": 10.8,
+            "height": 14.4
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "2026.05",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 200.16,
+            "top": 437.76,
+            "width": 86.4,
+            "height": 14.4
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "01",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 882.0,
+            "top": 457.2,
+            "width": 21.6,
+            "height": 15.84
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh15",
+          "kind": "placeholder",
+          "text": "1",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "cover"
+    },
+    {
+      "index": 1,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "本期目录",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "02",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "01",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 68.4,
+            "top": 118.8,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 118.8,
+            "top": 128.16,
+            "width": 75.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "一周核心结论",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 147.6,
+            "top": 116.64,
+            "width": 216.0,
+            "height": 24.48
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "先给判断，再展开依据",
+          "font_size_pt": 11.0,
+          "bbox": {
+            "left": 372.96,
+            "top": 120.24,
+            "width": 324.0,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "02",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 68.4,
+            "top": 200.16,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 118.8,
+            "top": 209.52,
+            "width": 75.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "重点事件拆解",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 147.6,
+            "top": 198.0,
+            "width": 216.0,
+            "height": 24.48
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "按影响力排序，控制信息密度",
+          "font_size_pt": 11.0,
+          "bbox": {
+            "left": 372.96,
+            "top": 201.6,
+            "width": 324.0,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "03",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 68.4,
+            "top": 281.52,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 118.8,
+            "top": 290.88,
+            "width": 75.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "机会与风险",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 147.6,
+            "top": 279.36,
+            "width": 216.0,
+            "height": 24.48
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "站在业务和管理视角看变化",
+          "font_size_pt": 11.0,
+          "bbox": {
+            "left": 372.96,
+            "top": 282.96,
+            "width": 324.0,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "04",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 68.4,
+            "top": 362.88,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 118.8,
+            "top": 372.24,
+            "width": 75.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "下一步建议",
+          "font_size_pt": 20.0,
+          "bbox": {
+            "left": 147.6,
+            "top": 360.72,
+            "width": 216.0,
+            "height": 24.48
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "给老板可拍板的行动项",
+          "font_size_pt": 11.0,
+          "bbox": {
+            "left": 372.96,
+            "top": 364.32,
+            "width": 324.0,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 684.0,
+            "top": 104.4,
+            "width": 180.0,
+            "height": 327.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "阅读逻辑",
+          "font_size_pt": 15.0,
+          "bbox": {
+            "left": 709.92,
+            "top": 133.92,
+            "width": 100.8,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh24",
+          "kind": "text",
+          "text": "像公众号文章一样\n“先结论、再分段、最后给建议”\n但保持PPT的克制和高级感。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 709.92,
+            "top": 176.4,
+            "width": 126.0,
+            "height": 86.4
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh25",
+          "kind": "placeholder",
+          "text": "2",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "noop"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 2,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "老板先看：3个核心判断",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "03",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 104.4,
+            "width": 788.4,
+            "height": 75.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "01",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 84.96,
+            "top": 128.16,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "判断一",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 138.96,
+            "top": 120.96,
+            "width": 93.6,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "AI竞争从模型能力，转向“算力 + 产品化 + 分发渠道”的综合竞争。",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 255.6,
+            "top": 122.4,
+            "width": 547.2,
+            "height": 32.4
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 208.8,
+            "width": 788.4,
+            "height": 75.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "02",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 84.96,
+            "top": 232.56,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "判断二",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 138.96,
+            "top": 225.36,
+            "width": 93.6,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "Agent正在进入可执行任务阶段，但权限、安全和成本控制会成为落地门槛。",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 255.6,
+            "top": 226.8,
+            "width": 547.2,
+            "height": 32.4
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 313.2,
+            "width": 788.4,
+            "height": 75.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "03",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 84.96,
+            "top": 336.96,
+            "width": 39.6,
+            "height": 18.0
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "判断三",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 138.96,
+            "top": 329.76,
+            "width": 93.6,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "企业应用会先在研发、客服、内容、投研等高频场景出现确定性收益。",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 255.6,
+            "top": 331.2,
+            "width": 547.2,
+            "height": 32.4
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "适用：周报 / 月报 / 战略简报 / 行业观察",
+          "font_size_pt": 9.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 459.36,
+            "width": 374.4,
+            "height": 15.84
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh19",
+          "kind": "placeholder",
+          "text": "3",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 3,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "公众号文章式排版：标题 + 摘要 + 正文卡片",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "04",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "partNumber"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "事件标题｜这里放一句最关键的信息",
+          "font_size_pt": 26.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 104.4,
+            "width": 482.4,
+            "height": 32.4
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "用一句话说明：这件事对行业、公司或业务有什么直接影响。避免堆砌新闻细节。",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 66.24,
+            "top": 146.88,
+            "width": 597.6,
+            "height": 21.6
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 190.8,
+            "width": 813.6,
+            "height": 208.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "发生了什么",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 90.0,
+            "top": 214.56,
+            "width": 93.6,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "一句话概括事实背景，控制在一行半以内。\n补充关键数字、合作方、时间点或政策变化。\n最后落到“这对我们意味着什么”。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 90.0,
+            "top": 248.4,
+            "width": 374.4,
+            "height": 111.6
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 485.28,
+            "top": 219.6,
+            "width": 0.0,
+            "height": 136.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "为什么重要",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 514.8,
+            "top": 214.56,
+            "width": 108.0,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "站在老板视角：成本、效率、机会、风险。\n尽量少讲概念，多讲决策影响。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 514.8,
+            "top": 248.4,
+            "width": 302.4,
+            "height": 86.4
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh14",
+          "kind": "placeholder",
+          "text": "4",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 4,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "重点事件：三卡片信息流",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "05",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 111.6,
+            "width": 241.2,
+            "height": 334.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 84.96,
+            "top": 136.8,
+            "width": 64.8,
+            "height": 21.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "TOP 01",
+          "font_size_pt": 7.0,
+          "bbox": {
+            "left": 93.6,
+            "top": 142.2,
+            "width": 47.52,
+            "height": 8.64
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "算力扩张",
+          "font_size_pt": 21.0,
+          "bbox": {
+            "left": 84.96,
+            "top": 177.12,
+            "width": 180.0,
+            "height": 25.2
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "大模型公司继续争夺GPU、数据中心与网络能力。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 84.96,
+            "top": 221.76,
+            "width": 183.6,
+            "height": 63.36
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 84.96,
+            "top": 313.92,
+            "width": 183.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "影响：服务容量、训练速度、单位成本。",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 84.96,
+            "top": 342.0,
+            "width": 183.6,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 338.4,
+            "top": 111.6,
+            "width": 241.2,
+            "height": 334.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 358.56,
+            "top": 136.8,
+            "width": 64.8,
+            "height": 21.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "TOP 02",
+          "font_size_pt": 7.0,
+          "bbox": {
+            "left": 367.2,
+            "top": 142.2,
+            "width": 47.52,
+            "height": 8.64
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "Agent落地",
+          "font_size_pt": 21.0,
+          "bbox": {
+            "left": 358.56,
+            "top": 177.12,
+            "width": 180.0,
+            "height": 25.2
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "从聊天助手走向工具调用、流程执行和长期任务。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 358.56,
+            "top": 221.76,
+            "width": 183.6,
+            "height": 63.36
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 358.56,
+            "top": 313.92,
+            "width": 183.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "影响：办公、研发、客服流程重构。",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 358.56,
+            "top": 342.0,
+            "width": 183.6,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 612.0,
+            "top": 111.6,
+            "width": 241.2,
+            "height": 334.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 632.16,
+            "top": 136.8,
+            "width": 64.8,
+            "height": 21.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "TOP 03",
+          "font_size_pt": 7.0,
+          "bbox": {
+            "left": 640.8,
+            "top": 142.2,
+            "width": 47.52,
+            "height": 8.64
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "安全治理",
+          "font_size_pt": 21.0,
+          "bbox": {
+            "left": 632.16,
+            "top": 177.12,
+            "width": 180.0,
+            "height": 25.2
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh24",
+          "kind": "text",
+          "text": "模型接入外部系统后，权限和审计问题更突出。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 632.16,
+            "top": 221.76,
+            "width": 183.6,
+            "height": 63.36
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh25",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 632.16,
+            "top": 313.92,
+            "width": 183.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh26",
+          "kind": "text",
+          "text": "影响：企业采购门槛提高。",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 632.16,
+            "top": 342.0,
+            "width": 183.6,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh27",
+          "kind": "placeholder",
+          "text": "5",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 5,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 300.96,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 300.96,
+            "top": 61.2,
+            "width": 0.86,
+            "height": 417.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "PART 01",
+          "font_size_pt": 9.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 97.2,
+            "width": 115.2,
+            "height": 15.84
+          },
+          "text_type": "partNumber"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "核心事件拆解",
+          "font_size_pt": 28.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 149.76,
+            "width": 216.0,
+            "height": 39.6
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "每页只讲一个观点，像文章小节一样推进。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 212.4,
+            "width": 180.0,
+            "height": 37.44
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "从“发生了什么”到“为何重要”，最后落到“对业务的影响”。",
+          "font_size_pt": 21.0,
+          "bbox": {
+            "left": 367.2,
+            "top": 156.96,
+            "width": 374.4,
+            "height": 48.96
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 367.2,
+            "top": 231.84,
+            "width": 327.6,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "建议保留这一页作为章节页，汇报时可以自然停顿，避免信息连续轰炸。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 367.2,
+            "top": 262.8,
+            "width": 345.6,
+            "height": 46.8
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh11",
+          "kind": "placeholder",
+          "text": "6",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 6,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "一周时间线：按时间展示脉络",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "07",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 273.6,
+            "width": 770.4,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 71.64,
+            "top": 269.64,
+            "width": 7.92,
+            "height": 7.92
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "5/01",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 57.6,
+            "top": 228.96,
+            "width": 46.8,
+            "height": 14.4
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "政策与合作",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 36.0,
+            "top": 299.52,
+            "width": 82.8,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 264.6,
+            "top": 269.64,
+            "width": 7.92,
+            "height": 7.92
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "5/03",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 250.56,
+            "top": 228.96,
+            "width": 46.8,
+            "height": 14.4
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "产品更新",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 228.96,
+            "top": 299.52,
+            "width": 82.8,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 457.56,
+            "top": 269.64,
+            "width": 7.92,
+            "height": 7.92
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "5/05",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 443.52,
+            "top": 228.96,
+            "width": 46.8,
+            "height": 14.4
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "模型发布",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 421.92,
+            "top": 299.52,
+            "width": 82.8,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 650.52,
+            "top": 269.64,
+            "width": 7.92,
+            "height": 7.92
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "5/06",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 636.48,
+            "top": 228.96,
+            "width": 46.8,
+            "height": 14.4
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "算力/Agent",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 614.88,
+            "top": 299.52,
+            "width": 82.8,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 843.48,
+            "top": 269.64,
+            "width": 7.92,
+            "height": 7.92
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "5/07",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 829.44,
+            "top": 228.96,
+            "width": 46.8,
+            "height": 14.4
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "安全风险",
+          "font_size_pt": 11.5,
+          "bbox": {
+            "left": 807.84,
+            "top": 299.52,
+            "width": 82.8,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh22",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 79.2,
+            "top": 374.4,
+            "width": 734.4,
+            "height": 54.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh23",
+          "kind": "text",
+          "text": "使用建议：时间线页不要写满细节，只承担“帮助老板建立顺序感”的作用。",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 104.4,
+            "top": 392.4,
+            "width": 633.6,
+            "height": 15.84
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh24",
+          "kind": "placeholder",
+          "text": "7",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 7,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "数据/指标页：少图表，强结论",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "08",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "把数字变成判断，不要把图表变成截图墙。",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 96.48,
+            "width": 374.4,
+            "height": 25.2
+          },
+          "text_type": "subtitle"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 64.8,
+            "top": 144.0,
+            "width": 288.0,
+            "height": 237.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "3.2x",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 90.0,
+            "top": 178.56,
+            "width": 201.6,
+            "height": 30.24
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "示例：模型调用量环比增长",
+          "font_size_pt": 9.5,
+          "bbox": {
+            "left": 90.0,
+            "top": 214.56,
+            "width": 201.6,
+            "height": 15.84
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "-18%",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 90.0,
+            "top": 255.6,
+            "width": 223.2,
+            "height": 30.24
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "示例：单位内容生产成本下降",
+          "font_size_pt": 9.5,
+          "bbox": {
+            "left": 90.0,
+            "top": 291.6,
+            "width": 223.2,
+            "height": 15.84
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "72h",
+          "font_size_pt": 24.0,
+          "bbox": {
+            "left": 90.0,
+            "top": 332.64,
+            "width": 223.2,
+            "height": 30.24
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "示例：从调研到交付的周期缩短",
+          "font_size_pt": 9.5,
+          "bbox": {
+            "left": 90.0,
+            "top": 368.64,
+            "width": 223.2,
+            "height": 15.84
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 385.2,
+            "top": 144.0,
+            "width": 457.2,
+            "height": 237.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "管理层解读",
+          "font_size_pt": 15.0,
+          "bbox": {
+            "left": 410.4,
+            "top": 178.56,
+            "width": 108.0,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "优先关注“效率提升”和“成本变化”，比单纯追热点更有价值。\n每个数字后面必须跟一句业务解释。\n图表数量建议控制在1个以内，重点突出结论。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 410.4,
+            "top": 217.44,
+            "width": 352.8,
+            "height": 115.2
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh17",
+          "kind": "placeholder",
+          "text": "8",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 8,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "机会与风险矩阵",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "09",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 111.6,
+            "width": 770.4,
+            "height": 356.4
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 460.8,
+            "top": 140.4,
+            "width": 0.0,
+            "height": 291.6
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 111.6,
+            "top": 288.0,
+            "width": 698.4,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "高机会 / 高确定性",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 133.2,
+            "top": 152.64,
+            "width": 158.4,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "优先试点\n内容生产、客服知识库、研发辅助",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 133.2,
+            "top": 188.64,
+            "width": 230.4,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "高机会 / 高风险",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 488.16,
+            "top": 152.64,
+            "width": 158.4,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "谨慎推进\n外部工具调用、自动执行、敏感数据接入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 488.16,
+            "top": 188.64,
+            "width": 244.8,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "低机会 / 高确定性",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 133.2,
+            "top": 313.2,
+            "width": 158.4,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "低优先级\n只做流程优化，不做大投入",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 133.2,
+            "top": 349.2,
+            "width": 223.2,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "低机会 / 高风险",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 488.16,
+            "top": 313.2,
+            "width": 158.4,
+            "height": 18.0
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "暂缓\n无法量化收益且合规不清晰",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 488.16,
+            "top": 349.2,
+            "width": 237.6,
+            "height": 39.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh17",
+          "kind": "placeholder",
+          "text": "9",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 9,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "金句页 / 观点页",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "10",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "“AI不是单点工具升级，\n而是业务流程重新设计的起点。”",
+          "font_size_pt": 30.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 145.44,
+            "width": 640.8,
+            "height": 97.2
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 77.76,
+            "top": 277.92,
+            "width": 50.4,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "这类页面适合放在章节结尾，用一句话帮助老板记住核心观点。",
+          "font_size_pt": 13.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 309.6,
+            "width": 381.6,
+            "height": 23.04
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 640.8,
+            "top": 123.84,
+            "width": 183.6,
+            "height": 277.2
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "适合内容",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 666.0,
+            "top": 154.8,
+            "width": 93.6,
+            "height": 15.84
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "核心判断\n战略观点\n风险提示\n汇报结论",
+          "font_size_pt": 15.0,
+          "bbox": {
+            "left": 666.0,
+            "top": 198.0,
+            "width": 111.6,
+            "height": 93.6
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh12",
+          "kind": "placeholder",
+          "text": "10",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 10,
+      "page_type": "content",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 51.84,
+            "top": 37.44,
+            "width": 856.8,
+            "height": 0.72
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "AI INDUSTRY WEEKLY",
+          "font_size_pt": 6.5,
+          "bbox": {
+            "left": 54.0,
+            "top": 25.2,
+            "width": 172.8,
+            "height": 12.96
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "下一步建议：让汇报可执行",
+          "font_size_pt": 18.0,
+          "bbox": {
+            "left": 54.0,
+            "top": 46.8,
+            "width": 475.2,
+            "height": 30.24
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "11",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 853.2,
+            "top": 38.88,
+            "width": 46.8,
+            "height": 24.48
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "01",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 117.36,
+            "width": 36.0,
+            "height": 15.84
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "先选场景",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 128.16,
+            "top": 110.16,
+            "width": 122.4,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "选择一个高频、低风险、有明确ROI的AI应用场景。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 262.8,
+            "top": 113.04,
+            "width": 496.8,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh09",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 164.16,
+            "width": 712.8,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh10",
+          "kind": "text",
+          "text": "02",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 196.56,
+            "width": 36.0,
+            "height": 15.84
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh11",
+          "kind": "text",
+          "text": "小范围试点",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 128.16,
+            "top": 189.36,
+            "width": 122.4,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh12",
+          "kind": "text",
+          "text": "两周内完成流程测试，衡量效率、质量和成本变化。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 262.8,
+            "top": 192.24,
+            "width": 496.8,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh13",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 243.36,
+            "width": 712.8,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh14",
+          "kind": "text",
+          "text": "03",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 275.76,
+            "width": 36.0,
+            "height": 15.84
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh15",
+          "kind": "text",
+          "text": "建立边界",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 128.16,
+            "top": 268.56,
+            "width": 122.4,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh16",
+          "kind": "text",
+          "text": "同步制定数据权限、人工复核和结果追责机制。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 262.8,
+            "top": 271.44,
+            "width": 496.8,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh17",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 322.56,
+            "width": 712.8,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh18",
+          "kind": "text",
+          "text": "04",
+          "font_size_pt": 12.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 354.96,
+            "width": 36.0,
+            "height": 15.84
+          },
+          "text_type": "itemNumber"
+        },
+        {
+          "id": "sh19",
+          "kind": "text",
+          "text": "复盘扩展",
+          "font_size_pt": 16.0,
+          "bbox": {
+            "left": 128.16,
+            "top": 347.76,
+            "width": 122.4,
+            "height": 21.6
+          },
+          "text_type": "itemTitle"
+        },
+        {
+          "id": "sh20",
+          "kind": "text",
+          "text": "用试点结果决定是否进入部门级推广。",
+          "font_size_pt": 12.5,
+          "bbox": {
+            "left": 262.8,
+            "top": 350.64,
+            "width": 496.8,
+            "height": 20.16
+          },
+          "text_type": "item"
+        },
+        {
+          "id": "sh21",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 75.6,
+            "top": 401.76,
+            "width": 712.8,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh22",
+          "kind": "placeholder",
+          "text": "11",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "content"
+    },
+    {
+      "index": 11,
+      "page_type": "end",
+      "elements": [
+        {
+          "id": "sh01",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 0.0,
+            "top": 0.0,
+            "width": 959.98,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh02",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 610.56,
+            "top": 0.0,
+            "width": 349.2,
+            "height": 540.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh03",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 610.56,
+            "top": 241.2,
+            "width": 349.2,
+            "height": 298.8
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh04",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 529.2,
+            "top": 335.52,
+            "width": 248.4,
+            "height": 248.4
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh05",
+          "kind": "text",
+          "text": "THANK YOU",
+          "font_size_pt": 32.0,
+          "bbox": {
+            "left": 61.2,
+            "top": 176.4,
+            "width": 338.4,
+            "height": 39.6
+          },
+          "text_type": "title"
+        },
+        {
+          "id": "sh06",
+          "kind": "text",
+          "text": "",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 63.36,
+            "top": 236.16,
+            "width": 72.0,
+            "height": 0.0
+          },
+          "text_type": "noop"
+        },
+        {
+          "id": "sh07",
+          "kind": "text",
+          "text": "附录可放：新闻来源、数据口径、完整事件列表。",
+          "font_size_pt": 14.0,
+          "bbox": {
+            "left": 63.36,
+            "top": 270.0,
+            "width": 345.6,
+            "height": 23.04
+          },
+          "text_type": "content"
+        },
+        {
+          "id": "sh08",
+          "kind": "text",
+          "text": "高级简约深色系PPT模板",
+          "font_size_pt": 10.0,
+          "bbox": {
+            "left": 63.36,
+            "top": 449.28,
+            "width": 216.0,
+            "height": 15.84
+          },
+          "text_type": "decoration"
+        },
+        {
+          "id": "sh09",
+          "kind": "placeholder",
+          "text": "12",
+          "font_size_pt": 0.0,
+          "bbox": {
+            "left": 907.2,
+            "top": 505.44,
+            "width": 62.99,
+            "height": 23.62
+          },
+          "text_type": "decoration"
+        }
+      ],
+      "layout_kind": "end"
+    }
+  ]
+}

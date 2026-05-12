@@ -1,0 +1,43 @@
+# Secrets / local environment
+.env
+.env.*
+!.env.example
+
+# Runtime user data
+uploads/
+
+# Python / virtualenv / caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+.venv.bak/
+venv/
+env/
+ENV/
+
+# Local model/cache data
+data/model_cache/
+
+# Build / release archives and large local source bundles
+*.zip
+*.rar
+*.gz
+*.7z
+*.tar
+
+# macOS / editors
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local scratch
+Untitled
