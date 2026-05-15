@@ -564,6 +564,7 @@
     const chatTitle = document.getElementById("chatTitle");
     const chatSub = document.getElementById("chatSub");
     const chatFeed = document.getElementById("chatFeed");
+    const composerEl = document.querySelector(".composer");
     const scrollToBottomBtn = document.getElementById("scrollToBottomBtn");
     const chatWrap = document.getElementById("chatWrap");
     const statusText = document.getElementById("statusText");
@@ -588,6 +589,14 @@
     const projectArchiveChatTitle = document.getElementById("projectArchiveChatTitle");
     const projectArchiveSubtitle = document.getElementById("projectArchiveSubtitle");
     const projectArchiveFeedback = document.getElementById("projectArchiveFeedback");
+    const projectEditorModal = document.getElementById("projectEditorModal");
+    const projectEditorTitle = document.getElementById("projectEditorTitle");
+    const projectEditorSubtitle = document.getElementById("projectEditorSubtitle");
+    const projectEditorName = document.getElementById("projectEditorName");
+    const projectEditorFeedback = document.getElementById("projectEditorFeedback");
+    const projectEditorCloseBtn = document.getElementById("projectEditorCloseBtn");
+    const projectEditorCancelBtn = document.getElementById("projectEditorCancelBtn");
+    const projectEditorConfirmBtn = document.getElementById("projectEditorConfirmBtn");
     let activeSidebarMenu = null;
 
     function syncBootShellTab(tab) {
@@ -1257,8 +1266,18 @@
     function getActiveChat() {
       let chat = appState.chats.find((c) => c.id === appState.activeChatId);
       if (!chat) {
+        const activeProjectId = normalizeProjectId(appState.activeProjectId);
+        if (activeProjectId && !appState.activeChatId) {
+          return null;
+        }
         chat = appState.chats
           .filter((c) => c.tab === appState.currentTab)
+          .filter((c) => {
+            if (activeProjectId) {
+              return normalizeProjectId(c.projectId) === activeProjectId;
+            }
+            return !normalizeProjectId(c.projectId);
+          })
           .sort((a, b) => b.updatedAt - a.updatedAt)[0] || null;
         if (chat) {
           appState.activeChatId = chat.id;
@@ -1383,46 +1402,105 @@
       return normalizeProjectId(chat && chat.projectId) === pid;
     }
 
+    function setProjectEditorFeedback(message, kind) {
+      if (!projectEditorFeedback) return;
+      projectEditorFeedback.textContent = message || "";
+      projectEditorFeedback.className =
+        "modal-feedback" + (kind === "error" ? " is-error" : kind === "success" ? " is-success" : "");
+    }
+
+    function closeProjectEditorModal() {
+      if (!projectEditorModal) return;
+      projectEditorModal.classList.remove("show");
+      projectEditorModal.setAttribute("aria-hidden", "true");
+      projectEditorModal.dataset.mode = "";
+      projectEditorModal.dataset.projectId = "";
+      if (projectEditorName) projectEditorName.value = "";
+      if (projectEditorConfirmBtn) {
+        projectEditorConfirmBtn.disabled = false;
+        projectEditorConfirmBtn.textContent = "确认";
+      }
+      setProjectEditorFeedback("", "");
+    }
+
+    function openProjectEditorModal(mode, projectId) {
+      if (!projectEditorModal) return;
+      const isRename = mode === "rename";
+      const project = isRename ? getProjectById(projectId) : null;
+      projectEditorModal.dataset.mode = isRename ? "rename" : "create";
+      projectEditorModal.dataset.projectId = project ? String(project.id) : "";
+      projectEditorModal.classList.add("show");
+      projectEditorModal.setAttribute("aria-hidden", "false");
+      if (projectEditorTitle) projectEditorTitle.textContent = isRename ? "重命名项目" : "新建项目";
+      if (projectEditorSubtitle) {
+        projectEditorSubtitle.textContent = isRename
+          ? "修改项目名称，不会影响项目里的聊天内容。"
+          : "输入一个项目名称，创建后会自动切换到该项目。";
+      }
+      if (projectEditorName) {
+        projectEditorName.value = isRename ? (project && project.name) || "新项目" : "新项目";
+        setTimeout(() => {
+          projectEditorName.focus();
+          projectEditorName.select();
+        }, 0);
+      }
+      if (projectEditorConfirmBtn) {
+        projectEditorConfirmBtn.disabled = false;
+        projectEditorConfirmBtn.textContent = isRename ? "确认修改" : "确认创建";
+      }
+      setProjectEditorFeedback("", "");
+    }
+
     async function handleNewProject() {
-      const rawName = window.prompt("请输入项目名称", "新项目");
-      if (rawName == null) return;
-      const name = String(rawName).trim();
-      if (!name) {
-        showError("项目名称不能为空");
-        return;
-      }
-      try {
-        const project = await createProjectOnServer(name);
-        appState.projects.unshift(project);
-        appState.activeProjectId = String(project.id);
-        setProjectExpanded(String(project.id), true);
-        appState.activeChatId = null;
-        persistLocalMeta();
-        updateSidebar();
-        updateWorkspace();
-      } catch (e) {
-        showError(e && e.message ? e.message : "新建项目失败");
-      }
+      openProjectEditorModal("create");
     }
 
     async function renameProject(projectId) {
       const project = appState.projects.find((p) => String(p.id) === String(projectId));
       if (!project) return;
-      const rawName = window.prompt("请输入新的项目名称", project.name || "新项目");
-      if (rawName == null) return;
-      const name = String(rawName).trim();
+      openProjectEditorModal("rename", project.id);
+    }
+
+    async function submitProjectEditor() {
+      const mode = projectEditorModal ? String(projectEditorModal.dataset.mode || "create") : "create";
+      const projectId = projectEditorModal ? String(projectEditorModal.dataset.projectId || "") : "";
+      const name = String(projectEditorName && projectEditorName.value || "").trim();
       if (!name) {
-        showError("项目名称不能为空");
+        setProjectEditorFeedback("项目名称不能为空", "error");
+        if (projectEditorName) projectEditorName.focus();
         return;
       }
+      if (projectEditorConfirmBtn) {
+        projectEditorConfirmBtn.disabled = true;
+        projectEditorConfirmBtn.textContent = mode === "rename" ? "修改中..." : "创建中...";
+      }
       try {
-        const updated = await renameProjectOnServer(project.id, name);
-        project.name = updated.name || name;
-        project.updated_at = updated.updated_at || project.updated_at;
+        if (mode === "rename") {
+          const project = getProjectById(projectId);
+          if (!project) {
+            throw new Error("项目不存在，请刷新后重试。");
+          }
+          const updated = await renameProjectOnServer(project.id, name);
+          project.name = updated.name || name;
+          project.updated_at = updated.updated_at || project.updated_at;
+        } else {
+          const project = await createProjectOnServer(name);
+          appState.projects.unshift(project);
+          appState.activeProjectId = String(project.id);
+          setProjectExpanded(String(project.id), true);
+          appState.activeChatId = null;
+        }
+        persistLocalMeta();
         updateSidebar();
         updateWorkspace();
+        closeProjectEditorModal();
       } catch (e) {
-        showError(e && e.message ? e.message : "重命名项目失败");
+        setProjectEditorFeedback(e && e.message ? e.message : mode === "rename" ? "重命名项目失败" : "新建项目失败", "error");
+      } finally {
+        if (projectEditorConfirmBtn && projectEditorModal && projectEditorModal.classList.contains("show")) {
+          projectEditorConfirmBtn.disabled = false;
+          projectEditorConfirmBtn.textContent = mode === "rename" ? "确认修改" : "确认创建";
+        }
       }
     }
 
@@ -1521,23 +1599,12 @@
     function switchProject(projectId) {
       const pid = normalizeProjectId(projectId);
       if (!pid) return;
-      const previousProjectId = normalizeProjectId(appState.activeProjectId);
-      const expandedBefore = isProjectExpanded(pid);
-      const isSameProject = previousProjectId === pid;
-
       appState.activeProjectId = pid;
-      const active = appState.chats.find((chat) => chat.id === appState.activeChatId);
-      if (!active || normalizeProjectId(active.projectId) !== pid) {
-        appState.activeChatId = null;
-      }
-      toggleProjectExpanded(pid);
+      appState.activeChatId = null;
       persistLocalMeta();
       updateSidebar();
-      if (!isSameProject) {
-        updateWorkspace();
-      } else if (!expandedBefore && isProjectExpanded(pid)) {
-        updateWorkspace();
-      }
+      updateWorkspace();
+      if (window.innerWidth <= 1100) sidebar.classList.remove("show");
     }
 
     function setProjectArchiveFeedback(message, kind) {
@@ -1670,6 +1737,13 @@
 
     async function switchTab(tab) {
       appState.currentTab = normalizeChatTab(tab);
+      if (normalizeProjectId(appState.activeProjectId) && !appState.activeChatId) {
+        persistLocalMeta();
+        updateSidebar();
+        updateWorkspace();
+        if (window.innerWidth <= 1100) sidebar.classList.remove("show");
+        return;
+      }
       let recentChat = appState.chats
         .filter((c) => c.tab === appState.currentTab && chatInActiveProject(c))
         .sort((a, b) => b.updatedAt - a.updatedAt)[0];
@@ -1735,11 +1809,10 @@
 
     async function handleNewChat() {
       try {
-        const projectId = normalizeProjectId(appState.activeProjectId);
-        const created = await createConversationOnServer(appState.currentTab, "", projectId || null);
+        appState.activeProjectId = "";
+        const created = await createConversationOnServer(appState.currentTab, "", null);
         const newChat = dbConversationToChat(created);
         appState.chats.unshift(newChat);
-        if (projectId) setProjectExpanded(projectId, true);
         appState.activeChatId = newChat.id;
         persistLocalMeta();
       } catch (e) {
@@ -1874,21 +1947,34 @@
         const wrapper = document.createElement("div");
         wrapper.className = "project-item" + (expanded ? " is-expanded" : "");
 
-        const row = document.createElement("button");
-        row.type = "button";
+        const row = document.createElement("div");
         row.className = "project-item-row" + (hasActiveChat || isProjectActive ? " active" : "");
-        row.onclick = (e) => {
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.type = "button";
+        toggleBtn.className = "project-tree-toggle";
+        toggleBtn.setAttribute("aria-label", expanded ? "收起项目" : "展开项目");
+        toggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+        toggleBtn.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
-          switchProject(pid);
+          toggleProjectExpanded(pid);
+          updateSidebar();
         };
-
-        const main = document.createElement("span");
-        main.className = "project-item-main";
 
         const chevron = document.createElement("span");
         chevron.className = "project-tree-chevron";
         chevron.setAttribute("aria-hidden", "true");
+        toggleBtn.appendChild(chevron);
+
+        const mainBtn = document.createElement("button");
+        mainBtn.type = "button";
+        mainBtn.className = "project-item-main";
+        mainBtn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          switchProject(pid);
+        };
 
         const icon = document.createElement("span");
         icon.className = "project-folder-icon";
@@ -1898,9 +1984,8 @@
         name.className = "project-item-name";
         name.textContent = project.name || "新项目";
 
-        main.appendChild(chevron);
-        main.appendChild(icon);
-        main.appendChild(name);
+        mainBtn.appendChild(icon);
+        mainBtn.appendChild(name);
 
         const count = document.createElement("span");
         count.className = "project-item-count";
@@ -1921,7 +2006,8 @@
         };
         actions.appendChild(menuBtn);
 
-        row.appendChild(main);
+        row.appendChild(toggleBtn);
+        row.appendChild(mainBtn);
         row.appendChild(count);
         row.appendChild(actions);
         wrapper.appendChild(row);
@@ -1937,9 +2023,12 @@
             children.appendChild(empty);
           } else {
             chats.forEach((chat) => {
+              const chatRow = document.createElement("div");
+              chatRow.className = "project-chat-item" + (chat.id === appState.activeChatId ? " active" : "");
+
               const chatBtn = document.createElement("button");
               chatBtn.type = "button";
-              chatBtn.className = "project-chat-item" + (chat.id === appState.activeChatId ? " active" : "");
+              chatBtn.className = "project-chat-main";
               chatBtn.onclick = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -1966,9 +2055,10 @@
 
               chatBtn.appendChild(title);
               actions.appendChild(menuBtn);
-              chatBtn.appendChild(actions);
+              chatRow.appendChild(chatBtn);
+              chatRow.appendChild(actions);
 
-              children.appendChild(chatBtn);
+              children.appendChild(chatRow);
             });
           }
 
@@ -2176,35 +2266,66 @@
       return row && typeof row === "object" ? String(row.draft || "") : "";
     }
 
-    function setProjectHomeDraft(projectId, value) {
+    function saveProjectHomeComposerState(projectId, patch) {
       const pid = normalizeProjectId(projectId);
       if (!pid) return;
       const stateMap = loadChatPrefsMap();
-      stateMap[projectHomeComposerDraftKey(pid)] = { draft: String(value || "") };
+      const prev = stateMap[projectHomeComposerDraftKey(pid)] && typeof stateMap[projectHomeComposerDraftKey(pid)] === "object"
+        ? stateMap[projectHomeComposerDraftKey(pid)]
+        : {};
+      stateMap[projectHomeComposerDraftKey(pid)] = Object.assign({}, prev, patch || {});
       saveChatPrefsMap(stateMap);
+    }
+
+    function setProjectHomeDraft(projectId, value) {
+      saveProjectHomeComposerState(projectId, { draft: String(value || "") });
     }
 
     async function startProjectHomeConversation(projectId, text) {
       const pid = normalizeProjectId(projectId);
       if (!pid) return null;
-      const created = await createConversationOnServer("text", "", pid);
+      const composerState = projectHomeComposerState({ id: pid });
+      const created = await createConversationOnServer(composerState.tab, "", pid);
       const newChat = dbConversationToChat(created);
+      newChat.model = composerState.model || newChat.model || "";
+      newChat.reasoning_mode = composerState.reasoning_mode || newChat.reasoning_mode || "default";
+      newChat.use_rag = !!composerState.use_rag;
+      newChat.use_web_search = !!composerState.use_web_search;
       newChat.draft = String(text || "");
       appState.chats.unshift(newChat);
       appState.currentTab = newChat.tab;
       appState.activeProjectId = pid;
       appState.activeChatId = newChat.id;
       setProjectExpanded(pid, true);
+      persistChatPrefs(newChat);
       persistLocalMeta();
       updateSidebar();
       updateWorkspace();
       return newChat;
     }
 
+    function projectHomeComposerState(project) {
+      const pid = normalizeProjectId(project && project.id);
+      const tab = normalizeChatTab(appState.currentTab || "text");
+      const tabPrefs = loadTabPrefs(tab);
+      const stateMap = loadChatPrefsMap();
+      const row = pid ? stateMap[projectHomeComposerDraftKey(pid)] : null;
+      return {
+        tab,
+        model: String((row && row.model) || tabPrefs.model || ""),
+        reasoning_mode: String((row && row.reasoning_mode) || tabPrefs.reasoning_mode || "default"),
+        use_rag: !!(row && row.use_rag),
+        use_web_search: !!(row && row.use_web_search),
+        attachments: [],
+        draft: project ? projectHomeDraft(project.id) : "",
+      };
+    }
+
     function updateWorkspace() {
       clearNotice();
       const chat = getActiveChat();
       const activeProject = getProjectById(appState.activeProjectId);
+      if (composerEl) composerEl.classList.remove("is-hidden");
       if (archiveProjectBtn) {
         archiveProjectBtn.style.display = !chat && activeProject ? "none" : (chat ? "inline-flex" : "none");
         archiveProjectBtn.textContent = chat && normalizeProjectId(chat.projectId)
@@ -2214,16 +2335,24 @@
       }
       if (!chat && activeProject) {
         const projectChatsList = projectChats(activeProject.id);
-        fileInput.setAttribute("accept", getAcceptByTab("text"));
-        modeBadge.textContent = "当前：文本";
+        const projectComposer = projectHomeComposerState(activeProject);
+        fileInput.setAttribute("accept", getAcceptByTab(projectComposer.tab));
+        modeBadge.textContent = `当前：${projectComposer.tab==="image" ? "图片" : "文本"}`;
         chatTitle.textContent = activeProject.name || "项目";
-        chatSub.textContent = "项目中的聊天文件夹";
+        chatSub.textContent = "项目文件夹";
         userInput.value = "";
+        userInput.placeholder = "请输入你的问题或任务...";
         userInput.disabled = true;
         attachBtn.disabled = true;
-        if (sendBtn) sendBtn.disabled = true;
+        if (ragToggleWrap) ragToggleWrap.style.display = "none";
+        if (webSearchToggleWrap) webSearchToggleWrap.style.display = "none";
+        if (useRagCb) useRagCb.checked = !!projectComposer.use_rag;
+        if (useWebSearchCb) useWebSearchCb.checked = !!projectComposer.use_web_search;
+        if (imageShowAllWrap) imageShowAllWrap.style.display = "none";
+        renderModelOptions(projectComposer);
         uploadList.innerHTML = "";
         uploadList.style.display = "none";
+        if (composerEl) composerEl.classList.add("is-hidden");
         chatFeed.innerHTML = `
           <section class="project-home">
             <div class="project-home-card">
@@ -2231,9 +2360,8 @@
                 <div class="project-home-folder" aria-hidden="true"></div>
                 <div class="project-home-title">${escapeHtml(activeProject.name || "项目")}</div>
               </div>
-              <p class="project-home-sub">这里的聊天只做归类，AI 回复方式与普通聊天一致。</p>
               <div class="project-home-composer">
-                <textarea id="projectHomeInput" class="project-home-input" placeholder="${escapeHtml((activeProject.name || "项目") + "中的新聊天")}">${escapeHtml(projectHomeDraft(activeProject.id))}</textarea>
+                <textarea id="projectHomeInput" class="project-home-input" placeholder="${escapeHtml((activeProject.name || "项目") + " 中的新聊天")}">${escapeHtml(projectHomeDraft(activeProject.id))}</textarea>
                 <div class="project-home-actions">
                   <button id="projectHomeSendBtn" class="send-btn" type="button" aria-label="发送项目内新聊天">
                     <span class="send-btn-icon" aria-hidden="true">↑</span>
@@ -2247,23 +2375,23 @@
                 projectChatsList.length
                   ? projectChatsList
                       .map((item) => `
-                        <button class="project-home-item${item.id === appState.activeChatId ? " active" : ""}" type="button" data-project-chat-id="${escapeHtml(String(item.id || ""))}">
-                          <div class="project-home-item-main">
+                        <div class="project-home-item${item.id === appState.activeChatId ? " active" : ""}">
+                          <button class="project-home-item-main" type="button" data-project-chat-id="${escapeHtml(String(item.id || ""))}">
                             <div class="project-home-item-title">${escapeHtml(item.title || "新建聊天")}</div>
                             <div class="project-home-item-preview">${escapeHtml(chatListPreview(item) || "暂无内容预览")}</div>
-                          </div>
+                          </button>
                           <div class="project-home-item-right">
+                            <div class="project-home-item-time">${escapeHtml(formatChatRelativeTime(item.updatedAt || item.createdAt || Date.now()))}</div>
                             <button class="chat-item-menu" type="button" data-project-home-menu-id="${escapeHtml(String(item.id || ""))}" aria-label="聊天菜单">···</button>
                           </div>
-                        </button>
+                        </div>
                       `)
                       .join("")
-                  : `<div class="project-home-empty">这个项目里还没有聊天。</div>`
+                  : `<div class="project-home-empty">这个项目还没有聊天，可以在上方开始新聊天。</div>`
               }
             </div>
           </section>
         `;
-
         const projectHomeInput = document.getElementById("projectHomeInput");
         const submitProjectHome = async () => {
           const text = String(projectHomeInput && projectHomeInput.value || "").trim();
@@ -2272,6 +2400,7 @@
             const newChat = await startProjectHomeConversation(activeProject.id, text);
             if (!newChat) return;
             setProjectHomeDraft(activeProject.id, "");
+            if (window.innerWidth <= 1100) sidebar.classList.remove("show");
             await sendMessage();
           } catch (err) {
             showError(err && err.message ? err.message : "项目内新建聊天失败");
@@ -2298,6 +2427,7 @@
         if (projectHomeSendBtn) {
           projectHomeSendBtn.onclick = (e) => {
             e.preventDefault();
+            e.stopPropagation();
             void submitProjectHome();
           };
         }
@@ -2318,6 +2448,7 @@
             openSidebarFloatingMenu(button, chatMenuItems(targetChat));
           };
         });
+        chatFeed.scrollTop = 0;
         setStreamingUI(isStreaming);
         return;
       }
@@ -2407,10 +2538,16 @@
 
     function syncComposerPresentation() {
       const chat = getActiveChat();
+      const activeProject = getProjectById(appState.activeProjectId);
       if (!uploadDropZone || !userInput) return;
       if (!chat) {
         uploadDropZone.classList.add("is-idle");
-        if (sendBtn) sendBtn.disabled = true;
+        if (activeProject) {
+          const hasText = !!String(userInput.value || "").trim();
+          if (sendBtn) sendBtn.disabled = !hasText;
+        } else if (sendBtn) {
+          sendBtn.disabled = true;
+        }
         syncComposerInputHeight(true);
         return;
       }
@@ -2461,6 +2598,8 @@
     function syncModelSelectFace() {
       if (!modelSelectFace || !modelSelect) return;
       const chat = getActiveChat();
+      const activeProject = getProjectById(appState.activeProjectId);
+      const composerChat = chat || (activeProject ? projectHomeComposerState(activeProject) : null);
       const opt = modelSelect.selectedOptions[0];
       if (!opt) {
         modelSelectFace.textContent = "";
@@ -2470,7 +2609,7 @@
         modelSelectFace.textContent = opt.textContent || "";
         return;
       }
-      const short = modelShortLabelForId(chat.tab, opt.value, chat);
+      const short = composerChat ? modelShortLabelForId(composerChat.tab, opt.value, composerChat) : "";
       modelSelectFace.textContent =
         short ||
         (opt.textContent || "").split(" · ")[0] ||
@@ -3943,7 +4082,22 @@
 
     async function sendMessage(){
       clearNotice();
-      const chat = getActiveChat();
+      const activeProject = getProjectById(appState.activeProjectId);
+      const initialText = userInput.value.trim();
+      let chat = getActiveChat();
+      if (!chat && activeProject) {
+        if (!initialText) {
+          showError("请输入内容，或先上传文件。", { autoHideMs: 800, fadeMs: 1500 });
+          return;
+        }
+        try {
+          chat = await startProjectHomeConversation(activeProject.id, userInput.value || "");
+          setProjectHomeDraft(activeProject.id, "");
+        } catch (err) {
+          showError(err && err.message ? err.message : "项目内新建聊天失败");
+          return;
+        }
+      }
       if (!chat) {
         showError("请先在当前项目下新建聊天。");
         return;
@@ -4402,6 +4556,9 @@
     if (projectArchiveCloseBtn) projectArchiveCloseBtn.onclick = closeProjectArchiveModal;
     if (projectArchiveCancelBtn) projectArchiveCancelBtn.onclick = closeProjectArchiveModal;
     if (projectArchiveConfirmBtn) projectArchiveConfirmBtn.onclick = () => void submitProjectArchive();
+    if (projectEditorCloseBtn) projectEditorCloseBtn.onclick = closeProjectEditorModal;
+    if (projectEditorCancelBtn) projectEditorCancelBtn.onclick = closeProjectEditorModal;
+    if (projectEditorConfirmBtn) projectEditorConfirmBtn.onclick = () => void submitProjectEditor();
     if (projectArchiveOpenBtn) {
       projectArchiveOpenBtn.onclick = () => {
         const pid = projectArchiveModal ? String(projectArchiveModal.dataset.projectId || "") : "";
@@ -4415,6 +4572,18 @@
     if (projectArchiveModal) {
       projectArchiveModal.addEventListener("click", (e) => {
         if (e.target === projectArchiveModal) closeProjectArchiveModal();
+      });
+    }
+    if (projectEditorModal) {
+      projectEditorModal.addEventListener("click", (e) => {
+        if (e.target === projectEditorModal) closeProjectEditorModal();
+      });
+    }
+    if (projectEditorName) {
+      projectEditorName.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        void submitProjectEditor();
       });
     }
     if (projectListEl) {
@@ -4436,7 +4605,14 @@
     }
     modelSelect.onchange = () => {
       const chat = getActiveChat();
-      if (!chat) return;
+      if (!chat) {
+        const activeProject = getProjectById(appState.activeProjectId);
+        if (!activeProject) return;
+        saveProjectHomeComposerState(activeProject.id, { model: modelSelect.value || "" });
+        syncModelSelectFace();
+        renderReasoningModeOptions(projectHomeComposerState(activeProject));
+        return;
+      }
       chat.model = modelSelect.value;
       persistChatPrefs(chat);
       saveState();
@@ -4446,7 +4622,16 @@
     if (reasoningModeSelect) {
       reasoningModeSelect.onchange = () => {
         const chat = getActiveChat();
-        if (!chat) return;
+        if (!chat) {
+          const activeProject = getProjectById(appState.activeProjectId);
+          if (!activeProject) return;
+          const nextMode = normalizeReasoningModeValue(reasoningModeSelect.value);
+          if (reasoningModeFace) {
+            reasoningModeFace.textContent = reasoningModeDisplayLabel(nextMode);
+          }
+          saveProjectHomeComposerState(activeProject.id, { reasoning_mode: nextMode });
+          return;
+        }
         chat.reasoning_mode = normalizeReasoningModeValue(reasoningModeSelect.value);
         if (reasoningModeFace) {
           reasoningModeFace.textContent = reasoningModeDisplayLabel(chat.reasoning_mode);
@@ -4458,7 +4643,12 @@
     if (useRagCb) {
       useRagCb.onchange = () => {
         const chat = getActiveChat();
-        if (!chat) return;
+        if (!chat) {
+          const activeProject = getProjectById(appState.activeProjectId);
+          if (!activeProject) return;
+          saveProjectHomeComposerState(activeProject.id, { use_rag: !!useRagCb.checked });
+          return;
+        }
         chat.use_rag = !!useRagCb.checked && chat.tab === "text";
         persistChatPrefs(chat);
         saveState();
@@ -4467,7 +4657,12 @@
     if (useWebSearchCb) {
       useWebSearchCb.onchange = () => {
         const chat = getActiveChat();
-        if (!chat) return;
+        if (!chat) {
+          const activeProject = getProjectById(appState.activeProjectId);
+          if (!activeProject) return;
+          saveProjectHomeComposerState(activeProject.id, { use_web_search: !!useWebSearchCb.checked });
+          return;
+        }
         chat.use_web_search = !!useWebSearchCb.checked && chat.tab === "text";
         persistChatPrefs(chat);
         saveState();
@@ -4476,14 +4671,19 @@
     if (showAllImageModelsCb) {
       showAllImageModelsCb.onchange = () => {
         showAllImageModels = !!showAllImageModelsCb.checked;
-        renderModelOptions(getActiveChat());
+        const chat = getActiveChat() || (getProjectById(appState.activeProjectId) ? projectHomeComposerState(getProjectById(appState.activeProjectId)) : null);
+        if (chat) renderModelOptions(chat);
       };
     }
     userInput.oninput = () => {
       const chat = getActiveChat();
-      if (!chat) return;
-      chat.draft = userInput.value;
-      saveState();
+      if (chat) {
+        chat.draft = userInput.value;
+        saveState();
+      } else {
+        const activeProject = getProjectById(appState.activeProjectId);
+        if (activeProject) setProjectHomeDraft(activeProject.id, userInput.value);
+      }
       syncComposerPresentation();
     };
     userInput.addEventListener("compositionstart", () => { inputComposing = true; });

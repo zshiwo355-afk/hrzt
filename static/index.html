@@ -36,7 +36,10 @@
         <div class="brand-title">怀仁AI智能体</div>
       </div>
 
-      <button class="sidebar-new-btn" id="newChatBtn">+ 新建聊天</button>
+      <button class="sidebar-new-btn" id="newChatBtn" type="button">
+        <span class="sidebar-new-btn-icon" aria-hidden="true"></span>
+        <span>新建聊天</span>
+      </button>
 
       <div class="sidebar-section">
         <div class="sidebar-label">模式</div>
@@ -70,7 +73,7 @@
 
       <div class="sidebar-section chat-list-section">
         <div class="sidebar-label sidebar-collapsible-header">
-          <span>你的会话</span>
+          <span>最近</span>
           <span class="sidebar-header-actions">
             <button class="sidebar-collapse-btn" id="chatSectionToggle" type="button" aria-expanded="true" aria-label="收起你的会话"></button>
           </span>
@@ -104,7 +107,7 @@
 
         <div class="workspace-controls">
           <div class="control-group">
-            <label for="modelSelect">当前模型</label>
+            <label for="modelSelect">模型</label>
             <div class="control-input model-select-shell">
               <span id="modelSelectFace" class="model-select-face" aria-hidden="true"></span>
               <select id="modelSelect" class="model-select-native"></select>
@@ -226,6 +229,28 @@
         <button id="projectArchiveCancelBtn" class="workspace-ghost-btn" type="button">取消</button>
         <button id="projectArchiveOpenBtn" class="workspace-ghost-btn" type="button" style="display:none;">打开项目</button>
         <button id="projectArchiveConfirmBtn" class="workspace-primary-btn" type="button">确认移动</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-mask" id="projectEditorModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="projectEditorTitle">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="projectEditorTitle">新建项目</div>
+          <div class="modal-sub" id="projectEditorSubtitle">输入一个项目名称，创建后会自动切换到该项目。</div>
+        </div>
+        <button id="projectEditorCloseBtn" class="modal-close-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label class="modal-label" for="projectEditorName">项目名称</label>
+          <input id="projectEditorName" class="modal-input" type="text" placeholder="输入项目名称" />
+        </div>
+        <div class="modal-feedback" id="projectEditorFeedback"></div>
+      </div>
+      <div class="modal-foot">
+        <button id="projectEditorCancelBtn" class="workspace-ghost-btn" type="button">取消</button>
+        <button id="projectEditorConfirmBtn" class="workspace-primary-btn" type="button">确认</button>
       </div>
     </div>
   </div>
