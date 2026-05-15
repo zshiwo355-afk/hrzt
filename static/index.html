@@ -38,9 +38,9 @@
 
       <button class="sidebar-new-btn" id="newChatBtn">+ 新建聊天</button>
 
-        <div class="sidebar-section">
-          <div class="sidebar-label">工作区</div>
-          <div class="workspace-tabs">
+      <div class="sidebar-section">
+        <div class="sidebar-label">模式</div>
+        <div class="workspace-tabs">
           <button class="tab-btn" data-tab="text">
             <div class="tab-title">AI 对话</div>
             <div class="tab-desc">多轮文字问答，适合聊天、分析和写作。</div>
@@ -52,12 +52,32 @@
         </div>
       </div>
 
-      <div class="sidebar-section chat-list-section">
-        <div class="sidebar-label">
-          <span>你的会话</span>
-          <button class="clear-chats-btn" id="clearChatsBtn">清空</button>
+      <div class="sidebar-section project-list-section" id="projectSection">
+        <div class="sidebar-label sidebar-collapsible-header">
+          <span>项目</span>
+          <span class="sidebar-header-actions">
+            <button class="sidebar-collapse-btn" id="projectSectionToggle" type="button" aria-expanded="true" aria-label="收起项目"></button>
+          </span>
         </div>
-        <div class="chat-list" id="chatList"></div>
+        <div class="sidebar-collapsible-body" id="projectSectionBody">
+          <button class="project-create-btn" id="newProjectBtn" type="button">
+            <span class="project-create-icon" aria-hidden="true"></span>
+            <span>新项目</span>
+          </button>
+          <div class="project-list" id="projectList"></div>
+        </div>
+      </div>
+
+      <div class="sidebar-section chat-list-section">
+        <div class="sidebar-label sidebar-collapsible-header">
+          <span>你的会话</span>
+          <span class="sidebar-header-actions">
+            <button class="sidebar-collapse-btn" id="chatSectionToggle" type="button" aria-expanded="true" aria-label="收起你的会话"></button>
+          </span>
+        </div>
+        <div class="sidebar-collapsible-body" id="chatSectionBody">
+          <div class="chat-list" id="chatList"></div>
+        </div>
       </div>
 
       <div class="sidebar-user" id="sidebarUser">
@@ -75,7 +95,10 @@
           <button id="mobileMenuBtn" class="mobile-menu-btn">☰</button>
           <div class="workspace-title">
             <div class="chat-title" id="chatTitle">怀仁AI智能体</div>
-            <div class="chat-sub" id="chatSub">正在加载上次工作区...</div>
+            <div class="chat-sub" id="chatSub">正在加载上次会话...</div>
+          </div>
+          <div class="workspace-quick-actions">
+            <button id="archiveProjectBtn" class="workspace-ghost-btn" type="button" style="display:none;">移动到项目</button>
           </div>
         </div>
 
@@ -174,6 +197,38 @@
   <script src="/static/js/api.js" defer></script>
   <script src="/static/js/renderers/messages.js" defer></script>
   <script src="/static/js/app.js" defer></script>
+  <div class="modal-mask" id="projectArchiveModal" aria-hidden="true">
+    <div class="modal-card project-archive-modal" role="dialog" aria-modal="true" aria-labelledby="projectArchiveTitle">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="projectArchiveTitle">移动到项目</div>
+          <div class="modal-sub" id="projectArchiveSubtitle">将当前聊天移动到某个项目文件夹中</div>
+        </div>
+        <button id="projectArchiveCloseBtn" class="modal-close-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label class="modal-label">当前聊天</label>
+          <div class="modal-static" id="projectArchiveChatTitle">未选择会话</div>
+        </div>
+        <div class="modal-field">
+          <label class="modal-label" for="projectArchiveSelect">选择已有项目</label>
+          <select id="projectArchiveSelect" class="modal-input"></select>
+        </div>
+        <div class="modal-sep">或</div>
+        <div class="modal-field">
+          <label class="modal-label" for="projectArchiveNewName">新建项目</label>
+          <input id="projectArchiveNewName" class="modal-input" type="text" placeholder="输入新项目名称" />
+        </div>
+        <div class="modal-feedback" id="projectArchiveFeedback"></div>
+      </div>
+      <div class="modal-foot">
+        <button id="projectArchiveCancelBtn" class="workspace-ghost-btn" type="button">取消</button>
+        <button id="projectArchiveOpenBtn" class="workspace-ghost-btn" type="button" style="display:none;">打开项目</button>
+        <button id="projectArchiveConfirmBtn" class="workspace-primary-btn" type="button">确认移动</button>
+      </div>
+    </div>
+  </div>
   <div id="pageDropOverlay" class="page-drop-overlay" aria-hidden="true">
     <div class="page-drop-overlay-card">
       <div class="page-drop-overlay-title">松开以上传文件</div>
@@ -181,5 +236,6 @@
     </div>
   </div>
   <div id="copyToast" class="copy-toast" role="status" aria-live="polite"></div>
+  <div id="sidebarMenuLayer" class="sidebar-menu-layer" hidden></div>
 </body>
 </html>

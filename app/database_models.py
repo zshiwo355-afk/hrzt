@@ -38,6 +38,25 @@ class User(Base):
 
     conversations: Mapped[list["Conversation"]] = relationship(back_populates="user")
     messages: Mapped[list["Message"]] = relationship(back_populates="user")
+    projects: Mapped[list["Project"]] = relationship(back_populates="user")
+
+
+class Project(Base):
+    __tablename__ = "projects"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True, nullable=False)
+    name: Mapped[str] = mapped_column(String(128), default="新项目", nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
+
+    user: Mapped["User"] = relationship(back_populates="projects")
+    conversations: Mapped[list["Conversation"]] = relationship(back_populates="project")
 
 
 class Conversation(Base):
@@ -45,6 +64,7 @@ class Conversation(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True, nullable=False)
+    project_id: Mapped[Optional[int]] = mapped_column(ForeignKey("projects.id"), index=True, nullable=True)
     title: Mapped[str] = mapped_column(String(255), default="新建聊天", nullable=False)
     mode: Mapped[str] = mapped_column(String(32), default="text", nullable=False)
     model: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
@@ -60,6 +80,7 @@ class Conversation(Base):
     last_message_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
     user: Mapped["User"] = relationship(back_populates="conversations")
+    project: Mapped[Optional["Project"]] = relationship(back_populates="conversations")
     messages: Mapped[list["Message"]] = relationship(
         back_populates="conversation",
         order_by="Message.id",

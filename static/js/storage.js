@@ -178,6 +178,7 @@ function persistLocalMeta() {
       try {
         localStorage.setItem(LS_ACTIVE_ID, appState.activeChatId || "");
         localStorage.setItem(LS_CURRENT_TAB, appState.currentTab || "text");
+        localStorage.setItem(LS_ACTIVE_PROJECT_ID, appState.activeProjectId || "");
       } catch (err) {
         console.warn("本地 meta 写入失败：", err);
       }

@@ -40,7 +40,6 @@ from app.services import (
     ofox_responses_service,
 )
 
-
 def history_item_to_text(item: HistoryMessageItem) -> str:
     parts = []
 

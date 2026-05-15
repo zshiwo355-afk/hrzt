@@ -6,7 +6,7 @@ window.HRApp = window.HRApp || {};
     let activeMessagesAbort = null;
     let activeMessagesRequestSeq = 0;
 
-async function createConversationOnServer(tab, model) {
+async function createConversationOnServer(tab, model, projectId) {
       const normalizedTab = normalizeChatTab(tab);
       const resp = await fetch("/api/conversations", {
         method: "POST",
@@ -15,6 +15,7 @@ async function createConversationOnServer(tab, model) {
           mode: normalizedTab,
           title: "新建聊天",
           model: model || "",
+          project_id: projectId ? Number(projectId) : null,
         }),
       });
       const data = await resp.json().catch(() => ({}));
@@ -91,6 +92,9 @@ async function createConversationOnServer(tab, model) {
         const conv = data.conversation || {};
         chat.title = conv.title || chat.title;
         chat.model = conv.model || chat.model || "";
+        chat.projectId = conv.project_id != null ? String(conv.project_id) : "";
+        chat.summary = conv.summary || "";
+        chat.indexHasSummary = !!conv.has_summary || !!(chat.summary || "").trim();
         chat.messages = (data.messages || []).map(dbMessageToChatMessage);
         chat.loadingOlderMessages = false;
         const loadedCount = chat.messages.length;
@@ -205,6 +209,74 @@ async function createConversationOnServer(tab, model) {
       return data;
     }
 
+    async function loadProjectsFromServer() {
+      const resp = await fetch("/api/projects");
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        throw new Error(detailFromApiBody(data) || "加载项目失败");
+      }
+      return data.projects || [];
+    }
+
+    async function createProjectOnServer(name) {
+      const resp = await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name || "新项目" }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data.project) {
+        throw new Error(detailFromApiBody(data) || "新建项目失败");
+      }
+      return data.project;
+    }
+
+    async function renameProjectOnServer(projectId, name) {
+      const resp = await fetch(`/api/projects/${projectId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data.project) {
+        throw new Error(detailFromApiBody(data) || "重命名项目失败");
+      }
+      return data.project;
+    }
+
+    async function deleteProjectOnServer(projectId) {
+      const resp = await fetch(`/api/projects/${projectId}`, {
+        method: "DELETE",
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data.ok) {
+        throw new Error(detailFromApiBody(data) || "删除项目失败");
+      }
+      return data;
+    }
+
+    async function loadProjectDetailFromServer(projectId) {
+      const resp = await fetch(`/api/projects/${projectId}`);
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data.project) {
+        throw new Error(detailFromApiBody(data) || "加载项目失败");
+      }
+      return data;
+    }
+
+    async function moveConversationToProjectOnServer(chatId, projectId) {
+      const resp = await fetch(`/api/conversations/${chatId}/project`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ project_id: projectId ? Number(projectId) : null }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data.conversation) {
+        throw new Error(detailFromApiBody(data) || "移动到项目失败");
+      }
+      return data.conversation;
+    }
+
 function getOrCreateBrowserId() {
       let id = localStorage.getItem(LS_BROWSER_ID);
       if (!id) {
@@ -250,6 +322,12 @@ window.HRApp.api = Object.assign(window.HRApp.api || {}, {
   allowedTextModelIds,
   renameConversationOnServer,
   deleteConversationOnServer,
+  loadProjectsFromServer,
+  createProjectOnServer,
+  renameProjectOnServer,
+  deleteProjectOnServer,
+  loadProjectDetailFromServer,
+  moveConversationToProjectOnServer,
   getOrCreateBrowserId,
   historyFetch,
   detailFromApiBody,

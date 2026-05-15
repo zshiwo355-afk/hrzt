@@ -27,6 +27,10 @@
     const LS_BROWSER_ID = "huairen_history_browser_id";
     const LS_ACTIVE_ID = "huairen_history_active_conversation_id";
     const LS_CURRENT_TAB = "huairen_history_current_tab";
+    const LS_ACTIVE_PROJECT_ID = "huairen_history_active_project_id";
+    const LS_PROJECTS_COLLAPSED = "sidebar_projects_collapsed";
+    const LS_CONVERSATIONS_COLLAPSED = "sidebar_conversations_collapsed";
+    const LS_PROJECT_TREE_EXPANDED = "sidebar_project_tree_expanded";
     /** 会话级 RAG 偏好仅保存在浏览器本地，不写入数据库。 */
     const LS_CHAT_PREFS_STATE = "huairen_chat_prefs_state_v1";
     /** 消息级来源展示缓存仅保存在浏览器本地，不写入数据库。 */
@@ -95,6 +99,8 @@
     const defaultAppState = () => ({
       currentTab: "text",
       activeChatId: null,
+      activeProjectId: "",
+      projects: [],
       chats: [],
     });
 
@@ -391,6 +397,7 @@
           : now;
       const chat = {
         id: conv.id,
+        projectId: conv.project_id != null ? String(conv.project_id) : "",
         tab: normalizeChatTab(conv.mode || "text"),
         title: conv.title || "新建聊天",
         messages: (conv.messages || []).map(messageFromStored),
@@ -414,6 +421,7 @@
       const now = Date.now();
       return {
         id: chat.id,
+        project_id: chat.projectId ? Number(chat.projectId) : null,
         title: chat.title || "新建聊天",
         mode: chat.tab,
         image_mode: chat.image_mode != null && chat.image_mode !== "" ? chat.image_mode : null,
@@ -487,9 +495,12 @@
         localStorage.getItem(LS_ACTIVE_ID) ||
         localStorage.getItem("huairen_ai_active_conversation_id") ||
         null;
+      st.activeProjectId = localStorage.getItem(LS_ACTIVE_PROJECT_ID) || "";
+      if (st.activeProjectId === "null" || st.activeProjectId === "undefined") st.activeProjectId = "";
       st.chats = [];
       return st;
     })();
+    let expandedProjectIds = loadExpandedProjectIds();
     let modelsCache = { text: [], image: [], all: [] };
     /** 加载失败或 404 的附件 id，避免反复请求同一 URL */
     const staleAttachmentIds = new Set();
@@ -527,8 +538,17 @@
 
     const tabButtons = document.querySelectorAll(".tab-btn");
     const chatListEl = document.getElementById("chatList");
+    const projectListEl = document.getElementById("projectList");
     const newChatBtn = document.getElementById("newChatBtn");
-    const clearChatsBtn = document.getElementById("clearChatsBtn");
+    const newProjectBtn = document.getElementById("newProjectBtn");
+    const projectSectionEl = document.getElementById("projectSection");
+    const projectSectionBody = document.getElementById("projectSectionBody");
+    const projectSectionToggle = document.getElementById("projectSectionToggle");
+    const chatSectionEl = document.querySelector(".chat-list-section");
+    const chatSectionBody = document.getElementById("chatSectionBody");
+    const chatSectionToggle = document.getElementById("chatSectionToggle");
+    const sidebarMenuLayer = document.getElementById("sidebarMenuLayer");
+    const archiveProjectBtn = document.getElementById("archiveProjectBtn");
     
     const modelSelect = document.getElementById("modelSelect");
     const modelSelectFace = document.getElementById("modelSelectFace");
@@ -558,6 +578,17 @@
     const uploadDropZone = document.getElementById("uploadDropZone");
     const uploadList = document.getElementById("uploadList");
     const pageDropOverlay = document.getElementById("pageDropOverlay");
+    const projectArchiveModal = document.getElementById("projectArchiveModal");
+    const projectArchiveCloseBtn = document.getElementById("projectArchiveCloseBtn");
+    const projectArchiveCancelBtn = document.getElementById("projectArchiveCancelBtn");
+    const projectArchiveConfirmBtn = document.getElementById("projectArchiveConfirmBtn");
+    const projectArchiveOpenBtn = document.getElementById("projectArchiveOpenBtn");
+    const projectArchiveSelect = document.getElementById("projectArchiveSelect");
+    const projectArchiveNewName = document.getElementById("projectArchiveNewName");
+    const projectArchiveChatTitle = document.getElementById("projectArchiveChatTitle");
+    const projectArchiveSubtitle = document.getElementById("projectArchiveSubtitle");
+    const projectArchiveFeedback = document.getElementById("projectArchiveFeedback");
+    let activeSidebarMenu = null;
 
     function syncBootShellTab(tab) {
       const normalizedTab = normalizeChatTab(tab);
@@ -635,6 +666,7 @@
       const normalizedTab = normalizeChatTab(conv.mode || "text");
       const chat = {
         id: String(conv.id),
+        projectId: conv.project_id != null ? String(conv.project_id) : "",
         tab: normalizedTab,
         title: conv.title || "新建聊天",
         messages: [],
@@ -645,13 +677,14 @@
         use_web_search: false,
         pending: 0,
         attachments: [],
-        summary: "",
+        summary: conv.summary || "",
         summaryMessageCount: 0,
         indexMessageCount:
           conv.message_count != null && conv.message_count !== ""
             ? Number(conv.message_count)
             : 0,
         listedInHistoryIndex: true,
+        indexHasSummary: !!conv.has_summary || !!(conv.summary || "").trim(),
         image_mode: null,
         createdAt:
           conv.created_at != null
@@ -697,6 +730,10 @@
         if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
           sidebar.classList.remove("show");
         }
+      }
+      if (!sidebarMenuLayer || sidebarMenuLayer.hidden) return;
+      if (!e.target.closest || !e.target.closest(".sidebar-floating-menu")) {
+        closeSidebarFloatingMenu();
       }
     });
 
@@ -922,14 +959,14 @@
         model: "",
         pending: 0,
         attachments: [],
-        summary: "",
+        summary: row.summary || "",
         summaryMessageCount: 0,
         /** 列表索引中的计数（hydrate 时尚未拉取正文，用于侧边栏「是否展示」判断） */
         indexMessageCount:
           row.message_count != null && row.message_count !== ""
             ? Number(row.message_count)
             : null,
-        indexHasSummary: !!row.has_summary,
+        indexHasSummary: !!row.has_summary || !!(row.summary || "").trim(),
         /** 来自 GET /conversations 全量列表（用于兼容旧 index 无 message_count 字段） */
         listedInHistoryIndex: true,
         image_mode: null,
@@ -1220,24 +1257,432 @@
     function getActiveChat() {
       let chat = appState.chats.find((c) => c.id === appState.activeChatId);
       if (!chat) {
-        chat = appState.chats.find((c) => c.tab === appState.currentTab);
-        if (!chat) {
-          chat = appState.chats[0] || null;
+        chat = appState.chats
+          .filter((c) => c.tab === appState.currentTab)
+          .sort((a, b) => b.updatedAt - a.updatedAt)[0] || null;
+        if (chat) {
+          appState.activeChatId = chat.id;
+          persistLocalMeta();
         }
-        if (!chat) return null;
-        appState.activeChatId = chat.id;
-        persistLocalMeta();
       }
       return chat;
+    }
+
+    function normalizeProjectId(value) {
+      const raw = String(value == null ? "" : value).trim();
+      return /^[1-9]\d*$/.test(raw) ? raw : "";
+    }
+
+    function chatBelongsToProject(chat, projectId) {
+      return normalizeProjectId(chat && chat.projectId) === normalizeProjectId(projectId);
+    }
+
+    function readSidebarCollapsedState(key) {
+      try {
+        return localStorage.getItem(key) === "1";
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function writeSidebarCollapsedState(key, collapsed) {
+      try {
+        localStorage.setItem(key, collapsed ? "1" : "0");
+      } catch (e) {}
+    }
+
+    function loadExpandedProjectIds() {
+      try {
+        const raw = localStorage.getItem(LS_PROJECT_TREE_EXPANDED);
+        if (!raw) return new Set();
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return new Set();
+        return new Set(parsed.map((value) => normalizeProjectId(value)).filter(Boolean));
+      } catch (e) {
+        return new Set();
+      }
+    }
+
+    function persistExpandedProjectIds() {
+      try {
+        localStorage.setItem(LS_PROJECT_TREE_EXPANDED, JSON.stringify(Array.from(expandedProjectIds)));
+      } catch (e) {}
+    }
+
+    function syncSidebarSectionState(sectionEl, bodyEl, toggleEl, collapsed, expandedLabel, collapsedLabel) {
+      if (sectionEl) sectionEl.classList.toggle("is-collapsed", !!collapsed);
+      if (bodyEl) bodyEl.hidden = !!collapsed;
+      if (toggleEl) {
+        toggleEl.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        toggleEl.setAttribute("aria-label", collapsed ? expandedLabel : collapsedLabel);
+      }
+    }
+
+    function setProjectsCollapsed(collapsed) {
+      syncSidebarSectionState(
+        projectSectionEl,
+        projectSectionBody,
+        projectSectionToggle,
+        collapsed,
+        "展开项目",
+        "收起项目"
+      );
+      writeSidebarCollapsedState(LS_PROJECTS_COLLAPSED, collapsed);
+    }
+
+    function setConversationsCollapsed(collapsed) {
+      syncSidebarSectionState(
+        chatSectionEl,
+        chatSectionBody,
+        chatSectionToggle,
+        collapsed,
+        "展开你的会话",
+        "收起你的会话"
+      );
+      writeSidebarCollapsedState(LS_CONVERSATIONS_COLLAPSED, collapsed);
+    }
+
+    function getProjectById(projectId) {
+      const pid = normalizeProjectId(projectId);
+      return (appState.projects || []).find((project) => String(project.id) === pid) || null;
+    }
+
+    function isProjectExpanded(projectId) {
+      return expandedProjectIds.has(normalizeProjectId(projectId));
+    }
+
+    function setProjectExpanded(projectId, expanded) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return;
+      if (expanded) expandedProjectIds.add(pid);
+      else expandedProjectIds.delete(pid);
+      persistExpandedProjectIds();
+    }
+
+    function toggleProjectExpanded(projectId) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return;
+      setProjectExpanded(pid, !isProjectExpanded(pid));
+    }
+
+    function projectChats(projectId) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return [];
+      return appState.chats
+        .filter((chat) => normalizeProjectId(chat.projectId) === pid && chatAppearsInSidebarHistory(chat))
+        .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    }
+
+    function chatIsUnclassified(chat) {
+      return !normalizeProjectId(chat && chat.projectId);
+    }
+
+    function chatInActiveProject(chat) {
+      const pid = normalizeProjectId(appState.activeProjectId);
+      if (!pid) return chatIsUnclassified(chat);
+      return normalizeProjectId(chat && chat.projectId) === pid;
+    }
+
+    async function handleNewProject() {
+      const rawName = window.prompt("请输入项目名称", "新项目");
+      if (rawName == null) return;
+      const name = String(rawName).trim();
+      if (!name) {
+        showError("项目名称不能为空");
+        return;
+      }
+      try {
+        const project = await createProjectOnServer(name);
+        appState.projects.unshift(project);
+        appState.activeProjectId = String(project.id);
+        setProjectExpanded(String(project.id), true);
+        appState.activeChatId = null;
+        persistLocalMeta();
+        updateSidebar();
+        updateWorkspace();
+      } catch (e) {
+        showError(e && e.message ? e.message : "新建项目失败");
+      }
+    }
+
+    async function renameProject(projectId) {
+      const project = appState.projects.find((p) => String(p.id) === String(projectId));
+      if (!project) return;
+      const rawName = window.prompt("请输入新的项目名称", project.name || "新项目");
+      if (rawName == null) return;
+      const name = String(rawName).trim();
+      if (!name) {
+        showError("项目名称不能为空");
+        return;
+      }
+      try {
+        const updated = await renameProjectOnServer(project.id, name);
+        project.name = updated.name || name;
+        project.updated_at = updated.updated_at || project.updated_at;
+        updateSidebar();
+        updateWorkspace();
+      } catch (e) {
+        showError(e && e.message ? e.message : "重命名项目失败");
+      }
+    }
+
+    function closeSidebarFloatingMenu() {
+      activeSidebarMenu = null;
+      if (!sidebarMenuLayer) return;
+      sidebarMenuLayer.hidden = true;
+      sidebarMenuLayer.classList.remove("show");
+      sidebarMenuLayer.innerHTML = "";
+    }
+
+    function openSidebarFloatingMenu(anchorEl, items) {
+      if (!sidebarMenuLayer || !anchorEl) return;
+      const normalizedItems = Array.isArray(items) ? items.filter(Boolean) : [];
+      if (!normalizedItems.length) {
+        closeSidebarFloatingMenu();
+        return;
+      }
+      const sameAnchor =
+        activeSidebarMenu &&
+        activeSidebarMenu.anchorEl === anchorEl &&
+        activeSidebarMenu.key === normalizedItems.map((item) => item.key).join("|");
+      if (sameAnchor) {
+        closeSidebarFloatingMenu();
+        return;
+      }
+
+      closeSidebarFloatingMenu();
+      const menu = document.createElement("div");
+      menu.className = "sidebar-floating-menu";
+
+      normalizedItems.forEach((item) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = item.label;
+        if (item.danger) btn.classList.add("danger");
+        btn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          closeSidebarFloatingMenu();
+          if (typeof item.onSelect === "function") item.onSelect();
+        };
+        menu.appendChild(btn);
+      });
+
+      sidebarMenuLayer.appendChild(menu);
+      sidebarMenuLayer.hidden = false;
+      sidebarMenuLayer.classList.add("show");
+
+      const rect = anchorEl.getBoundingClientRect();
+      const menuRect = menu.getBoundingClientRect();
+      const top = Math.min(window.innerHeight - menuRect.height - 12, Math.max(12, rect.bottom + 6));
+      const left = Math.min(window.innerWidth - menuRect.width - 12, Math.max(12, rect.right - menuRect.width));
+      menu.style.top = `${top}px`;
+      menu.style.left = `${left}px`;
+
+      activeSidebarMenu = {
+        anchorEl,
+        key: normalizedItems.map((item) => item.key).join("|"),
+      };
+    }
+
+    async function deleteProject(projectId) {
+      const pid = normalizeProjectId(projectId);
+      const project = getProjectById(pid);
+      if (!project) return;
+      const confirmed = window.confirm(
+        "确定删除这个项目吗？\n\n删除项目不会删除聊天记录，项目内聊天会回到你的会话中。"
+      );
+      if (!confirmed) return;
+      try {
+        await deleteProjectOnServer(pid);
+        appState.chats.forEach((chat) => {
+          if (normalizeProjectId(chat.projectId) === pid) {
+            chat.projectId = "";
+          }
+        });
+        appState.projects = appState.projects.filter((item) => String(item.id) !== pid);
+        if (normalizeProjectId(appState.activeProjectId) === pid) {
+          appState.activeProjectId = "";
+          const active = appState.chats.find((chat) => chat.id === appState.activeChatId);
+          if (active && normalizeProjectId(active.projectId) === pid) {
+            appState.activeChatId = null;
+          }
+        }
+        setProjectExpanded(pid, false);
+        persistLocalMeta();
+        updateSidebar();
+        updateWorkspace();
+        showInfo("项目已删除，聊天已回到你的会话。", { autoHideMs: 1200, fadeMs: 700 });
+      } catch (e) {
+        showError(e && e.message ? e.message : "删除项目失败");
+      }
+    }
+
+    function switchProject(projectId) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return;
+      const previousProjectId = normalizeProjectId(appState.activeProjectId);
+      const expandedBefore = isProjectExpanded(pid);
+      const isSameProject = previousProjectId === pid;
+
+      appState.activeProjectId = pid;
+      const active = appState.chats.find((chat) => chat.id === appState.activeChatId);
+      if (!active || normalizeProjectId(active.projectId) !== pid) {
+        appState.activeChatId = null;
+      }
+      toggleProjectExpanded(pid);
+      persistLocalMeta();
+      updateSidebar();
+      if (!isSameProject) {
+        updateWorkspace();
+      } else if (!expandedBefore && isProjectExpanded(pid)) {
+        updateWorkspace();
+      }
+    }
+
+    function setProjectArchiveFeedback(message, kind) {
+      if (!projectArchiveFeedback) return;
+      projectArchiveFeedback.textContent = message || "";
+      projectArchiveFeedback.className =
+        "modal-feedback" + (kind === "error" ? " is-error" : kind === "success" ? " is-success" : "");
+    }
+
+    function closeProjectArchiveModal() {
+      if (!projectArchiveModal) return;
+      projectArchiveModal.classList.remove("show");
+      projectArchiveModal.setAttribute("aria-hidden", "true");
+      projectArchiveModal.dataset.chatId = "";
+      projectArchiveModal.dataset.projectId = "";
+      if (projectArchiveNewName) projectArchiveNewName.value = "";
+      if (projectArchiveOpenBtn) projectArchiveOpenBtn.style.display = "none";
+      setProjectArchiveFeedback("", "");
+    }
+
+    function openProjectArchiveModal(chatId) {
+      const chat = appState.chats.find((c) => c.id === chatId);
+      if (!chat) return;
+      if (projectArchiveModal) {
+        projectArchiveModal.classList.add("show");
+        projectArchiveModal.setAttribute("aria-hidden", "false");
+        projectArchiveModal.dataset.chatId = chatId;
+      }
+      if (projectArchiveChatTitle) {
+        projectArchiveChatTitle.textContent = chat.title || "新建聊天";
+      }
+      if (projectArchiveSubtitle) {
+        projectArchiveSubtitle.textContent = "将这条聊天移动到某个项目文件夹中";
+      }
+      if (projectArchiveSelect) {
+        projectArchiveSelect.innerHTML = "";
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = appState.projects.length ? "请选择已有项目" : "暂无项目，请直接新建";
+        projectArchiveSelect.appendChild(placeholder);
+        (appState.projects || []).forEach((project) => {
+          const option = document.createElement("option");
+          option.value = String(project.id);
+          option.textContent = project.name || "新项目";
+          projectArchiveSelect.appendChild(option);
+        });
+        projectArchiveSelect.value = normalizeProjectId(chat.projectId);
+      }
+      if (projectArchiveNewName) projectArchiveNewName.value = "";
+      if (projectArchiveOpenBtn) projectArchiveOpenBtn.style.display = "none";
+      setProjectArchiveFeedback("", "");
+      if (projectArchiveConfirmBtn) {
+        projectArchiveConfirmBtn.disabled = false;
+        projectArchiveConfirmBtn.textContent = "确认移动";
+      }
+    }
+
+    async function moveChatToProject(chatId) {
+      openProjectArchiveModal(chatId);
+    }
+
+    async function removeChatFromProject(chatId) {
+      const chat = appState.chats.find((item) => item.id === chatId);
+      if (!chat) return;
+      try {
+        const updated = await moveConversationToProjectOnServer(chat.id, null);
+        chat.projectId = updated.project_id != null ? String(updated.project_id) : "";
+        if (appState.activeChatId === chat.id) {
+          appState.activeProjectId = "";
+        }
+        persistLocalMeta();
+        updateSidebar();
+        updateWorkspace();
+        showInfo("已移出项目。", { autoHideMs: 900, fadeMs: 700 });
+      } catch (e) {
+        showError(e && e.message ? e.message : "移出项目失败");
+      }
+    }
+
+    async function submitProjectArchive() {
+      const chatId = projectArchiveModal ? String(projectArchiveModal.dataset.chatId || "") : "";
+      const chat = appState.chats.find((item) => item.id === chatId);
+      if (!chat) {
+        setProjectArchiveFeedback("当前会话不存在，请重新选择。", "error");
+        return;
+      }
+      const newProjectName = String(projectArchiveNewName && projectArchiveNewName.value || "").trim();
+      let projectId = String(projectArchiveSelect && projectArchiveSelect.value || "").trim();
+      if (!newProjectName && !projectId) {
+        setProjectArchiveFeedback("请选择已有项目，或输入新项目名称。", "error");
+        return;
+      }
+      if (projectArchiveConfirmBtn) {
+        projectArchiveConfirmBtn.disabled = true;
+        projectArchiveConfirmBtn.textContent = "移动中...";
+      }
+      try {
+        let project = null;
+        if (newProjectName) {
+          project = await createProjectOnServer(newProjectName);
+          appState.projects.unshift(project);
+          projectId = String(project.id);
+        } else {
+          project = getProjectById(projectId);
+        }
+        if (!project) {
+          throw new Error("项目不存在，请刷新后重试。");
+        }
+        const updated = await moveConversationToProjectOnServer(chat.id, project.id);
+        chat.projectId = updated.project_id != null ? String(updated.project_id) : "";
+        appState.activeProjectId = chat.projectId;
+        appState.activeChatId = chat.id;
+        setProjectExpanded(chat.projectId, true);
+        projectArchiveModal.dataset.projectId = chat.projectId || "";
+        if (projectArchiveOpenBtn) projectArchiveOpenBtn.style.display = "inline-flex";
+        persistLocalMeta();
+        updateSidebar();
+        updateWorkspace();
+        showInfo("已移动到项目。", { autoHideMs: 1000, fadeMs: 700 });
+        closeProjectArchiveModal();
+      } catch (e) {
+        setProjectArchiveFeedback(e && e.message ? e.message : "移动到项目失败", "error");
+      } finally {
+        if (projectArchiveConfirmBtn) {
+          projectArchiveConfirmBtn.disabled = false;
+          projectArchiveConfirmBtn.textContent = "确认移动";
+        }
+      }
     }
 
     async function switchTab(tab) {
       appState.currentTab = normalizeChatTab(tab);
       let recentChat = appState.chats
-        .filter((c) => c.tab === appState.currentTab)
+        .filter((c) => c.tab === appState.currentTab && chatInActiveProject(c))
         .sort((a, b) => b.updatedAt - a.updatedAt)[0];
       if (!recentChat) {
-        const created = await createConversationOnServer(appState.currentTab, "");
+        if (normalizeProjectId(appState.activeProjectId)) {
+          appState.activeChatId = null;
+          persistLocalMeta();
+          updateSidebar();
+          updateWorkspace();
+          if (window.innerWidth <= 1100) sidebar.classList.remove("show");
+          return;
+        }
+        const created = await createConversationOnServer(appState.currentTab, "", null);
         recentChat = dbConversationToChat(created);
         appState.chats.unshift(recentChat);
       }
@@ -1267,6 +1712,8 @@
       const chat = appState.chats.find((c) => c.id === chatId);
       if (chat) {
         appState.currentTab = chat.tab;
+        appState.activeProjectId = normalizeProjectId(chat.projectId);
+        if (appState.activeProjectId) setProjectExpanded(appState.activeProjectId, true);
         appState.activeChatId = chat.id;
         persistLocalMeta();
         const loadPromise = loadConversationMessagesFromDb(chat.id);
@@ -1288,9 +1735,11 @@
 
     async function handleNewChat() {
       try {
-        const created = await createConversationOnServer(appState.currentTab, "");
+        const projectId = normalizeProjectId(appState.activeProjectId);
+        const created = await createConversationOnServer(appState.currentTab, "", projectId || null);
         const newChat = dbConversationToChat(created);
         appState.chats.unshift(newChat);
+        if (projectId) setProjectExpanded(projectId, true);
         appState.activeChatId = newChat.id;
         persistLocalMeta();
       } catch (e) {
@@ -1300,37 +1749,6 @@
       updateSidebar();
       updateWorkspace();
       if (window.innerWidth <= 1100) sidebar.classList.remove("show");
-    }
-
-    async function clearCurrentTabChats() {
-      const tab = appState.currentTab;
-      const victims = appState.chats.filter((c) => c.tab === tab);
-      if (!victims.length) return;
-      try {
-        for (const c of victims) {
-          if (!isDbConversationId(c.id)) continue;
-          await deleteConversationOnServer(c.id);
-        }
-      } catch (e) {
-        showError(e && e.message ? e.message : "删除会话失败");
-        return;
-      }
-      appState.chats = appState.chats.filter((c) => c.tab !== tab);
-      let next = appState.chats
-        .filter((c) => c.tab === tab)
-        .sort((a, b) => b.updatedAt - a.updatedAt)[0];
-      if (!next) {
-        const created = await createConversationOnServer(tab, "");
-        next = dbConversationToChat(created);
-        appState.chats.unshift(next);
-      }
-      appState.activeChatId = next ? next.id : null;
-      if (appState.activeChatId) {
-        await loadConversationMessagesFromDb(appState.activeChatId);
-      }
-      persistLocalMeta();
-      updateSidebar();
-      updateWorkspace();
     }
 
     async function deleteChat(chatId) {
@@ -1348,10 +1766,10 @@
       appState.chats = appState.chats.filter((c) => c.id !== chatId);
       if (appState.activeChatId === chatId) {
         let next = appState.chats
-          .filter((c) => c.tab === tab)
+          .filter((c) => c.tab === tab && chatInActiveProject(c))
           .sort((a, b) => b.updatedAt - a.updatedAt)[0];
-        if (!next) {
-          const created = await createConversationOnServer(tab, "");
+        if (!next && !normalizeProjectId(appState.activeProjectId)) {
+          const created = await createConversationOnServer(tab, "", null);
           next = dbConversationToChat(created);
           appState.chats.unshift(next);
         }
@@ -1392,14 +1810,185 @@
       }
     }
 
+    function projectMenuItems(projectId) {
+      const pid = normalizeProjectId(projectId);
+      return [
+        {
+          key: `rename-project-${pid}`,
+          label: "重命名",
+          onSelect: () => void renameProject(pid),
+        },
+        {
+          key: `delete-project-${pid}`,
+          label: "删除",
+          danger: true,
+          onSelect: () => void deleteProject(pid),
+        },
+      ];
+    }
+
+    function chatMenuItems(chat) {
+      const chatId = String(chat && chat.id || "");
+      const inProject = !!normalizeProjectId(chat && chat.projectId);
+      const items = [
+        {
+          key: `rename-chat-${chatId}`,
+          label: "重命名",
+          onSelect: () => void renameChat(chatId),
+        },
+        {
+          key: `move-chat-${chatId}`,
+          label: "移动到项目",
+          onSelect: () => void moveChatToProject(chatId),
+        },
+      ];
+      if (inProject) {
+        items.push({
+          key: `remove-chat-${chatId}`,
+          label: "移出项目",
+          onSelect: () => void removeChatFromProject(chatId),
+        });
+      }
+      items.push({
+        key: `delete-chat-${chatId}`,
+        label: "删除",
+        danger: true,
+        onSelect: () => {
+          if (confirm("删除这个对话？")) void deleteChat(chatId);
+        },
+      });
+      return items;
+    }
+
+    function renderProjectTree() {
+      if (!projectListEl) return;
+      projectListEl.innerHTML = "";
+
+      (appState.projects || []).forEach((project) => {
+        const pid = String(project.id || "");
+        const expanded = isProjectExpanded(pid);
+        const chats = projectChats(pid);
+        const hasActiveChat = chats.some((chat) => chat.id === appState.activeChatId);
+        const isProjectActive = normalizeProjectId(appState.activeProjectId) === pid;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "project-item" + (expanded ? " is-expanded" : "");
+
+        const row = document.createElement("button");
+        row.type = "button";
+        row.className = "project-item-row" + (hasActiveChat || isProjectActive ? " active" : "");
+        row.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          switchProject(pid);
+        };
+
+        const main = document.createElement("span");
+        main.className = "project-item-main";
+
+        const chevron = document.createElement("span");
+        chevron.className = "project-tree-chevron";
+        chevron.setAttribute("aria-hidden", "true");
+
+        const icon = document.createElement("span");
+        icon.className = "project-folder-icon";
+        icon.setAttribute("aria-hidden", "true");
+
+        const name = document.createElement("span");
+        name.className = "project-item-name";
+        name.textContent = project.name || "新项目";
+
+        main.appendChild(chevron);
+        main.appendChild(icon);
+        main.appendChild(name);
+
+        const count = document.createElement("span");
+        count.className = "project-item-count";
+        if (chats.length > 0) count.textContent = String(chats.length);
+
+        const actions = document.createElement("span");
+        actions.className = "project-item-actions";
+
+        const menuBtn = document.createElement("button");
+        menuBtn.type = "button";
+        menuBtn.className = "project-item-menu";
+        menuBtn.textContent = "···";
+        menuBtn.setAttribute("aria-label", "项目菜单");
+        menuBtn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openSidebarFloatingMenu(menuBtn, projectMenuItems(pid));
+        };
+        actions.appendChild(menuBtn);
+
+        row.appendChild(main);
+        row.appendChild(count);
+        row.appendChild(actions);
+        wrapper.appendChild(row);
+
+        if (expanded) {
+          const children = document.createElement("div");
+          children.className = "project-children";
+
+          if (!chats.length) {
+            const empty = document.createElement("div");
+            empty.className = "project-empty-tip";
+            empty.textContent = "暂无聊天";
+            children.appendChild(empty);
+          } else {
+            chats.forEach((chat) => {
+              const chatBtn = document.createElement("button");
+              chatBtn.type = "button";
+              chatBtn.className = "project-chat-item" + (chat.id === appState.activeChatId ? " active" : "");
+              chatBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                void switchChat(chat.id);
+              };
+
+              const title = document.createElement("span");
+              title.className = "project-chat-title";
+              title.textContent = chat.title || "新建聊天";
+
+              const actions = document.createElement("span");
+              actions.className = "project-chat-actions";
+
+              const menuBtn = document.createElement("button");
+              menuBtn.type = "button";
+              menuBtn.className = "chat-item-menu";
+              menuBtn.textContent = "···";
+              menuBtn.setAttribute("aria-label", "聊天菜单");
+              menuBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openSidebarFloatingMenu(menuBtn, chatMenuItems(chat));
+              };
+
+              chatBtn.appendChild(title);
+              actions.appendChild(menuBtn);
+              chatBtn.appendChild(actions);
+
+              children.appendChild(chatBtn);
+            });
+          }
+
+          wrapper.appendChild(children);
+        }
+
+        projectListEl.appendChild(wrapper);
+      });
+    }
+
     function updateSidebar() {
       tabButtons.forEach(btn => {
         btn.classList.toggle("active", btn.dataset.tab === appState.currentTab);
       });
 
+      renderProjectTree();
+
       chatListEl.innerHTML = "";
       // 统一列表：仅按 updatedAt 倒序；空白会话不进入「你的会话」
-      const visibleChats = appState.chats.filter(chatAppearsInSidebarHistory);
+      const visibleChats = appState.chats.filter((chat) => chatAppearsInSidebarHistory(chat) && chatIsUnclassified(chat));
       const allChats = [...visibleChats].sort(
         (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
       );
@@ -1452,11 +2041,13 @@
           timeEl.textContent = formatChatRelativeTime(chat.updatedAt);
 
           const menuBtn = document.createElement("button");
+          menuBtn.type = "button";
           menuBtn.className = "chat-item-menu";
           menuBtn.textContent = "···";
           menuBtn.onclick = (e) => {
+            e.preventDefault();
             e.stopPropagation();
-            if (confirm("删除这个对话？")) void deleteChat(chat.id);
+            openSidebarFloatingMenu(menuBtn, chatMenuItems(chat));
           };
 
           right.appendChild(timeEl);
@@ -1470,6 +2061,9 @@
         });
       }
     }
+
+    setProjectsCollapsed(readSidebarCollapsedState(LS_PROJECTS_COLLAPSED));
+    setConversationsCollapsed(readSidebarCollapsedState(LS_CONVERSATIONS_COLLAPSED));
 
     function getAcceptByTab(tab){
       return tab === "image" ? ".png,.jpg,.jpeg,.webp" : ".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.xlsx,.xls,.png,.jpg,.jpeg,.webp";
@@ -1570,18 +2164,205 @@
       return "no_i2i_models";
     }
 
+    function projectHomeComposerDraftKey(projectId) {
+      return `__project_home__:${normalizeProjectId(projectId)}`;
+    }
+
+    function projectHomeDraft(projectId) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return "";
+      const stateMap = loadChatPrefsMap();
+      const row = stateMap[projectHomeComposerDraftKey(pid)];
+      return row && typeof row === "object" ? String(row.draft || "") : "";
+    }
+
+    function setProjectHomeDraft(projectId, value) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return;
+      const stateMap = loadChatPrefsMap();
+      stateMap[projectHomeComposerDraftKey(pid)] = { draft: String(value || "") };
+      saveChatPrefsMap(stateMap);
+    }
+
+    async function startProjectHomeConversation(projectId, text) {
+      const pid = normalizeProjectId(projectId);
+      if (!pid) return null;
+      const created = await createConversationOnServer("text", "", pid);
+      const newChat = dbConversationToChat(created);
+      newChat.draft = String(text || "");
+      appState.chats.unshift(newChat);
+      appState.currentTab = newChat.tab;
+      appState.activeProjectId = pid;
+      appState.activeChatId = newChat.id;
+      setProjectExpanded(pid, true);
+      persistLocalMeta();
+      updateSidebar();
+      updateWorkspace();
+      return newChat;
+    }
+
     function updateWorkspace() {
       clearNotice();
       const chat = getActiveChat();
+      const activeProject = getProjectById(appState.activeProjectId);
+      if (archiveProjectBtn) {
+        archiveProjectBtn.style.display = !chat && activeProject ? "none" : (chat ? "inline-flex" : "none");
+        archiveProjectBtn.textContent = chat && normalizeProjectId(chat.projectId)
+          ? `已移动到：${(getProjectById(chat.projectId) || {}).name || "项目"}`
+          : "移动到项目";
+        archiveProjectBtn.disabled = !chat;
+      }
+      if (!chat && activeProject) {
+        const projectChatsList = projectChats(activeProject.id);
+        fileInput.setAttribute("accept", getAcceptByTab("text"));
+        modeBadge.textContent = "当前：文本";
+        chatTitle.textContent = activeProject.name || "项目";
+        chatSub.textContent = "项目中的聊天文件夹";
+        userInput.value = "";
+        userInput.disabled = true;
+        attachBtn.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+        uploadList.innerHTML = "";
+        uploadList.style.display = "none";
+        chatFeed.innerHTML = `
+          <section class="project-home">
+            <div class="project-home-card">
+              <div class="project-home-head">
+                <div class="project-home-folder" aria-hidden="true"></div>
+                <div class="project-home-title">${escapeHtml(activeProject.name || "项目")}</div>
+              </div>
+              <p class="project-home-sub">这里的聊天只做归类，AI 回复方式与普通聊天一致。</p>
+              <div class="project-home-composer">
+                <textarea id="projectHomeInput" class="project-home-input" placeholder="${escapeHtml((activeProject.name || "项目") + "中的新聊天")}">${escapeHtml(projectHomeDraft(activeProject.id))}</textarea>
+                <div class="project-home-actions">
+                  <button id="projectHomeSendBtn" class="send-btn" type="button" aria-label="发送项目内新聊天">
+                    <span class="send-btn-icon" aria-hidden="true">↑</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="project-home-list">
+              <div class="project-home-list-title">项目中的聊天</div>
+              ${
+                projectChatsList.length
+                  ? projectChatsList
+                      .map((item) => `
+                        <button class="project-home-item${item.id === appState.activeChatId ? " active" : ""}" type="button" data-project-chat-id="${escapeHtml(String(item.id || ""))}">
+                          <div class="project-home-item-main">
+                            <div class="project-home-item-title">${escapeHtml(item.title || "新建聊天")}</div>
+                            <div class="project-home-item-preview">${escapeHtml(chatListPreview(item) || "暂无内容预览")}</div>
+                          </div>
+                          <div class="project-home-item-right">
+                            <button class="chat-item-menu" type="button" data-project-home-menu-id="${escapeHtml(String(item.id || ""))}" aria-label="聊天菜单">···</button>
+                          </div>
+                        </button>
+                      `)
+                      .join("")
+                  : `<div class="project-home-empty">这个项目里还没有聊天。</div>`
+              }
+            </div>
+          </section>
+        `;
+
+        const projectHomeInput = document.getElementById("projectHomeInput");
+        const submitProjectHome = async () => {
+          const text = String(projectHomeInput && projectHomeInput.value || "").trim();
+          if (!text) return;
+          try {
+            const newChat = await startProjectHomeConversation(activeProject.id, text);
+            if (!newChat) return;
+            setProjectHomeDraft(activeProject.id, "");
+            await sendMessage();
+          } catch (err) {
+            showError(err && err.message ? err.message : "项目内新建聊天失败");
+          }
+        };
+        if (projectHomeInput) {
+          const syncProjectHomeInputHeight = () => {
+            projectHomeInput.style.height = "auto";
+            projectHomeInput.style.height = `${Math.min(Math.max(projectHomeInput.scrollHeight, 56), 180)}px`;
+          };
+          syncProjectHomeInputHeight();
+          projectHomeInput.addEventListener("input", () => {
+            setProjectHomeDraft(activeProject.id, projectHomeInput.value || "");
+            syncProjectHomeInputHeight();
+          });
+          projectHomeInput.addEventListener("keydown", (e) => {
+            if (e.key !== "Enter" || e.shiftKey) return;
+            if (e.isComposing || inputComposing || e.keyCode === 229) return;
+            e.preventDefault();
+            void submitProjectHome();
+          });
+        }
+        const projectHomeSendBtn = document.getElementById("projectHomeSendBtn");
+        if (projectHomeSendBtn) {
+          projectHomeSendBtn.onclick = (e) => {
+            e.preventDefault();
+            void submitProjectHome();
+          };
+        }
+        chatFeed.querySelectorAll("[data-project-chat-id]").forEach((button) => {
+          button.onclick = (e) => {
+            if (e.target && e.target.closest("[data-project-home-menu-id]")) return;
+            e.preventDefault();
+            void switchChat(String(button.getAttribute("data-project-chat-id") || ""));
+          };
+        });
+        chatFeed.querySelectorAll("[data-project-home-menu-id]").forEach((button) => {
+          button.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const chatId = String(button.getAttribute("data-project-home-menu-id") || "");
+            const targetChat = appState.chats.find((item) => item.id === chatId);
+            if (!targetChat) return;
+            openSidebarFloatingMenu(button, chatMenuItems(targetChat));
+          };
+        });
+        setStreamingUI(isStreaming);
+        return;
+      }
+      if (!chat) {
+        const tab = normalizeChatTab(appState.currentTab || "text");
+        fileInput.setAttribute("accept", getAcceptByTab(tab));
+        modeBadge.textContent = `当前：${tab==="image" ? "图片" : "文本"}`;
+        chatTitle.textContent = "AI 对话";
+        chatSub.textContent = "多轮文字问答，适合聊天、分析和写作";
+        userInput.value = "";
+        userInput.placeholder = "请输入你的问题或任务...";
+        userInput.disabled = true;
+        attachBtn.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+        uploadList.innerHTML = "";
+        uploadList.style.display = "none";
+        chatFeed.innerHTML = `
+          <div class="empty">
+            <div class="empty-card">
+              <h2 class="empty-title">请选择一个会话</h2>
+              <p class="empty-desc">左侧选择会话后继续。</p>
+            </div>
+          </div>
+        `;
+        setStreamingUI(isStreaming);
+        return;
+      }
       const tab = chat.tab;
+      userInput.disabled = false;
+      attachBtn.disabled = false;
 
       fileInput.setAttribute("accept", getAcceptByTab(tab));
       modeBadge.textContent = `当前：${tab==="image" ? "图片" : "文本"}`;
 
       if (tab === "text"){
-        chatTitle.textContent = "AI 对话";
-        chatSub.textContent = "多轮文字问答，适合聊天、分析和写作";
-        userInput.placeholder = "请输入你的问题或任务...";
+        if (chat.projectId) {
+          const project = getProjectById(chat.projectId);
+          chatTitle.textContent = project && project.name ? project.name : "项目内聊天";
+          chatSub.textContent = project ? `当前聊天位于项目：${project.name}` : "当前聊天位于项目内";
+          userInput.placeholder = `${project && project.name ? project.name : "项目"}中的新聊天`;
+        } else {
+          chatTitle.textContent = "AI 对话";
+          chatSub.textContent = "多轮文字问答，适合聊天、分析和写作";
+          userInput.placeholder = "请输入你的问题或任务...";
+        }
         if (ragToggleWrap) ragToggleWrap.style.display = "flex";
         if (useRagCb) useRagCb.checked = !!chat.use_rag;
         if (webSearchToggleWrap) webSearchToggleWrap.style.display = "flex";
@@ -1626,7 +2407,13 @@
 
     function syncComposerPresentation() {
       const chat = getActiveChat();
-      if (!chat || !uploadDropZone || !userInput) return;
+      if (!uploadDropZone || !userInput) return;
+      if (!chat) {
+        uploadDropZone.classList.add("is-idle");
+        if (sendBtn) sendBtn.disabled = true;
+        syncComposerInputHeight(true);
+        return;
+      }
       const hasText = !!String(userInput.value || "").trim();
       const hasAttachments = Array.isArray(chat.attachments) && chat.attachments.length > 0;
       const collapsed = chat.tab === "text" && !hasText && !hasAttachments;
@@ -1892,6 +2679,7 @@
     }
 
     function onChatFeedScroll() {
+      if (activeSidebarMenu) closeSidebarFloatingMenu();
       const d = distanceFromBottomPx(chatFeed);
       if (d <= SCROLL_BOTTOM_THRESHOLD_PX) {
         autoFollowBottom = true;
@@ -3156,6 +3944,10 @@
     async function sendMessage(){
       clearNotice();
       const chat = getActiveChat();
+      if (!chat) {
+        showError("请先在当前项目下新建聊天。");
+        return;
+      }
       const text = userInput.value.trim();
 
       if (!chat.model) { showError("请先选择模型。"); return; }
@@ -3590,9 +4382,51 @@
 
     tabButtons.forEach((btn) => (btn.onclick = () => void switchTab(btn.dataset.tab)));
     newChatBtn.onclick = () => void handleNewChat();
-    clearChatsBtn.onclick = () => {
-      if (confirm("清空当前模式下的所有对话？")) void clearCurrentTabChats();
+    if (newProjectBtn) newProjectBtn.onclick = () => void handleNewProject();
+    if (projectSectionToggle) {
+      projectSectionToggle.onclick = () => {
+        const collapsed = projectSectionToggle.getAttribute("aria-expanded") === "true";
+        setProjectsCollapsed(collapsed);
+      };
+    }
+    if (chatSectionToggle) {
+      chatSectionToggle.onclick = () => {
+        const collapsed = chatSectionToggle.getAttribute("aria-expanded") === "true";
+        setConversationsCollapsed(collapsed);
+      };
+    }
+      if (archiveProjectBtn) archiveProjectBtn.onclick = () => {
+      const chat = getActiveChat();
+      if (chat) openProjectArchiveModal(chat.id);
     };
+    if (projectArchiveCloseBtn) projectArchiveCloseBtn.onclick = closeProjectArchiveModal;
+    if (projectArchiveCancelBtn) projectArchiveCancelBtn.onclick = closeProjectArchiveModal;
+    if (projectArchiveConfirmBtn) projectArchiveConfirmBtn.onclick = () => void submitProjectArchive();
+    if (projectArchiveOpenBtn) {
+      projectArchiveOpenBtn.onclick = () => {
+        const pid = projectArchiveModal ? String(projectArchiveModal.dataset.projectId || "") : "";
+        closeProjectArchiveModal();
+        if (pid) {
+          setProjectExpanded(pid, true);
+          updateSidebar();
+        }
+      };
+    }
+    if (projectArchiveModal) {
+      projectArchiveModal.addEventListener("click", (e) => {
+        if (e.target === projectArchiveModal) closeProjectArchiveModal();
+      });
+    }
+    if (projectListEl) {
+      projectListEl.addEventListener("scroll", () => {
+        if (activeSidebarMenu) closeSidebarFloatingMenu();
+      });
+    }
+    if (chatListEl) {
+      chatListEl.addEventListener("scroll", () => {
+        if (activeSidebarMenu) closeSidebarFloatingMenu();
+      });
+    }
     if (chatTitle) {
       chatTitle.ondblclick = () => {
         const chat = getActiveChat();
@@ -3602,6 +4436,7 @@
     }
     modelSelect.onchange = () => {
       const chat = getActiveChat();
+      if (!chat) return;
       chat.model = modelSelect.value;
       persistChatPrefs(chat);
       saveState();
@@ -3611,6 +4446,7 @@
     if (reasoningModeSelect) {
       reasoningModeSelect.onchange = () => {
         const chat = getActiveChat();
+        if (!chat) return;
         chat.reasoning_mode = normalizeReasoningModeValue(reasoningModeSelect.value);
         if (reasoningModeFace) {
           reasoningModeFace.textContent = reasoningModeDisplayLabel(chat.reasoning_mode);
@@ -3622,6 +4458,7 @@
     if (useRagCb) {
       useRagCb.onchange = () => {
         const chat = getActiveChat();
+        if (!chat) return;
         chat.use_rag = !!useRagCb.checked && chat.tab === "text";
         persistChatPrefs(chat);
         saveState();
@@ -3630,6 +4467,7 @@
     if (useWebSearchCb) {
       useWebSearchCb.onchange = () => {
         const chat = getActiveChat();
+        if (!chat) return;
         chat.use_web_search = !!useWebSearchCb.checked && chat.tab === "text";
         persistChatPrefs(chat);
         saveState();
@@ -3714,8 +4552,17 @@
 
     async function initApp(){
       try {
+        appState.projects = await loadProjectsFromServer();
         const loaded = await hydrateConversationsFromDb();
         if (!loaded) return;
+        const active = appState.chats.find((c) => c.id === appState.activeChatId);
+        if (!active || active.tab !== appState.currentTab) {
+          const next = appState.chats
+            .filter((c) => c.tab === appState.currentTab && chatIsUnclassified(c))
+            .sort((a, b) => b.updatedAt - a.updatedAt)[0];
+          appState.activeChatId = next ? next.id : null;
+          persistLocalMeta();
+        }
       } catch (e) {
         showError("加载数据库会话失败：" + (e && e.message ? e.message : String(e)));
         return;

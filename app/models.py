@@ -131,10 +131,23 @@ class ConversationCreateRequest(BaseModel):
     mode: str = "text"
     title: str = "新建聊天"
     model: str = ""
+    project_id: Optional[int] = None
 
 
 class ConversationUpdateRequest(BaseModel):
     title: str = ""
+
+
+class ConversationProjectRequest(BaseModel):
+    project_id: Optional[int] = None
+
+
+class ProjectCreateRequest(BaseModel):
+    name: str = "新项目"
+
+
+class ProjectUpdateRequest(BaseModel):
+    name: str = ""
 
 
 class ClientStateRequest(BaseModel):

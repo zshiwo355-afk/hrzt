@@ -126,9 +126,23 @@ def ensure_conversation_message_indexes() -> None:
     if not inspector.has_table("conversations") or not inspector.has_table("messages"):
         return
 
+    conv_columns = {col["name"] for col in inspector.get_columns("conversations")}
+    conv_column_sql = {
+        "project_id": "ALTER TABLE conversations ADD COLUMN project_id INTEGER NULL",
+        "summary": "ALTER TABLE conversations ADD COLUMN summary TEXT NULL",
+        "draft": "ALTER TABLE conversations ADD COLUMN draft TEXT NULL",
+    }
+    with engine.begin() as conn:
+        for name, ddl in conv_column_sql.items():
+            if name not in conv_columns:
+                conn.execute(text(ddl))
+
+    inspector = inspect(engine)
     conv_indexes = {idx["name"] for idx in inspector.get_indexes("conversations")}
     msg_indexes = {idx["name"] for idx in inspector.get_indexes("messages")}
     with engine.begin() as conn:
+        if "ix_conversations_project_id" not in conv_indexes:
+            conn.execute(text("CREATE INDEX ix_conversations_project_id ON conversations (project_id)"))
         if "ix_conversations_user_updated" not in conv_indexes:
             conn.execute(
                 text(
@@ -143,6 +157,32 @@ def ensure_conversation_message_indexes() -> None:
                     "ON messages (conversation_id, id)"
                 )
             )
+
+
+def ensure_project_schema() -> None:
+    engine = get_engine()
+    inspector = inspect(engine)
+    if not inspector.has_table("projects"):
+        return
+
+    project_columns = {col["name"] for col in inspector.get_columns("projects")}
+    dialect = engine.dialect.name
+    with engine.begin() as conn:
+        for table_name in ("project_memories", "project_conversation_links"):
+            if inspector.has_table(table_name):
+                conn.execute(text(f"DROP TABLE IF EXISTS {table_name}"))
+
+        for column_name in ("description", "summary", "memory_markdown", "memory_json"):
+            if column_name not in project_columns:
+                continue
+            try:
+                conn.execute(text(f"ALTER TABLE projects DROP COLUMN {column_name}"))
+            except Exception:
+                if dialect == "sqlite":
+                    # Older SQLite versions may not support DROP COLUMN; keep runtime compatible and continue.
+                    pass
+                else:
+                    raise
 
 
 def ensure_generation_task_indexes() -> None:
@@ -214,6 +254,7 @@ def init_db() -> None:
     Base.metadata.create_all(bind=engine)
     ensure_user_schema()
     ensure_conversation_message_indexes()
+    ensure_project_schema()
     ensure_generation_task_indexes()
     ensure_attachment_indexes()
 
